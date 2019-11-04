@@ -7,16 +7,21 @@ Starting off, we're going to need three different tools.
 * Cheat Engine
 Typeinfo.studio is a fancy Runtime Type Information (shorthanded as TypeInfo) dumping webapp
 First thing we'll do is load the most recent dump, the one I just took.
+
 ![](https://i.imgur.com/Pn3WPfv.png)
 
 Then we'll search for AnselSettings
+
 ![](https://i.imgur.com/QdIxvUv.png)
 
-If you click on the Node View to view members, you'll find this float at 0x90 ![](https://i.imgur.com/MrMJQU2.png)
+If you click on the Node View to view members, you'll find this float at 0x90 
+
+![](https://i.imgur.com/MrMJQU2.png)
 
 Now basically what we must do, is find all instances of AnselSettings, find the instance that is authoritative (meaning the changes you write to memory will actually do something), then of course, change our setting
 The way we'll find this will be through the vtable.  A VTable is a table of functions present in a class.  At the beginning of a class, at 0x0, you will find a pointer to the vtable.  This means if we know the current vtable address, we can simply search it with CheatEngine, and we'll get the exact addresses of all instances of that class.  Since the dump on TypeInfo.Studio was taken today, this will give us the VTable address for the current game patch.
 Simply copy the vtable address
+
 ![](https://i.imgur.com/L0LCJ06.png)
 
 Now open Cheat Engine, and search for that address.  Note you must search for an 8 byte value, since that is the size of a pointer on a 64 bit application.  Also you must search for hexidecimal values.
