@@ -10,7 +10,7 @@ For communication, support, sharing, and development, join our server [here](htt
 
 Download the latest release from [Here](https://github.com/coltonon/OpenGameCamera/releases).  Pre-release builds only include a DLL, which must be injected manually.
 
-# How To Use
+# Usage
 You'll need a DLL injector to load it into the game, you can download my old one [here](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe).
 
 **Install [this](https://aka.ms/vs/16/release/vc_redist.x64.exe)** (C++ redistributable)
@@ -30,6 +30,8 @@ You'll need a DLL injector to load it into the game, you can download my old one
 | **Slow move** | Alt |
 | **Hide OpenGameCamera** | Home |
 
+# Building
+
 ## Code Structure
 
 | File | Purpose |
@@ -43,3 +45,11 @@ You'll need a DLL injector to load it into the game, you can download my old one
 | **Typedefs.hpp** | Contains typedefs used for our hooks. |
 | **sdk.hpp** | The reverse-engineered game classes. |
 | **BasicTypes.hpp** | Definitions for things like vectors and matrices.  Serves to replate DirectX. |
+
+## Building guide
+
+The code is designed to be easily built.  You don't even need the DirectX SDK installed.
+
+1. Clone, or [download](https://github.com/coltonon/OpenGameCamera/archive/master.zip) and extract
+2. Open `OpenGameCamera` in Visual Studio
+3. Build (Ctrl-B)
