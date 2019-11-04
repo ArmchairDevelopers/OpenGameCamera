@@ -37,7 +37,7 @@ void buildMenu(Menu &menu) {
 	elem1.text = "Show Menu [" + Keys::showMenuKey.name + "]";
 	elem1.type = Element::ElementType::checkBox;
 	elem1.value = &g_ShowMenu;
-	elem1.style.foregroundColor = { 255, 255, 0, 255 };
+	elem1.style.foregroundColor = defaultStyle.accentColor;
 
 	// checkbox for enabling FreeCam
 	Element elem2;
@@ -62,13 +62,6 @@ void buildMenu(Menu &menu) {
 	elemFreeze.text = "Freeze Time [" + Keys::freezeTime.name + "]";
 	elemFreeze.type = Element::ElementType::checkBox;
 	elemFreeze.value = &Settings::freezeTime;
-
-	// set the style of these elements
-	elem3.style.backgroundColor = 
-		elem2.style.backgroundColor = 
-		elemFreeze.style.backgroundColor =
-		elem1.style.backgroundColor =
-		elemDisableUi.style.backgroundColor = { 0,0,0,255 };
 
 	// add them to the menu
 	menu.elements.push_back(elem1);
@@ -105,6 +98,16 @@ bool __fastcall hkkeyboardUpdate(__int64 a1, unsigned __int8 a2, __int64 a3)
 
 Menu mainMenu;
 void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
+	// if the mouse hook hasn't been activated yet, display a help message
+	if (MouseManager::arg1 == NULL) {
+		pRenderer->drawText(20, 20, defaultStyle.accentColor, "Pause the game to initialize mouse hook", 2);
+	}
+
+	// if the freecam is active and so is the menu, display this help message
+	if (g_ShowMenu) {
+		pRenderer->drawText(20, 50, defaultStyle.foregroundColor, "Hide the menu to move the camera", 1.25f);
+	}
+
 	// if the global bool says we should draw the menu, do so
 	if (g_ShowMenu) {
 		mainMenu.draw(pRenderer);
@@ -134,6 +137,8 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	if (KeyMan::ReadKeyOnce(Keys::disableUi)) {
 		Settings::disableUi = !Settings::disableUi;
 	}
+
+
 
 	// Should the time be frozen?
 	GameTimeSettings::GetInstance()->timeScale = Settings::freezeTime ? 0.f : 1.f;
@@ -216,7 +221,31 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	Renderer::setup(drawLoop);
 
 	// let this thread sit idling
-	for (;;) { Sleep(100); }
+	for (;;) { 
+		Sleep(100); 
+		if (GetAsyncKeyState(VK_END)) {
+			// eject the mod
+			printf("Fixing settings\n");
+			// reset the timescale, and drawEnable
+			GameTimeSettings::GetInstance()->timeScale = 1.f;
+			UISettings::GetInstance()->drawEnable = true;
+
+			printf("Unhooking\n");
+			// now unhook everything we hooked
+			Renderer::shutdown();
+			Candy::DestroyHook(OFFSET_CAMERAHOOK2);
+			Candy::DestroyHook(OFFSET_KEYBOARDUPDATE);
+			Candy::DestroyHook(OFFSET_SETMOUSESTATE);
+
+			// uninitialize minhook
+			MH_Uninitialize();
+			printf("Ejecting\n\nYou can close this window now\n");
+
+			// free the console, then unload the module
+			FreeConsole();
+			FreeLibraryAndExitThread(hOwnModule, 0);
+		}
+	}
 };
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)

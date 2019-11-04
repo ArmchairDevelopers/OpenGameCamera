@@ -21,7 +21,6 @@ public:
 		MouseManager::arg1 = a1;
 		oSetMouseState(a1, a2);
 	}
-private:
 	// the argument wee need to steal
 	static __int64 arg1;
 public:

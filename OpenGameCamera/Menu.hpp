@@ -19,8 +19,9 @@ public:
 	Layout<int32_t> padding = { 2, 2, 2, 2 };
 	Layout<int32_t> margin = { 2, 2, 2, 2 };
 	float fontScale = 1;
-	Color32 backgroundColor = { 0x33, 0x33, 0x55, 192 };
-	Color32 foregroundColor = { 255, 255, 255, 255 };
+	Color32 backgroundColor = { 00, 00, 00, 255 };
+	Color32 foregroundColor = { 0xdc, 0xdd, 0xde, 255 };
+	Color32 accentColor = { 0xe7, 0x3a, 0x39, 0xff };
 } defaultStyle; // default style
 
 // an element.  Can be a label, checkbox, int slider, float slider, or button
@@ -73,8 +74,8 @@ public:
 	struct Header {
 		int height = 35;
 		std::string text = "Menu";
-		Color32 backgroundColor = { 0x55, 0x55, 0x88, 0xff };
-		Color32 foregroundColor = { 0xff, 0xff, 0xff, 0xff };
+		Color32 backgroundColor = defaultStyle.accentColor;
+		Color32 foregroundColor = defaultStyle.backgroundColor;
 	} header;
 
 	// get the current mouse position on the screen, get's called once per frame
@@ -122,7 +123,7 @@ public:
 				int objH = e.size - (e.style.padding.top + e.style.padding.bottom);
 
 				// draw the checkbox
-				pRenderer->drawRect(objX, objY, objW, objH, e.style.foregroundColor);
+				pRenderer->drawRect(objX, objY, objW, objH, defaultStyle.foregroundColor);
 
 				// check if the value points to something
 				if (e.value != nullptr) {
@@ -135,7 +136,14 @@ public:
 							(currentHeight + e.style.margin.top + e.style.padding.top) + 2,
 							(e.size - (e.style.padding.top + e.style.padding.bottom)) - 4,
 							(e.size - (e.style.padding.top + e.style.padding.bottom)) - 4,
-							e.style.backgroundColor);
+							defaultStyle.accentColor);
+					}
+					else {
+						pRenderer->drawRect((this->absolutePos.x + this->width - (e.style.padding.right + e.style.margin.right + e.size)) + 2,
+							(currentHeight + e.style.margin.top + e.style.padding.top) + 2,
+							(e.size - (e.style.padding.top + e.style.padding.bottom)) - 4,
+							(e.size - (e.style.padding.top + e.style.padding.bottom)) - 4,
+							defaultStyle.backgroundColor);
 					}
 				}
 				// if the mouse is currently clicking

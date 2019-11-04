@@ -23,7 +23,7 @@ private:
 public:
 	// what the user calls to setup the renderer
 	static void setup(tRENDERERCALLBACK callback);
-
+	static void shutdown();
 	// function to draw a rectangle and a line
 	void drawRect(float x, float y, float width, float height, Color32 color);
 	void drawLine(float x1, float y1, float x2, float y2, Color32 color);
@@ -72,6 +72,11 @@ void Renderer::setup(tRENDERERCALLBACK callback) {
 		// apply a VTable Hook to DXRenderer's 13th vtable function
 		Candy::CreateVTableHook<tEndFrame>(*(void**)StaticOffsets::Get_OFFSET_DXRENDERER(), hkEndFrame, oEndFrame, 13);
 	}
+}
+
+void Renderer::shutdown() {
+	tEndFrame ohEndFrame;
+	Candy::CreateVTableHook<tEndFrame>(*(void**)StaticOffsets::Get_OFFSET_DXRENDERER(), oEndFrame, ohEndFrame , 13);
 }
 
 void Renderer::drawRect(float x, float y, float width, float height, Color32 color)

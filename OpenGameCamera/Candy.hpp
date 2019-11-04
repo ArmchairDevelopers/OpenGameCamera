@@ -35,6 +35,10 @@ public:
 		MH_CreateHook((LPVOID)address, pHook, (LPVOID*)original);
 		MH_EnableHook((LPVOID)address);
 	}
+	static void DestroyHook(DWORD64 address) {
+		MH_DisableHook((LPVOID)address);
+		MH_RemoveHook((LPVOID)address);
+	}
 };
 
 
