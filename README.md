@@ -13,7 +13,7 @@ Download the latest release from [Here](https://github.com/coltonon/OpenGameCame
 # How To Use
 You'll need a DLL injector to load it into the game, you can download my old one [here](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe).
 
-**Install [this](ttps://aka.ms/vs/16/release/vc_redist.x64.exe)** (C++ redistributable)
+**Install [this](https://aka.ms/vs/16/release/vc_redist.x64.exe)** (C++ redistributable)
 
 ## Key Bindings
 
