@@ -6,6 +6,21 @@ OpenGameCamera is an open source cinematic camera modification for Battlefront I
 
 For communication, support, sharing, and development, join our server [here](https://discord.gg/HZ676Ff)
 
+## Key Bindings
+
+| Action | Key |
+| --- | --- |
+| **Enter/Exit camera** | F5 |
+| **Ignore input** | F6 |
+| **Show/Hide UI** | F7 |
+| **Time-freeze** | F8 |
+| **Move camera** | WASD |
+| **Cam up** | Space |
+| **Cam down** | Ctrl |
+| **Fast move** | Shift |
+| **Slow move** | Alt |
+| **Hide OpenGameCamera** | Home |
+
 ## Code Structure
 
 **Source.cpp**: The entrypoint of the modification, and where all of the magic happens.  
