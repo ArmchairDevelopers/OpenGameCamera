@@ -19,6 +19,7 @@ You'll need a DLL injector to load it into the game, you can download my old one
 
 | Action | Key |
 | --- | --- |
+| **Show/Hide OpenGameCamera** | Home |
 | **Enter/Exit camera** | F5 |
 | **Ignore input** | F6 |
 | **Show/Hide UI** | F7 |
@@ -28,7 +29,7 @@ You'll need a DLL injector to load it into the game, you can download my old one
 | **Cam down** | Ctrl |
 | **Fast move** | Shift |
 | **Slow move** | Alt |
-| **Hide OpenGameCamera** | Home |
+| **Eject mod** | End |
 
 # Building
 
