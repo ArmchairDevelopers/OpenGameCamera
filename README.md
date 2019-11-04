@@ -53,3 +53,7 @@ The code is designed to be easily built.  You don't even need the DirectX SDK in
 1. Clone, or [download](https://github.com/coltonon/OpenGameCamera/archive/master.zip) and extract
 2. Open `OpenGameCamera` in Visual Studio
 3. Build (Ctrl-B)
+
+# Docs
+
+[Here](https://github.com/coltonon/OpenGameCamera/tree/master/Docs) you can find extended documentation, as well as explantions on various concepts.
