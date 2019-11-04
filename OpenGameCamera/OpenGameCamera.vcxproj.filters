@@ -30,9 +30,6 @@
     <ClCompile Include="SigScan\SigScan.cpp">
       <Filter>SigScan</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="minhook\buffer.c">
       <Filter>MinHook</Filter>
     </ClCompile>

@@ -20,6 +20,7 @@ namespace Settings {
 	float mainSpeed = 0.1f;
 	float slowSpeed = .001f;
 	float fastSpeed = 2.f;
+	float fov = 55;
 }
 
 // global static variables
@@ -63,12 +64,21 @@ void buildMenu(Menu &menu) {
 	elemFreeze.type = Element::ElementType::checkBox;
 	elemFreeze.value = &Settings::freezeTime;
 
+
+	Element elemFovP;
+	elemFovP.text = "Increase FOV [" + Keys::fovIncrease.name + "]";
+
+	Element elemFovM;
+	elemFovM.text = "Decrease FOV [" + Keys::fovDecrease.name + "]";
+
 	// add them to the menu
 	menu.elements.push_back(elem1);
 	menu.elements.push_back(elem2);
 	menu.elements.push_back(elem3);
 	menu.elements.push_back(elemDisableUi);
 	menu.elements.push_back(elemFreeze);
+	menu.elements.push_back(elemFovP);
+	menu.elements.push_back(elemFovM);
 }
 
 // Camera Update function
@@ -111,6 +121,23 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	// if the global bool says we should draw the menu, do so
 	if (g_ShowMenu) {
 		mainMenu.draw(pRenderer);
+	}
+
+	// Set our FOV
+	if (Settings::enableFreeCam) {
+		float amount = .25f;
+		if (KeyMan::ReadKey(Keys::speedUpCamera)) amount = 1.f;
+		if (KeyMan::ReadKey(Keys::slowDownCamera)) amount = .05f;
+		if (KeyMan::ReadKeyOnce(Keys::fovIncrease, 25)) {
+			Settings::fov += amount;
+		}
+		if (KeyMan::ReadKeyOnce(Keys::fovDecrease, 25)) {
+			Settings::fov -= amount;
+		}
+		GameRenderer::GetInstance()->gameRenderSettings->forceFov = Settings::fov;
+	}
+	else {
+		GameRenderer::GetInstance()->gameRenderSettings->forceFov = -1;
 	}
 
 	// freeze time hotkey toggle
@@ -229,6 +256,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			// reset the timescale, and drawEnable
 			GameTimeSettings::GetInstance()->timeScale = 1.f;
 			UISettings::GetInstance()->drawEnable = true;
+			GameRenderer::GetInstance()->gameRenderSettings->forceFov = -1;
 
 			printf("Unhooking\n");
 			// now unhook everything we hooked

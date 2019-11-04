@@ -2,7 +2,6 @@
 #include <Windows.h>
 #include <ctime>
 #include <string>
-
 // keyboard manager
 
 // a key definition. Has the name of the key, and it's keycode
@@ -28,6 +27,8 @@ public:
 	static KeyDef cameraDown;
 	static KeyDef disableUi;
 	static KeyDef freezeTime;
+	static KeyDef fovIncrease;
+	static KeyDef fovDecrease;
 };
 
 

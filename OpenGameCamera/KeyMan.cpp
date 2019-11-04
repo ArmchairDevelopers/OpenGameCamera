@@ -89,3 +89,5 @@ KeyDef Keys::camerUp = { "SPACE", VK_SPACE };
 KeyDef Keys::cameraDown = { "CONTROL", VK_CONTROL };
 KeyDef Keys::disableUi = { "F7", VK_F7 };
 KeyDef Keys::freezeTime = { "F8", VK_F8 };
+KeyDef Keys::fovIncrease = { "+", VK_OEM_PLUS };
+KeyDef Keys::fovDecrease = { "-", VK_OEM_MINUS };

@@ -129,7 +129,6 @@
     <ClCompile Include="minhook\hde\hde64.c" />
     <ClCompile Include="minhook\hook.c" />
     <ClCompile Include="minhook\trampoline.c" />
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SigScan\SigScan.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>

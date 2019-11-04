@@ -9,16 +9,26 @@ class RenderView;
 class UISettings;
 class GameTimeSettings;
 class CameraObject;
+class GameRenderSettings;
+
 
 class GameRenderer {
 public:
-	char pad[0x538];
-	RenderView* renderView;
-
+	char pad_0000[1304]; //0x0000
+	class GameRenderSettings* gameRenderSettings; //0x0510
+	char pad_0520[24]; //0x0520
+	class RenderView* renderView; //0x0538
+	char pad_0540[4872]; //0x0540
 	// static method to return the default instance
 	static GameRenderer* GetInstance(void) {
 		return *(GameRenderer**)StaticOffsets::Get_OFFSET_GAMERENDERER();
 	}
+};
+
+class GameRenderSettings {
+public:
+	char pad[0x5c];
+	float forceFov;
 };
 
 // RenderView structure, where we can read the camera transform
