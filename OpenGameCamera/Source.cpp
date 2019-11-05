@@ -7,9 +7,6 @@
 // make Visual Studio shut up
 #pragma warning(disable: 4996)
 
-#define OFFSET_CAMERAHOOK2 0x140AC9D40
-#define OFFSET_KEYBOARDUPDATE 0x1467a04a0
-#define OFFSET_SETMOUSESTATE 0x1474DA990
 
 // config data.  Change if you want different defaults
 namespace Settings {
@@ -21,15 +18,30 @@ namespace Settings {
 	float slowSpeed = .001f;
 	float fastSpeed = 2.f;
 	float fov = 55;
+	bool dofMenu = true;
+	float mouseSensativity = 1.3f;
+	// DOF Settings
+	bool enableDof = false;
+	float focusDistance = 0.f;
+	bool spriteHalfResolution = false;
+	float dofBlurMax = 3.f;
+	float dofFarStart = 3.f;
+	float dofFarEnd = 16.f;
+	bool dofEnableForeground = false;
+	float dofNearStart = 0.f;
+	float dofNearEnd = 3.f;
 }
 
 // global static variables
 Vec4 g_CameraPosition = { 0, 0, 0, 0 };
 bool g_ShowMenu = true;
+GlobalPostProcessSettings* g_PostProcess = nullptr;
+
+
 
 
 // build our menu system
-void buildMenu(Menu &menu) {
+void buildMainMenu(Menu &menu) {
 	// change the header text
 	menu.header.text = "OpenGameCamera";
 
@@ -71,6 +83,21 @@ void buildMenu(Menu &menu) {
 	Element elemFovM;
 	elemFovM.text = "Decrease FOV [" + Keys::fovDecrease.name + "]";
 
+	Element elemMouseSens;
+	elemMouseSens.text = "Mouse sensitivity";
+	elemMouseSens.type = Element::ElementType::floatSlider;
+	elemMouseSens.value = &Settings::mouseSensativity;
+	elemMouseSens.min = 0.1;
+	elemMouseSens.max = 1000;
+	elemMouseSens.step = .5;
+
+
+	Element elemShowDofMenu;
+	elemShowDofMenu.text = "Show DOF Menu";
+	elemShowDofMenu.type = Element::ElementType::checkBox;
+	elemShowDofMenu.value = &Settings::dofMenu;
+
+
 	// add them to the menu
 	menu.elements.push_back(elem1);
 	menu.elements.push_back(elem2);
@@ -79,6 +106,87 @@ void buildMenu(Menu &menu) {
 	menu.elements.push_back(elemFreeze);
 	menu.elements.push_back(elemFovP);
 	menu.elements.push_back(elemFovM);
+	menu.elements.push_back(elemMouseSens);
+	menu.elements.push_back(elemShowDofMenu);
+}
+
+void buildDofMenu(Menu& menu) {
+	menu.header.text = "DOF";
+	menu.absolutePos.x += 600;
+
+	Element elemDofEnable;
+	elemDofEnable.text = "Enable DOF effects";
+	elemDofEnable.type = Element::ElementType::checkBox;
+	elemDofEnable.value = &Settings::enableDof;
+
+	Element elmDofEnableFg;
+	elmDofEnableFg.text = "DOF Enable Foreground";
+	elmDofEnableFg.type = Element::ElementType::checkBox;
+	elmDofEnableFg.value = &Settings::dofEnableForeground;
+
+	Element elemDofBlur;
+	elemDofBlur.text = "DOF Max Blur";
+	elemDofBlur.type = Element::ElementType::floatSlider;
+	elemDofBlur.value = &Settings::dofBlurMax;
+	elemDofBlur.min = 0;
+	elemDofBlur.max = 50;
+	elemDofBlur.step = .25;
+
+	Element elemFocusDist;
+	elemFocusDist.text = "DOF Focus Distance";
+	elemFocusDist.type = Element::ElementType::floatSlider;
+	elemFocusDist.value = &Settings::focusDistance;
+	elemFocusDist.min = 0;
+	elemFocusDist.max = 10000;
+	elemFocusDist.step = .5;
+
+
+	Element elemDofFarStart;
+	elemDofFarStart.text = "DOF FAR Start";
+	elemDofFarStart.type = Element::ElementType::floatSlider;
+	elemDofFarStart.value = &Settings::dofFarStart;
+	elemDofFarStart.min = 0;
+	elemDofFarStart.max = 10000;
+	elemDofFarStart.step = .5f;
+
+	Element elemDofFarEnd;
+	elemDofFarEnd.text = "DOF FAR End";
+	elemDofFarEnd.type = Element::ElementType::floatSlider;
+	elemDofFarEnd.value = &Settings::dofFarEnd;
+	elemDofFarEnd.min = 0;
+	elemDofFarEnd.max = 10000;
+	elemDofFarEnd.step = .5f;
+
+	Element elemDofNearStart;
+	elemDofNearStart.text = "DOF NEAR Start";
+	elemDofNearStart.type = Element::ElementType::floatSlider;
+	elemDofNearStart.value = &Settings::dofNearStart;
+	elemDofNearStart.min = 0;
+	elemDofNearStart.max = 10000;
+	elemDofNearStart.step = .5f;
+
+	Element elemDofNearEnd;
+	elemDofNearEnd.text = "DOF NEAR End";
+	elemDofNearEnd.type = Element::ElementType::floatSlider;
+	elemDofNearEnd.value = &Settings::dofNearEnd;
+	elemDofNearEnd.min = 0;
+	elemDofNearEnd.max = 10000;
+	elemDofNearEnd.step = .5f;
+
+	Element elemDofHalfRes;
+	elemDofHalfRes.text = "DOF Sprite Half-Resolution";
+	elemDofHalfRes.type = Element::ElementType::checkBox;
+	elemDofHalfRes.value = &Settings::spriteHalfResolution;
+
+	menu.elements.push_back(elemDofEnable);
+	menu.elements.push_back(elmDofEnableFg);
+	menu.elements.push_back(elemDofBlur);
+	menu.elements.push_back(elemFocusDist);
+	menu.elements.push_back(elemDofFarStart);
+	menu.elements.push_back(elemDofFarEnd);
+	menu.elements.push_back(elemDofNearStart);
+	menu.elements.push_back(elemDofNearEnd);
+	menu.elements.push_back(elemDofHalfRes);
 }
 
 // Camera Update function
@@ -106,8 +214,21 @@ bool __fastcall hkkeyboardUpdate(__int64 a1, unsigned __int8 a2, __int64 a3)
 	return okeyboardUpdate(a1, a2, a3);
 }
 
+typedef __int64(*__fastcall tglobalPostProcessSub)(void*, __int64, GlobalPostProcessSettings*);
+tglobalPostProcessSub oglobalPostProcessSub;
+
+// Hook function prototype (globalPostProcessSub)
+__int64 __fastcall hkglobalPostProcessSub(void* a1, __int64 a2, GlobalPostProcessSettings* a3)
+{
+	g_PostProcess = a3;
+	return oglobalPostProcessSub(a1, a2, a3);
+}
+
 Menu mainMenu;
+Menu dofMenu;
+
 void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
+
 	// if the mouse hook hasn't been activated yet, display a help message
 	if (MouseManager::arg1 == NULL) {
 		pRenderer->drawText(20, 20, defaultStyle.accentColor, "Pause the game to initialize mouse hook", 2);
@@ -121,6 +242,7 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	// if the global bool says we should draw the menu, do so
 	if (g_ShowMenu) {
 		mainMenu.draw(pRenderer);
+		if (Settings::dofMenu) dofMenu.draw(pRenderer);
 	}
 
 	// Set our FOV
@@ -141,7 +263,7 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	}
 
 	// freeze time hotkey toggle
-	if (KeyMan::ReadKeyOnce(Keys::freezeTime, 100)) {
+	if (KeyMan::ReadKeyOnce(Keys::freezeTime)) {
 		Settings::freezeTime = !Settings::freezeTime;
 	}
 	
@@ -165,7 +287,25 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 		Settings::disableUi = !Settings::disableUi;
 	}
 
-
+	if (Settings::enableDof) {
+		if (g_PostProcess != nullptr) {
+			g_PostProcess->spriteDofEnable = true;
+			g_PostProcess->forceDofEnable = 1;
+			g_PostProcess->forceSpriteDofBlurMax = Settings::dofBlurMax;
+			g_PostProcess->forceSpriteDofFarStart = Settings::dofFarStart;
+			g_PostProcess->forceSpriteDofFarEnd = Settings::dofFarEnd;
+			g_PostProcess->forceSpriteDofNearStart = Settings::dofNearStart;
+			g_PostProcess->forceSpriteDofNearEnd = Settings::dofNearEnd;
+			g_PostProcess->enableForeground = Settings::dofEnableForeground;
+			g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
+			g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
+		}
+	}
+	else {
+		if (g_PostProcess != nullptr) {
+			g_PostProcess->spriteDofEnable = false;
+		}
+	}
 
 	// Should the time be frozen?
 	GameTimeSettings::GetInstance()->timeScale = Settings::freezeTime ? 0.f : 1.f;
@@ -177,6 +317,8 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 
 		// Get the GameRenderer pointer
 		GameRenderer* pGameRenderer = GameRenderer::GetInstance();
+
+		InputSettings::GetInstance()->mouseSensitivityPower = Settings::mouseSensativity;
 
 		// get the speed to move the camera at, and change it if the modifier keys are being pressed
 		float amount = Settings::mainSpeed;
@@ -214,6 +356,8 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	else {
 		// freecam is DISABLED
 		if (Settings::disableUi) UISettings::GetInstance()->drawEnable = true;
+
+		InputSettings::GetInstance()->mouseSensitivityPower = 1.f;
 	}
 }
 
@@ -233,8 +377,8 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_GAMETIMESETTINGS:\t0x" << StaticOffsets::Get_OFFSET_GAMETIMESETTINGS() << std::endl;
 	
 	// build our menu
-	buildMenu(mainMenu);
-
+	buildMainMenu(mainMenu);
+	buildDofMenu(dofMenu);
 	// hook the function for setting our camera position manually
 	Candy::CreateHook(OFFSET_CAMERAHOOK2, &hkupdateCamera2, &oupdateCamera2);
 
@@ -244,6 +388,8 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	// hook the function where the mouse state is set
 	Candy::CreateHook(OFFSET_SETMOUSESTATE, &MouseManager::hkSetMouseState, &MouseManager::oSetMouseState);
 	
+	// hook the function that access GlobalPostProcessSettings
+	Candy::CreateHook(OFFSET_POSTPROCESSSUB, &hkglobalPostProcessSub, &oglobalPostProcessSub);
 	// initialize our renderer, call the drawLoop function once per game frame
 	Renderer::setup(drawLoop);
 
@@ -256,15 +402,19 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			// reset the timescale, and drawEnable
 			GameTimeSettings::GetInstance()->timeScale = 1.f;
 			UISettings::GetInstance()->drawEnable = true;
+			InputSettings::GetInstance()->mouseSensitivityPower = 1.f;
 			GameRenderer::GetInstance()->gameRenderSettings->forceFov = -1;
-
+			if (g_PostProcess != nullptr) {
+				g_PostProcess->spriteDofEnable = false;
+				g_PostProcess->forceDofEnable = -1;
+			}
 			printf("Unhooking\n");
 			// now unhook everything we hooked
 			Renderer::shutdown();
 			Candy::DestroyHook(OFFSET_CAMERAHOOK2);
 			Candy::DestroyHook(OFFSET_KEYBOARDUPDATE);
 			Candy::DestroyHook(OFFSET_SETMOUSESTATE);
-
+			Candy::DestroyHook(OFFSET_POSTPROCESSSUB);
 			// uninitialize minhook
 			MH_Uninitialize();
 			printf("Ejecting\n\nYou can close this window now\n");

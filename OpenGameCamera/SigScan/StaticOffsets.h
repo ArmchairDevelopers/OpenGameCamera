@@ -32,5 +32,12 @@ public:
 	AddFuncCall(OFFSET_DRAWTEXT, "[E8 ?? ?? ?? ?? 83 C7 14 48 8D 76 04 4D 8D 76 08 49 83 ED 01", PatternType::Address)
 };
 
+// to-do: generate signatures for these
+#define OFFSET_INPUTSETTINGS 0x1444613d0
+#define OFFSET_CAMERAHOOK2 0x140AC9D40
+#define OFFSET_KEYBOARDUPDATE 0x1467a04a0
+#define OFFSET_SETMOUSESTATE 0x1474DA990
+#define OFFSET_POSTPROCESSSUB 0x0142E8D0A0
+
 #undef AddFuncCall
 #undef AddOffset

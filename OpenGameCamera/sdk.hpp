@@ -10,7 +10,8 @@ class UISettings;
 class GameTimeSettings;
 class CameraObject;
 class GameRenderSettings;
-
+class GlobalPostProcessSettings;
+class InputSettings;
 
 class GameRenderer {
 public:
@@ -29,6 +30,27 @@ class GameRenderSettings {
 public:
 	char pad[0x5c];
 	float forceFov;
+};
+
+class GlobalPostProcessSettings {
+public:
+	char pad_0000[196]; //0x0000
+	int32_t forceDofEnable; //0x00C4
+	float forceDofBlurFactor; //0x00C8
+	char pad_00CC[4]; //0x00CC
+	float forceDofFocusDistance; //0x00D0
+	char pad_00D4[20]; //0x00D4
+	float forceSpriteDofNearStart; //0x00E8
+	float forceSpriteDofNearEnd; //0x00EC
+	float forceSpriteDofFarStart; //0x00F0
+	float forceSpriteDofFarEnd; //0x00F4
+	float forceSpriteDofBlurMax; //0x00F8
+	char pad_00FC[313]; //0x00FC
+	bool spriteDofEnable; //0x0235
+	char pad_0236[1]; //0x0236
+	bool enableForeground; //0x0237
+	char pad_0238[2]; //0x0238
+	bool spriteDofHalfResolutionEnable; //0x023A
 };
 
 // RenderView structure, where we can read the camera transform
@@ -61,4 +83,13 @@ public:
 class CameraObject {
 public:
 	Matrix4x4 cameraTransform;
+};
+
+class InputSettings {
+public:
+	char pad[0x94];
+	float mouseSensitivityPower;
+	static InputSettings* GetInstance() {
+		return *(InputSettings**)OFFSET_INPUTSETTINGS;
+	}
 };

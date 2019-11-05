@@ -46,9 +46,9 @@ public:
 	std::string text;
 
 	// the minimum and maximum values for an int
-	int min = 0;
-	int max = 20000;
-
+	float min = 0;
+	float max = 10;
+	float step = .5;
 	// determines the height, and width for checkboxes
 	int size = 15;
 };
@@ -85,13 +85,15 @@ public:
 	//	ScreenToClient(g_windowHandle, &this->cursor);
 	}
 
+	static time_t lastClick;
+	static time_t clickTimer;
 	// the draw function, which gets called in the EndFrame hook
 	void draw(Renderer* pRenderer) {
 		// get the mouse position
 		this->getCurrentMousePosition();
 
 		// determine if the mouse is clicking
-		bool isClicking = KeyMan::ReadKeyOnce(VK_LBUTTON, 150);
+		bool isClicking = KeyMan::ReadKey(VK_LBUTTON);
 
 		// get the total width and height
 		int totalHeight = this->header.height;
@@ -147,7 +149,7 @@ public:
 					}
 				}
 				// if the mouse is currently clicking
-				if (isClicking) {
+				if (isClicking && clock() - Menu::lastClick > Menu::clickTimer) {
 					// check if it's clicking within the bounds of this element
 					if ((this->cursor.x > this->absolutePos.x) &&
 						(this->cursor.y > objY) &&
@@ -155,6 +157,61 @@ public:
 						(this->cursor.y < objY + objH)) {
 						// if so, toggle the bool
 						*(bool*)e.value = !*(bool*)e.value;
+						Menu::lastClick = clock();
+					}
+				}
+			} // checkbox
+			if (e.type == Element::ElementType::floatSlider) {
+				if (e.value != nullptr) {
+					int xPos = (this->absolutePos.x + this->width - (e.style.padding.right + e.style.margin.right + e.size));
+					int yPos = (currentHeight + e.style.margin.top + e.style.padding.top);
+					int boxw = (e.size - (e.style.padding.top + e.style.padding.bottom));
+					const int leftOffset = 120;
+					const int textOffset = 100;
+					// left box
+
+					pRenderer->drawRect(xPos - leftOffset, yPos, boxw, boxw, defaultStyle.accentColor);
+					pRenderer->drawText(xPos - leftOffset + 1, yPos - 2, defaultStyle.foregroundColor, "-", 1);
+
+					float flValue = *(float*)e.value;
+					pRenderer->drawText(xPos - textOffset, yPos, e.style.foregroundColor, std::to_string(flValue), 1.f);
+					
+					// right box
+					pRenderer->drawRect(xPos, yPos, boxw, boxw, defaultStyle.accentColor);
+					pRenderer->drawText(xPos + 1, yPos -2, defaultStyle.foregroundColor, "+", 1);
+
+					if (isClicking && clock() - Menu::lastClick > Menu::clickTimer) {
+						float amount = e.step;
+						if (KeyMan::ReadKey(Keys::speedUpCamera)) amount *= 3;
+						if (KeyMan::ReadKey(Keys::slowDownCamera)) amount *= .25;
+
+						// left box click
+						if ((this->cursor.x > xPos - leftOffset) &&
+							(this->cursor.x < xPos + boxw - leftOffset) &&
+							(this->cursor.y > yPos) &&
+							(this->cursor.y < yPos + boxw)) {
+							if (flValue - amount < e.min) {
+								*(float*)e.value = e.min;
+							}
+							else {
+								*(float*)e.value = flValue - amount;
+							}
+							Menu::lastClick = clock();
+
+						}
+						// right box click
+						if ((this->cursor.x > xPos) &&
+							(this->cursor.x < xPos + boxw) &&
+							(this->cursor.y > yPos) &&
+							(this->cursor.y < yPos + boxw)) {
+							if (flValue + amount > e.max) {
+								*(float*)e.value = e.max;
+							}
+							else {
+								*(float*)e.value = flValue + amount;
+							}
+							Menu::lastClick = clock();
+						}
 					}
 				}
 			}
@@ -177,3 +234,5 @@ public:
 		}
 	} // render
 };
+time_t Menu::lastClick = clock();
+time_t Menu::clickTimer = 200;
