@@ -1,10 +1,10 @@
 # OpenGameCamera
 
-OpenGameCamera is an open source cinematic camera modification for Battlefront II.
+OpenGameCamera (OGC) is a free, open-source camera tool for Frostbite games. Our aim is to build a cinematic tool with the freedom to allow content creators, modders and PC users to create stunning artwork.
 
 ### Discord Server
 
-For communication, support, sharing, and development, join our server [here](https://discord.gg/HZ676Ff)
+For communication, support, sharing, and development, join our Discord server [here](https://discord.gg/HZ676Ff)
 
 ## Downloads
 
@@ -13,7 +13,9 @@ Download the latest release from [Here](https://github.com/coltonon/OpenGameCame
 # Usage
 You'll need a DLL injector to load it into the game, you can download my old one [here](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe).
 
-**Install [this](https://aka.ms/vs/16/release/vc_redist.x64.exe)** (C++ redistributable)
+You will also need to install [this](https://aka.ms/vs/16/release/vc_redist.x64.exe) **(C++ redistributable)**  
+
+**The game must be running when you inject the DLL.**
 
 ## Key Bindings
 
