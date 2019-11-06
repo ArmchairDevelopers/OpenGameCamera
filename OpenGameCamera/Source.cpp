@@ -239,6 +239,49 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 		pRenderer->drawText(20, 50, defaultStyle.foregroundColor, "Hide the menu to move the camera", 1.25f);
 	}
 
+	// lighting test
+	if (KeyMan::ReadKeyOnce(VK_F11)) {
+
+		PbrSphereLightEntityData* pLightData = (PbrSphereLightEntityData*)malloc(sizeof(PbrSphereLightEntityData));
+
+		// initialise default data
+		TypeInfo* type = (TypeInfo*)0x144ccab00;
+		std::cout << std::hex << "type:\t0x" << type << std::endl;
+		
+		type->classInfo->Init(pLightData); // Init being function at 0x38 
+		std::cout << std::hex << "pLightData:\t0x" << pLightData << std::endl;
+		
+		// fill in some details
+		pLightData->color.x = 1.0f;
+		pLightData->color.y = 0.0f;
+		pLightData->color.z = 0.0f;
+		pLightData->intensity = 100000.0f;
+
+		EntityCreator* creator = pLightData->GetEntityCreator(0);
+		EntityCreationInfo* createInfo = (EntityCreationInfo*)malloc(sizeof(EntityCreationInfo) * 2); // doubled just to be sure
+
+		std::cout << std::hex << "creator:\t0x" << creator << std::endl;
+		
+		LinearTransform lt = GameRenderer::GetInstance()->renderView->transform;
+
+		std::cout << std::hex << "lt\t0x" << &lt << std::endl;
+
+		typedef void (__fastcall* tINITCREATEINFO)(EntityCreationInfo * pCreateInfo, void* pData, void* pEntityBus, const LinearTransform & transform);
+		tINITCREATEINFO fInitCreateInfo = (tINITCREATEINFO)0x140BE3780;
+		std::cout << std::hex << "m_entityBus:\t0x" << ClientGameContext::GetInstance()->m_entityBus << std::endl;
+		
+		fInitCreateInfo(createInfo, pLightData, *(void**)ClientGameContext::GetInstance()->m_entityBus, lt);
+		
+		std::cout << std::hex << "createInfo:\t0x" << createInfo << std::endl;
+
+		std::cout << "createInfo->transform.o.x:\t" << createInfo->transform.o.x << std::endl;
+		std::cout << "createInfo->transform.o.y:\t" << createInfo->transform.o.y << std::endl;
+		std::cout << "createInfo->transform.o.z:\t" << createInfo->transform.o.z << std::endl;
+		 
+		PbrSphereLightEntity* pLightEntity = (PbrSphereLightEntity * )creator->ConstructEntity(createInfo);
+		std::cout << std::hex << "pLightEntity\t0x" << pLightEntity << std::endl;
+	} // end lighting test
+
 	// if the global bool says we should draw the menu, do so
 	if (g_ShowMenu) {
 		mainMenu.draw(pRenderer);
@@ -375,6 +418,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_DRAWTEXT:\t0x" << StaticOffsets::Get_OFFSET_DRAWTEXT() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMERENDERER:\t0x" << StaticOffsets::Get_OFFSET_GAMERENDERER() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMETIMESETTINGS:\t0x" << StaticOffsets::Get_OFFSET_GAMETIMESETTINGS() << std::endl;
+	std::cout << std::hex << "OFFSET_CLIENTGAMECONTEXT:\t0x" << StaticOffsets::Get_OFFSET_CLIENTGAMECONTEXT() << std::endl;
 	
 	// build our menu
 	buildMainMenu(mainMenu);

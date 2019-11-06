@@ -1,7 +1,7 @@
 #pragma once
 #include "SigScan/StaticOffsets.h"
 #include "BasicTypes.hpp"
-
+#include <iostream>
 // reverse engineered game classes
 
 class GameRenderer;
@@ -12,6 +12,16 @@ class CameraObject;
 class GameRenderSettings;
 class GlobalPostProcessSettings;
 class InputSettings;
+
+class ClientGameContext
+{
+public:
+	char _buf[0x20];
+	void* m_entityBus;
+	static ClientGameContext* GetInstance() {
+		return *(ClientGameContext**)StaticOffsets::Get_OFFSET_CLIENTGAMECONTEXT();
+	}
+};
 
 class GameRenderer {
 public:
@@ -92,4 +102,64 @@ public:
 	static InputSettings* GetInstance() {
 		return *(InputSettings**)OFFSET_INPUTSETTINGS;
 	}
+};
+
+class EntityCreationInfo
+{
+public:
+	void* vfptr;
+	void* unknown;
+	char _buf[0x30];
+	LinearTransform transform;
+	char _buf2[0x70];
+	void* pData;
+	char _buf3[0x40];
+};
+
+class EntityCreator {
+public:
+	void* ConstructEntity(EntityCreationInfo* createInfo) {
+		typedef void* (__fastcall* tCONSTRUCTENTITY)(void*, EntityCreationInfo*);
+		tCONSTRUCTENTITY fConstructEntity = *(tCONSTRUCTENTITY*)((*(DWORD64*)this) + 0x8);
+		std::cout << std::hex << "fConstructEntity:\t0x" << fConstructEntity << std::endl;
+		return fConstructEntity(this, createInfo);
+	}
+};
+
+class PbrSphereLightEntity {
+public:
+
+};
+
+class EntityData {
+public:
+	class EntityCreator* GetEntityCreator(int creatortype) {
+		typedef EntityCreator* (__fastcall* tGETENTITYCREATOR)(void*, int);
+		tGETENTITYCREATOR fGetEntityCreator = *(tGETENTITYCREATOR*)((*(DWORD64*)this) + 0x28);
+		return fGetEntityCreator(this, creatortype);
+	}
+};
+
+class PbrSphereLightEntityData: public EntityData {
+public:
+	char pad_0000[112]; //0x0000
+	Vec3 color; //0x0070
+	char pad_007C[52]; //0x007C
+	float intensity; //0x00B0
+	char pad_00B4[97]; //0x00B4 
+	bool shadowCacheEnable; //0x0115
+};
+
+class ClassInfo {
+public:
+	void Init(void* obj) {
+		typedef __int64(__fastcall* tINIT)(void*);
+		tINIT fINIT = *(tINIT*)(this + 0x38);
+		fINIT(obj);
+	}
+};
+
+class TypeInfo {
+public:
+	class ClassInfo* classInfo;
 };

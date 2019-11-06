@@ -47,4 +47,12 @@ struct Matrix4x4 {
 	Vec4 y;
 	Vec4 z;
 	Vec4 o;
+	Matrix4x4 operator= (Matrix4x4 value) {
+		return { {value.x.x, value.x.y, value.x.z, value.x.w },
+		{value.y.x, value.y.y, value.y.z, value.y.w},
+		{value.z.x, value.z.y, value.z.z, value.z.w},
+		{value.o.x, value.o.y, value.o.z, value.o.w} };
+	}
 };
+
+typedef Matrix4x4 LinearTransform;
