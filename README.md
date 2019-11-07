@@ -15,7 +15,7 @@ You'll need a DLL injector to load it into the game, you can download my old one
 
 You will also need to install [this](https://aka.ms/vs/16/release/vc_redist.x64.exe) **(C++ redistributable)**  
 
-**The game must be running when you inject the DLL.**
+**The game must be running when you inject the DLL and you must run the injector with administrative permisssions.**
 
 ## Key Bindings
 
