@@ -375,25 +375,33 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_DRAWTEXT:\t0x" << StaticOffsets::Get_OFFSET_DRAWTEXT() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMERENDERER:\t0x" << StaticOffsets::Get_OFFSET_GAMERENDERER() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMETIMESETTINGS:\t0x" << StaticOffsets::Get_OFFSET_GAMETIMESETTINGS() << std::endl;
-	
+	std::cout << std::hex << "OFFSET_INPUTSETTINGS:\t0x" << StaticOffsets::Get_OFFSET_INPUTSETTINGS() << std::endl;
+	std::cout << std::hex << "OFFSET_KEYBOARDUPDATE:\t0x" << StaticOffsets::Get_OFFSET_KEYBOARDUPDATE() << std::endl;
+	std::cout << std::hex << "OFFSET_SETMOUSESTATE:\t0x" << StaticOffsets::Get_OFFSET_SETMOUSESTATE() << std::endl;
+	std::cout << std::hex << "OFFSET_POSTPROCESSSUB:\t0x" << StaticOffsets::Get_OFFSET_POSTPROCESSSUB() << std::endl;
+	std::cout << std::hex << "OFFSET_CAMERAHOOK2:\t0x" << StaticOffsets::Get_OFFSET_CAMERAHOOK2() << std::endl;
+
 	// build our menu
 	buildMainMenu(mainMenu);
 	buildDofMenu(dofMenu);
 	// hook the function for setting our camera position manually
-	Candy::CreateHook(OFFSET_CAMERAHOOK2, &hkupdateCamera2, &oupdateCamera2);
+	Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2(), &hkupdateCamera2, &oupdateCamera2);
 
 	// hook the function where keyboard input is processed
-	Candy::CreateHook(OFFSET_KEYBOARDUPDATE, &hkkeyboardUpdate, &okeyboardUpdate);
+	Candy::CreateHook(StaticOffsets::Get_OFFSET_KEYBOARDUPDATE(), &hkkeyboardUpdate, &okeyboardUpdate);
 
 	// hook the function where the mouse state is set
-	Candy::CreateHook(OFFSET_SETMOUSESTATE, &MouseManager::hkSetMouseState, &MouseManager::oSetMouseState);
+	Candy::CreateHook(StaticOffsets::Get_OFFSET_SETMOUSESTATE(), &MouseManager::hkSetMouseState, &MouseManager::oSetMouseState);
 	
 	// hook the function that access GlobalPostProcessSettings
-	Candy::CreateHook(OFFSET_POSTPROCESSSUB, &hkglobalPostProcessSub, &oglobalPostProcessSub);
+	Candy::CreateHook(StaticOffsets::Get_OFFSET_POSTPROCESSSUB(), &hkglobalPostProcessSub, &oglobalPostProcessSub);
 	// initialize our renderer, call the drawLoop function once per game frame
 	Renderer::setup(drawLoop);
 
 	// let this thread sit idling
+
+	const auto = PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ;
+
 	for (;;) { 
 		Sleep(100); 
 		if (GetAsyncKeyState(VK_END)) {
@@ -411,10 +419,10 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			printf("Unhooking\n");
 			// now unhook everything we hooked
 			Renderer::shutdown();
-			Candy::DestroyHook(OFFSET_CAMERAHOOK2);
-			Candy::DestroyHook(OFFSET_KEYBOARDUPDATE);
-			Candy::DestroyHook(OFFSET_SETMOUSESTATE);
-			Candy::DestroyHook(OFFSET_POSTPROCESSSUB);
+			Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2());
+			Candy::DestroyHook(StaticOffsets::Get_OFFSET_KEYBOARDUPDATE());
+			Candy::DestroyHook(StaticOffsets::Get_OFFSET_SETMOUSESTATE());
+			Candy::DestroyHook(StaticOffsets::Get_OFFSET_POSTPROCESSSUB());
 			// uninitialize minhook
 			MH_Uninitialize();
 			printf("Ejecting\n\nYou can close this window now\n");

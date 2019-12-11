@@ -90,6 +90,6 @@ public:
 	char pad[0x94];
 	float mouseSensitivityPower;
 	static InputSettings* GetInstance() {
-		return *(InputSettings**)OFFSET_INPUTSETTINGS;
+		return *(InputSettings**)StaticOffsets::Get_OFFSET_INPUTSETTINGS();
 	}
 };
