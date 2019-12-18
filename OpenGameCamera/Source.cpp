@@ -400,8 +400,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 
 	// let this thread sit idling
 
-	const auto = PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ;
-
+	
 	for (;;) { 
 		Sleep(100); 
 		if (GetAsyncKeyState(VK_END)) {
