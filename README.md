@@ -8,12 +8,13 @@ For communication, support, sharing, and development, join our Discord server [h
 
 ## Downloads
 
-Download the latest release from [Here](https://github.com/coltonon/OpenGameCamera/releases).  Pre-release builds only include a DLL, which must be injected manually.
+The latest release build is available to download here: [OGC Public Release](https://github.com/coltonon/OpenGameCamera/releases).
+Please follow the Usage Instructions below.
 
 # Usage
-You'll need a DLL injector to load it into the game, you can download my old one [here](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe).
+You'll need a DLL injector to load OpenGameCamera in-game. We reccomend this injector: [ColtononInjector](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe).
 
-You will also need to install [this](https://aka.ms/vs/16/release/vc_redist.x64.exe) **(C++ redistributable)**  
+Make sure you also have [this **C++ redistributable**](https://aka.ms/vs/16/release/vc_redist.x64.exe) installed.
 
 **The game must be running when you inject the DLL and you must run the injector with administrative permisssions.**
 
