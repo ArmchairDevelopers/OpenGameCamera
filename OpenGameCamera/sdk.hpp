@@ -65,7 +65,7 @@ public:
 	bool drawEnable;
 	// static method to return the default instance, from an offset of GameTimeSettings's pointer
 	static UISettings* GetInstance(void) {
-		return *(UISettings**)(StaticOffsets::Get_OFFSET_GAMETIMESETTINGS() + 0x10);
+		return *(UISettings**)(StaticOffsets::Get_OFFSET_UISETTINGS());
 	}
 };
 

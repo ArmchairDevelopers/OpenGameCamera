@@ -374,18 +374,22 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_DRAWRECT2D:\t0x" << StaticOffsets::Get_OFFSET_DRAWRECT2D() << std::endl;
 	std::cout << std::hex << "OFFSET_DRAWTEXT:\t0x" << StaticOffsets::Get_OFFSET_DRAWTEXT() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMERENDERER:\t0x" << StaticOffsets::Get_OFFSET_GAMERENDERER() << std::endl;
+	std::cout << std::hex << "OFFSET_UISETTINGS:\t0x" << StaticOffsets::Get_OFFSET_UISETTINGS() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMETIMESETTINGS:\t0x" << StaticOffsets::Get_OFFSET_GAMETIMESETTINGS() << std::endl;
 	std::cout << std::hex << "OFFSET_INPUTSETTINGS:\t0x" << StaticOffsets::Get_OFFSET_INPUTSETTINGS() << std::endl;
 	std::cout << std::hex << "OFFSET_KEYBOARDUPDATE:\t0x" << StaticOffsets::Get_OFFSET_KEYBOARDUPDATE() << std::endl;
 	std::cout << std::hex << "OFFSET_SETMOUSESTATE:\t0x" << StaticOffsets::Get_OFFSET_SETMOUSESTATE() << std::endl;
 	std::cout << std::hex << "OFFSET_POSTPROCESSSUB:\t0x" << StaticOffsets::Get_OFFSET_POSTPROCESSSUB() << std::endl;
+	std::cout << std::hex << "OFFSET_CAMERAHOOK:\t0x" << StaticOffsets::Get_OFFSET_CAMERAHOOK() << std::endl;
 	std::cout << std::hex << "OFFSET_CAMERAHOOK2:\t0x" << StaticOffsets::Get_OFFSET_CAMERAHOOK2() << std::endl;
 
 	// build our menu
 	buildMainMenu(mainMenu);
 	buildDofMenu(dofMenu);
 	// hook the function for setting our camera position manually
-	Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2(), &hkupdateCamera2, &oupdateCamera2);
+	// TODO(cstdr1): camerahook is still broken, investigating 
+	//Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK(), &hkupdateCamera2, &oupdateCamera2);
+	//Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2(), &hkupdateCamera2, &oupdateCamera2);
 
 	// hook the function where keyboard input is processed
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_KEYBOARDUPDATE(), &hkkeyboardUpdate, &okeyboardUpdate);
@@ -418,7 +422,9 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			printf("Unhooking\n");
 			// now unhook everything we hooked
 			Renderer::shutdown();
-			Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2());
+			// TODO(cstdr1): camerahook is still broken, investigating 
+			//Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK());
+			//Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_KEYBOARDUPDATE());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_SETMOUSESTATE());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_POSTPROCESSSUB());
@@ -431,6 +437,8 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			FreeLibraryAndExitThread(hOwnModule, 0);
 		}
 	}
+
+	return 0;
 };
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
