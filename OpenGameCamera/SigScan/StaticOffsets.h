@@ -22,8 +22,6 @@ class StaticOffsets {
 public:
 	AddOffset(OFFSET_GAMERENDERER, "48 8B 0D [?? ?? ?? ?? 48 85 C9 74 0E 48 8B 01 48 8D 15 ?? ?? ??", PatternType::RelativePointer)
 	AddOffset(OFFSET_FIRSTTYPEINFO, "48 8B 05 [?? ?? ?? ?? 48 89 41 08 48 89 0D ?? ?? ?? ??", PatternType::RelativePointer)
-	AddOffset(OFFSET_CAMERAHOOK, "[E8 ?? ?? ?? ?? 48 8D 97 F0 04 00 00 48 8D 8E 00 05 00 00", PatternType::Address)
-	AddOffset(OFFSET_CAMERAHOOK2, "[E8 ?? ?? ?? ?? 48 8D 8F F0 04 00 00 49 8D 97 F0 04 00 00", PatternType::Address)
 	AddOffset(OFFSET_DXRENDERER, "48 8B 0D [?? ?? ?? ?? 44 89 74 24 50 44 89 74", PatternType::RelativePointer)
 	AddOffset(OFFSET_UISETTINGS, "48 89 05 [?? ?? ?? ?? 48 8B 48 28 E8 ?? ?? ?? ?? 41 0F B6 D4", PatternType::RelativePointer)
 	AddOffset(OFFSET_GAMETIMESETTINGS, "48 89 05 [?? ?? ?? ?? C7 40 ?? ?? ?? ?? ?? 8B 43 18", PatternType::RelativePointer)
@@ -36,6 +34,7 @@ public:
 	AddFuncCall(OFFSET_DRAWLINE, "[E8 ?? ?? ?? ?? FF C3 8B 0D ?? ?? ?? ?? FF C9", PatternType::Address)
 	AddFuncCall(OFFSET_DRAWRECT2D, "[E8 ?? ?? ?? ?? C7 87 ?? ?? 00 00 37", PatternType::Address)
 	AddFuncCall(OFFSET_DRAWTEXT, "[E8 ?? ?? ?? ?? 83 C7 14 48 8D 76 04 4D 8D 76 08 49 83 ED 01", PatternType::Address)
+	AddFuncCall(OFFSET_CAMERAHOOK2, "[E8 ?? ?? ?? ?? 4C 8B 4C 24 28 41 0F B6 41 07", PatternType::Address)
 };
 
 // to-do: generate signatures for these

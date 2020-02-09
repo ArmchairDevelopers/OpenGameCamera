@@ -18,6 +18,7 @@ public:
 	char pad_0000[1304]; //0x0000
 	class GameRenderSettings* gameRenderSettings; //0x0510
 	char pad_0520[24]; //0x0520
+	// NOTE(cstdr1): Below is the transform for showing the camera location
 	class RenderView* renderView; //0x0538
 	char pad_0540[4872]; //0x0540
 	// static method to return the default instance

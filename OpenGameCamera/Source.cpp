@@ -190,7 +190,7 @@ void buildDofMenu(Menu& menu) {
 }
 
 // Camera Update function
-__int64 __fastcall hkupdateCamera2(__int64 a1, CameraObject* a2)
+__int64 __fastcall hkupdateCamera2(CameraObject* a1, CameraObject* a2)
 {
 	// if the camera position hasn't been set,
 	if (g_CameraPosition.x == 0) {
