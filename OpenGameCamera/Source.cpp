@@ -33,6 +33,7 @@ namespace Settings {
 }
 
 // global static variables
+void* g_RenderView = NULL; // stores the RenderView pointer from GameRenderer
 Vec4 g_CameraPosition = { 0, 0, 0, 0 };
 bool g_ShowMenu = true;
 GlobalPostProcessSettings* g_PostProcess = nullptr;
@@ -190,18 +191,22 @@ void buildDofMenu(Menu& menu) {
 }
 
 // Camera Update function
-__int64 __fastcall hkupdateCamera2(__int64 a1, CameraObject* a2)
+__int64 __fastcall hkupdateCamera2(CameraObject* a1, CameraObject* a2)
 {
-	// if the camera position hasn't been set,
-	if (g_CameraPosition.x == 0) {
-		// set it to the current camera transform
-		g_CameraPosition = a2->cameraTransform.o;
+	// NOTE(cstdr1): We only change the camera position if the source CameraObject is RenderView from GameRenderer!
+	if (a2 == g_RenderView) {
+		// if the camera position hasn't been set,
+		if (g_CameraPosition.x == 0) {
+			// set it to the current camera transform
+			g_CameraPosition = a2->cameraTransform.o;
+		}
+		// if we're meant to be in frecam mode
+		if (Settings::enableFreeCam) {
+			// set the origin vector to our global vec4 override
+			a2->cameraTransform.o = g_CameraPosition;
+		}
 	}
-	// if we're meant to be in frecam mode
-	if (Settings::enableFreeCam) {
-		// set the origin vector to our global vec4 override
-		a2->cameraTransform.o = g_CameraPosition;
-	}
+
 	return oupdateCamera2(a1, a2);
 }
 
@@ -374,6 +379,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_DRAWRECT2D:\t0x" << StaticOffsets::Get_OFFSET_DRAWRECT2D() << std::endl;
 	std::cout << std::hex << "OFFSET_DRAWTEXT:\t0x" << StaticOffsets::Get_OFFSET_DRAWTEXT() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMERENDERER:\t0x" << StaticOffsets::Get_OFFSET_GAMERENDERER() << std::endl;
+	std::cout << std::hex << "OFFSET_UISETTINGS:\t0x" << StaticOffsets::Get_OFFSET_UISETTINGS() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMETIMESETTINGS:\t0x" << StaticOffsets::Get_OFFSET_GAMETIMESETTINGS() << std::endl;
 	std::cout << std::hex << "OFFSET_INPUTSETTINGS:\t0x" << StaticOffsets::Get_OFFSET_INPUTSETTINGS() << std::endl;
 	std::cout << std::hex << "OFFSET_KEYBOARDUPDATE:\t0x" << StaticOffsets::Get_OFFSET_KEYBOARDUPDATE() << std::endl;
@@ -381,10 +387,14 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_POSTPROCESSSUB:\t0x" << StaticOffsets::Get_OFFSET_POSTPROCESSSUB() << std::endl;
 	std::cout << std::hex << "OFFSET_CAMERAHOOK2:\t0x" << StaticOffsets::Get_OFFSET_CAMERAHOOK2() << std::endl;
 
+	// initialize the RenderView so we can correctly overwrite the camera location
+	g_RenderView = GameRenderer::GetInstance()->renderView;
+
 	// build our menu
 	buildMainMenu(mainMenu);
 	buildDofMenu(dofMenu);
 	// hook the function for setting our camera position manually
+	// TODO(cstdr1): camerahook is still broken, investigating 
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2(), &hkupdateCamera2, &oupdateCamera2);
 
 	// hook the function where keyboard input is processed
@@ -418,6 +428,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			printf("Unhooking\n");
 			// now unhook everything we hooked
 			Renderer::shutdown();
+			// TODO(cstdr1): camerahook is still broken, investigating 
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_KEYBOARDUPDATE());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_SETMOUSESTATE());
@@ -431,6 +442,8 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			FreeLibraryAndExitThread(hOwnModule, 0);
 		}
 	}
+
+	return 0;
 };
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)

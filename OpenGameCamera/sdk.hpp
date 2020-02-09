@@ -18,6 +18,7 @@ public:
 	char pad_0000[1304]; //0x0000
 	class GameRenderSettings* gameRenderSettings; //0x0510
 	char pad_0520[24]; //0x0520
+	// NOTE(cstdr1): Below is the transform for showing the camera location
 	class RenderView* renderView; //0x0538
 	char pad_0540[4872]; //0x0540
 	// static method to return the default instance
@@ -65,7 +66,7 @@ public:
 	bool drawEnable;
 	// static method to return the default instance, from an offset of GameTimeSettings's pointer
 	static UISettings* GetInstance(void) {
-		return *(UISettings**)(StaticOffsets::Get_OFFSET_GAMETIMESETTINGS() + 0x10);
+		return *(UISettings**)(StaticOffsets::Get_OFFSET_UISETTINGS());
 	}
 };
 
