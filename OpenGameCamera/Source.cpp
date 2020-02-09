@@ -33,6 +33,7 @@ namespace Settings {
 }
 
 // global static variables
+void* g_RenderView = NULL; // stores the RenderView pointer from GameRenderer
 Vec4 g_CameraPosition = { 0, 0, 0, 0 };
 bool g_ShowMenu = true;
 GlobalPostProcessSettings* g_PostProcess = nullptr;
@@ -192,15 +193,18 @@ void buildDofMenu(Menu& menu) {
 // Camera Update function
 __int64 __fastcall hkupdateCamera2(CameraObject* a1, CameraObject* a2)
 {
-	// if the camera position hasn't been set,
-	if (g_CameraPosition.x == 0) {
-		// set it to the current camera transform
-		g_CameraPosition = a2->cameraTransform.o;
-	}
-	// if we're meant to be in frecam mode
-	if (Settings::enableFreeCam) {
-		// set the origin vector to our global vec4 override
-		a2->cameraTransform.o = g_CameraPosition;
+	// NOTE(cstdr1): We only change the camera position if the source CameraObject is RenderView from GameRenderer!
+	if (a2 == g_RenderView) {
+		// if the camera position hasn't been set,
+		if (g_CameraPosition.x == 0) {
+			// set it to the current camera transform
+			g_CameraPosition = a2->cameraTransform.o;
+		}
+		// if we're meant to be in frecam mode
+		if (Settings::enableFreeCam) {
+			// set the origin vector to our global vec4 override
+			a2->cameraTransform.o = g_CameraPosition;
+		}
 	}
 
 	return oupdateCamera2(a1, a2);
@@ -382,6 +386,9 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_SETMOUSESTATE:\t0x" << StaticOffsets::Get_OFFSET_SETMOUSESTATE() << std::endl;
 	std::cout << std::hex << "OFFSET_POSTPROCESSSUB:\t0x" << StaticOffsets::Get_OFFSET_POSTPROCESSSUB() << std::endl;
 	std::cout << std::hex << "OFFSET_CAMERAHOOK2:\t0x" << StaticOffsets::Get_OFFSET_CAMERAHOOK2() << std::endl;
+
+	// initialize the RenderView so we can correctly overwrite the camera location
+	g_RenderView = GameRenderer::GetInstance()->renderView;
 
 	// build our menu
 	buildMainMenu(mainMenu);
