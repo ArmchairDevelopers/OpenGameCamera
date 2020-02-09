@@ -202,6 +202,7 @@ __int64 __fastcall hkupdateCamera2(__int64 a1, CameraObject* a2)
 		// set the origin vector to our global vec4 override
 		a2->cameraTransform.o = g_CameraPosition;
 	}
+
 	return oupdateCamera2(a1, a2);
 }
 
@@ -380,7 +381,6 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_KEYBOARDUPDATE:\t0x" << StaticOffsets::Get_OFFSET_KEYBOARDUPDATE() << std::endl;
 	std::cout << std::hex << "OFFSET_SETMOUSESTATE:\t0x" << StaticOffsets::Get_OFFSET_SETMOUSESTATE() << std::endl;
 	std::cout << std::hex << "OFFSET_POSTPROCESSSUB:\t0x" << StaticOffsets::Get_OFFSET_POSTPROCESSSUB() << std::endl;
-	std::cout << std::hex << "OFFSET_CAMERAHOOK:\t0x" << StaticOffsets::Get_OFFSET_CAMERAHOOK() << std::endl;
 	std::cout << std::hex << "OFFSET_CAMERAHOOK2:\t0x" << StaticOffsets::Get_OFFSET_CAMERAHOOK2() << std::endl;
 
 	// build our menu
@@ -388,8 +388,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	buildDofMenu(dofMenu);
 	// hook the function for setting our camera position manually
 	// TODO(cstdr1): camerahook is still broken, investigating 
-	//Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK(), &hkupdateCamera2, &oupdateCamera2);
-	//Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2(), &hkupdateCamera2, &oupdateCamera2);
+	Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2(), &hkupdateCamera2, &oupdateCamera2);
 
 	// hook the function where keyboard input is processed
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_KEYBOARDUPDATE(), &hkkeyboardUpdate, &okeyboardUpdate);
@@ -423,8 +422,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			// now unhook everything we hooked
 			Renderer::shutdown();
 			// TODO(cstdr1): camerahook is still broken, investigating 
-			//Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK());
-			//Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2());
+			Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_KEYBOARDUPDATE());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_SETMOUSESTATE());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_POSTPROCESSSUB());
