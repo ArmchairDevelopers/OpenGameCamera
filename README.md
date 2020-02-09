@@ -11,7 +11,7 @@ For communication, support, sharing, and development, join our Discord server [h
 The latest release build is available to download here: [Public Releases](https://github.com/coltonon/OpenGameCamera/releases).
 
 # Usage Instructions
-In order to load OpenGameCamera into the game, you must inject OpenGameCamera.DLL. We reccomend this injector: [ColtononInjector](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe).
+In order to load OpenGameCamera into the game, you must inject OpenGameCamera.DLL. We recommend this injector: [ColtononInjector](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe).
 
 Install [this **C++ redistributable**](https://aka.ms/vs/16/release/vc_redist.x64.exe). (OpenGameCamera WILL NOT work without this.)
 
