@@ -11,11 +11,15 @@ For communication, support, sharing, and development, join our Discord server [h
 The latest release build is available to download here: [Public Releases](https://github.com/coltonon/OpenGameCamera/releases).
 
 # Usage Instructions
-In order to load OpenGameCamera into the game, you must inject OpenGameCamera.DLL. We recommend this injector: [ColtononInjector](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe).
 
-Install [this **C++ redistributable**](https://aka.ms/vs/16/release/vc_redist.x64.exe). (OpenGameCamera WILL NOT work without this.)
+Install this **C++ redistributable**: [Download](https://aka.ms/vs/16/release/vc_redist.x64.exe).  
+(OpenGameCamera will not work without this.)
 
-**The game must be running when you inject the DLL and you must run the injector with administrative permisssions.**
+Download the injector: [Download](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe)  
+(Your browser or anti-virus may falsely flag this as dangerous. You must allow the file on your PC.)
+
+Inject OpenGameCamera.DLL with the injector.  
+(Star Wars: Battlefront II must be running when you inject OpenGameCamera.DLL, and must be done each time you launch the game.)
 
 ## Key Bindings
 
