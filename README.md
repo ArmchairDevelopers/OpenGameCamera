@@ -12,14 +12,17 @@ The latest release build is available to download here: [Public Releases](https:
 
 # Usage Instructions
 
-Install this **C++ redistributable**: [Download](https://aka.ms/vs/16/release/vc_redist.x64.exe).  
+1. Install this **C++ redistributable**: [Download](https://aka.ms/vs/16/release/vc_redist.x64.exe).  
 (OpenGameCamera will not work without this.)
 
-Download the injector: [Download](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe)  
+2. Download the injector: [Download](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe)  
 (Your browser or anti-virus may falsely flag this as dangerous. You must allow the file on your PC.)
 
-Inject OpenGameCamera.DLL with the injector.  
+3. Inject OpenGameCamera.DLL with the injector.  
 (Star Wars: Battlefront II must be running when you inject OpenGameCamera.DLL, and must be done each time you launch the game.)
+
+4. Make awesome content.  
+(Practice may be required!)
 
 ## Key Bindings
 
