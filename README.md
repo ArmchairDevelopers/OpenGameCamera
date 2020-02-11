@@ -1,18 +1,23 @@
-# OpenGameCamera
+# What is OpenGameCamera?
 
 OpenGameCamera (OGC) is a free, open-source camera tool for Frostbite games. Our aim is to build a cinematic tool with the freedom to allow content creators, modders and PC users to create stunning artwork.
 
+We are open-source; we need people to help us flesh out OGC. Without support we will not be able to update OpenGameCamera with each new game update.
+
+### How can I help?
+
+We are looking for people that know **C++** or are willing to learn. Ideally you will also have some knowledge or experience in **reverse engineering** videogames, however, that is not totally necessary.
+If you think you can help then *please contact us.* If you don't have these skills but would still like to help, whether that you'd like to spread awareness, create promotional content or help with testing, *please contact us*.
+
 ### Discord Server
 
-For communication, support, sharing, and development, join our Discord server [here](https://discord.gg/HZ676Ff)
+For communication, support, sharing, and development, join our Discord server: [OpenGameCamera Discord](https://discord.gg/HZ676Ff)
 
-## Downloads
+## Instructions
 
-The latest release build is available to download here: [Public Releases](https://github.com/coltonon/OpenGameCamera/releases).
+### [Download the latest version of OpenGameCamera](https://github.com/coltonon/OpenGameCamera/releases)
 
-# Usage Instructions
-
-1. Install this **C++ redistributable**: [Download](https://aka.ms/vs/16/release/vc_redist.x64.exe).  
+1. Install this **C++ redistributable**: [Download](https://aka.ms/vs/16/release/vc_redist.x64.exe)  
 (OpenGameCamera will not work without this.)
 
 2. Download the injector: [Download](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe)  
