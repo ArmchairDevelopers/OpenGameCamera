@@ -14,6 +14,7 @@ namespace Settings {
 	bool freezePlayer = true;
 	bool disableUi = true;
 	bool freezeTime = false;
+	float timeScale = 1.f;
 	float mainSpeed = 0.1f;
 	float slowSpeed = .001f;
 	float fastSpeed = 2.f;
@@ -92,6 +93,13 @@ void buildMainMenu(Menu &menu) {
 	elemMouseSens.max = 1000;
 	elemMouseSens.step = .5;
 
+	Element elemTimeScale;
+	elemTimeScale.text = "Time scale";
+	elemTimeScale.type = Element::ElementType::floatSlider;
+	elemTimeScale.value = &Settings::timeScale;
+	elemTimeScale.min = 0.1;
+	elemTimeScale.max = 1.f;
+	elemTimeScale.step = 0.1;
 
 	Element elemShowDofMenu;
 	elemShowDofMenu.text = "Show DOF Menu";
@@ -108,6 +116,7 @@ void buildMainMenu(Menu &menu) {
 	menu.elements.push_back(elemFovP);
 	menu.elements.push_back(elemFovM);
 	menu.elements.push_back(elemMouseSens);
+	menu.elements.push_back(elemTimeScale);
 	menu.elements.push_back(elemShowDofMenu);
 }
 
@@ -313,7 +322,7 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	}
 
 	// Should the time be frozen?
-	GameTimeSettings::GetInstance()->timeScale = Settings::freezeTime ? 0.f : 1.f;
+	GameTimeSettings::GetInstance()->timeScale = Settings::freezeTime ? 0.f : Settings::timeScale;
 
 	// only process this stuff if the FreeCam is enabled
 	if (Settings::enableFreeCam) {
