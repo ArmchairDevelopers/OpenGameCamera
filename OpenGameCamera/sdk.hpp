@@ -52,6 +52,27 @@ public:
 	bool enableForeground; //0x0237
 	char pad_0238[2]; //0x0238
 	bool spriteDofHalfResolutionEnable; //0x023A
+	bool spriteDofNearGatherEnable; // 0x23b
+	bool spriteDofBestUpsamplingEnable; // 0x23c
+	bool spriteDofMultilayerForegroundEnable; // 0x23d
+	bool spriteDofPackedBokehEnable; // 0x23e
+	bool spriteDofBicubicSampleEnable; // 0x23f
+	bool spriteDofDebugEnable; // 0x240
+	bool spriteDofUseAsyncCompute; // 0x241
+	bool spriteDofOpticalVignettingEnable; // 0x242
+	bool circularDofEnable; // 0x243
+	bool circularDofEnableHighRes; // 0x244
+	bool circularDofEnableFarBlurHighQuality; // 0x245
+	bool circularDofEnableAntiBanding; // 0x246
+	bool dynamicAOEnable; // 0x247
+	bool ssaoBlurEnable; // 0x248
+	bool screenSpaceRaytraceEnable; // 0x249
+	bool screenSpaceRaytraceDeferredResolveEnable; // 0x24a
+	bool screenSpaceRaytraceUseVelocityVectorsForTemporal; // 0x24b
+	bool screenSpaceRaytraceSeparateCoverageEnable; // 0x24c
+	bool screenSpaceRaytraceFullresEnable; // 0x24d
+	bool screenSpaceRaytraceCameraCutEnable; // 0x24e
+	bool screenSpaceRaytraceAsyncComputeEnable; // 0x24f
 };
 
 // RenderView structure, where we can read the camera transform

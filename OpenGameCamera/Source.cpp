@@ -31,6 +31,9 @@ namespace Settings {
 	bool dofEnableForeground = false;
 	float dofNearStart = 0.f;
 	float dofNearEnd = 3.f;
+	// SSR
+	bool ssrEnable = false;
+	bool ssrFullResEnable = false;
 }
 
 // global static variables
@@ -38,9 +41,9 @@ void* g_RenderView = NULL; // stores the RenderView pointer from GameRenderer
 Vec4 g_CameraPosition = { 0, 0, 0, 0 };
 bool g_ShowMenu = true;
 GlobalPostProcessSettings* g_PostProcess = nullptr;
-
-
-
+bool g_origSSRValueSet = false;
+bool g_origSSREnable = false;
+bool g_origSSRFullResEnable = false;
 
 // build our menu system
 void buildMainMenu(Menu &menu) {
@@ -188,6 +191,16 @@ void buildDofMenu(Menu& menu) {
 	elemDofHalfRes.type = Element::ElementType::checkBox;
 	elemDofHalfRes.value = &Settings::spriteHalfResolution;
 
+	Element elemSSREnable;
+	elemSSREnable.text = "SSR Enable";
+	elemSSREnable.type = Element::ElementType::checkBox;
+	elemSSREnable.value = &Settings::ssrEnable;
+
+	Element elemSSRFullResEnable;
+	elemSSRFullResEnable.text = "SSR Full Res Enable";
+	elemSSRFullResEnable.type = Element::ElementType::checkBox;
+	elemSSRFullResEnable.value = &Settings::ssrFullResEnable;
+
 	menu.elements.push_back(elemDofEnable);
 	menu.elements.push_back(elmDofEnableFg);
 	menu.elements.push_back(elemDofBlur);
@@ -197,6 +210,8 @@ void buildDofMenu(Menu& menu) {
 	menu.elements.push_back(elemDofNearStart);
 	menu.elements.push_back(elemDofNearEnd);
 	menu.elements.push_back(elemDofHalfRes);
+	menu.elements.push_back(elemSSREnable);
+	menu.elements.push_back(elemSSRFullResEnable);
 }
 
 // Camera Update function
@@ -242,6 +257,11 @@ Menu mainMenu;
 Menu dofMenu;
 
 void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
+	if (g_PostProcess != nullptr && !g_origSSRValueSet) {
+		// NOTE(cstdr1): Store original values for ssrEnable and ssrFullResEnable
+		g_origSSREnable = g_PostProcess->screenSpaceRaytraceEnable;
+		g_origSSRValueSet = true;
+	}
 
 	// if the mouse hook hasn't been activated yet, display a help message
 	if (MouseManager::arg1 == NULL) {
@@ -313,11 +333,15 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 			g_PostProcess->enableForeground = Settings::dofEnableForeground;
 			g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
 			g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
+			g_PostProcess->screenSpaceRaytraceEnable = Settings::ssrEnable;
+			g_PostProcess->screenSpaceRaytraceFullresEnable = Settings::ssrFullResEnable;
 		}
 	}
 	else {
 		if (g_PostProcess != nullptr) {
 			g_PostProcess->spriteDofEnable = false;
+			g_PostProcess->screenSpaceRaytraceEnable = g_origSSREnable;
+			g_PostProcess->screenSpaceRaytraceFullresEnable = g_origSSRFullResEnable;
 		}
 	}
 
@@ -416,10 +440,9 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_POSTPROCESSSUB(), &hkglobalPostProcessSub, &oglobalPostProcessSub);
 	// initialize our renderer, call the drawLoop function once per game frame
 	Renderer::setup(drawLoop);
-
+	
 	// let this thread sit idling
 
-	
 	for (;;) { 
 		Sleep(100); 
 		if (GetAsyncKeyState(VK_END)) {
@@ -433,6 +456,8 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			if (g_PostProcess != nullptr) {
 				g_PostProcess->spriteDofEnable = false;
 				g_PostProcess->forceDofEnable = -1;
+				g_PostProcess->screenSpaceRaytraceEnable = g_origSSREnable;
+				g_PostProcess->screenSpaceRaytraceFullresEnable = g_origSSRFullResEnable;
 			}
 			printf("Unhooking\n");
 			// now unhook everything we hooked
