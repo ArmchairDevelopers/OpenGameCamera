@@ -104,6 +104,16 @@ void buildMainMenu(Menu &menu) {
 	elemTimeScale.max = 1.f;
 	elemTimeScale.step = 0.1;
 
+	Element elemSSREnable;
+	elemSSREnable.text = "SSR Enable";
+	elemSSREnable.type = Element::ElementType::checkBox;
+	elemSSREnable.value = &Settings::ssrEnable;
+
+	Element elemSSRFullResEnable;
+	elemSSRFullResEnable.text = "SSR Full Res Enable";
+	elemSSRFullResEnable.type = Element::ElementType::checkBox;
+	elemSSRFullResEnable.value = &Settings::ssrFullResEnable;
+
 	Element elemShowDofMenu;
 	elemShowDofMenu.text = "Show DOF Menu";
 	elemShowDofMenu.type = Element::ElementType::checkBox;
@@ -120,6 +130,8 @@ void buildMainMenu(Menu &menu) {
 	menu.elements.push_back(elemFovM);
 	menu.elements.push_back(elemMouseSens);
 	menu.elements.push_back(elemTimeScale);
+	menu.elements.push_back(elemSSREnable);
+	menu.elements.push_back(elemSSRFullResEnable);
 	menu.elements.push_back(elemShowDofMenu);
 }
 
@@ -152,7 +164,6 @@ void buildDofMenu(Menu& menu) {
 	elemFocusDist.min = 0;
 	elemFocusDist.max = 10000;
 	elemFocusDist.step = .5;
-
 
 	Element elemDofFarStart;
 	elemDofFarStart.text = "DOF FAR Start";
@@ -191,16 +202,6 @@ void buildDofMenu(Menu& menu) {
 	elemDofHalfRes.type = Element::ElementType::checkBox;
 	elemDofHalfRes.value = &Settings::spriteHalfResolution;
 
-	Element elemSSREnable;
-	elemSSREnable.text = "SSR Enable";
-	elemSSREnable.type = Element::ElementType::checkBox;
-	elemSSREnable.value = &Settings::ssrEnable;
-
-	Element elemSSRFullResEnable;
-	elemSSRFullResEnable.text = "SSR Full Res Enable";
-	elemSSRFullResEnable.type = Element::ElementType::checkBox;
-	elemSSRFullResEnable.value = &Settings::ssrFullResEnable;
-
 	menu.elements.push_back(elemDofEnable);
 	menu.elements.push_back(elmDofEnableFg);
 	menu.elements.push_back(elemDofBlur);
@@ -210,8 +211,6 @@ void buildDofMenu(Menu& menu) {
 	menu.elements.push_back(elemDofNearStart);
 	menu.elements.push_back(elemDofNearEnd);
 	menu.elements.push_back(elemDofHalfRes);
-	menu.elements.push_back(elemSSREnable);
-	menu.elements.push_back(elemSSRFullResEnable);
 }
 
 // Camera Update function
@@ -333,16 +332,18 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 			g_PostProcess->enableForeground = Settings::dofEnableForeground;
 			g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
 			g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
-			g_PostProcess->screenSpaceRaytraceEnable = Settings::ssrEnable;
-			g_PostProcess->screenSpaceRaytraceFullresEnable = Settings::ssrFullResEnable;
 		}
 	}
 	else {
 		if (g_PostProcess != nullptr) {
 			g_PostProcess->spriteDofEnable = false;
-			g_PostProcess->screenSpaceRaytraceEnable = g_origSSREnable;
-			g_PostProcess->screenSpaceRaytraceFullresEnable = g_origSSRFullResEnable;
 		}
+	}
+	
+	if (g_PostProcess != nullptr) {
+		// NOTE(cstdr1): Always set SSR settings regardless of DOF state
+		g_PostProcess->screenSpaceRaytraceEnable = Settings::ssrEnable;
+		g_PostProcess->screenSpaceRaytraceFullresEnable = Settings::ssrFullResEnable;
 	}
 
 	// Should the time be frozen?
@@ -454,6 +455,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			InputSettings::GetInstance()->mouseSensitivityPower = 1.f;
 			GameRenderer::GetInstance()->gameRenderSettings->forceFov = -1;
 			if (g_PostProcess != nullptr) {
+				// NOTE(cstdr1): Restore original values of SSR options
 				g_PostProcess->spriteDofEnable = false;
 				g_PostProcess->forceDofEnable = -1;
 				g_PostProcess->screenSpaceRaytraceEnable = g_origSSREnable;
