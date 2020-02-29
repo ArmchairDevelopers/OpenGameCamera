@@ -11,15 +11,17 @@
 // config data.  Change if you want different defaults
 namespace Settings {
 	bool enableFreeCam = false;
-	bool freezePlayer = true;
 	bool disableUi = true;
-	bool freezeTime = false;
-	float timeScale = 1.f;
+	bool cameraMenu = true;
+	bool dofMenu = true;
+	bool effectsMenu = true;
+	// Camera Settings
+	float evControl = 5.f;
+	float fov = 55;
+	float resScale = 1.f;
 	float mainSpeed = 0.1f;
 	float slowSpeed = .001f;
 	float fastSpeed = 2.f;
-	float fov = 55;
-	bool dofMenu = true;
 	float mouseSensativity = 1.3f;
 	// DOF Settings
 	bool enableDof = false;
@@ -31,7 +33,11 @@ namespace Settings {
 	bool dofEnableForeground = false;
 	float dofNearStart = 0.f;
 	float dofNearEnd = 3.f;
-	// SSR
+	// Effects Menu
+	bool freezeTime = false;
+	float timeScale = 1.f;
+	bool freezePlayer = true;
+	bool forceBloomEnable = true;
 	bool ssrEnable = false;
 	bool ssrFullResEnable = false;
 }
@@ -51,23 +57,17 @@ void buildMainMenu(Menu &menu) {
 	menu.header.text = "OpenGameCamera";
 
 	// create a checkbox for showing/hiding the menu
-	Element elem1;
-	elem1.text = "Show Menu [" + Keys::showMenuKey.name + "]";
-	elem1.type = Element::ElementType::checkBox;
-	elem1.value = &g_ShowMenu;
-	elem1.style.foregroundColor = defaultStyle.accentColor;
+	Element elemShowMenu;
+	elemShowMenu.text = "Show Menu [" + Keys::showMenuKey.name + "]";
+	elemShowMenu.type = Element::ElementType::checkBox;
+	elemShowMenu.value = &g_ShowMenu;
+	elemShowMenu.style.foregroundColor = defaultStyle.accentColor;
 
 	// checkbox for enabling FreeCam
-	Element elem2;
-	elem2.text = "Enable FreeCam [" + Keys::enableFreeCam.name + "]";
-	elem2.type = Element::ElementType::checkBox;
-	elem2.value = &Settings::enableFreeCam;
-
-	// checkbox for freezing the player when camera is enabled
-	Element elem3;
-	elem3.text = "Freeze Player [" + Keys::freezePlayer.name + "]";
-	elem3.value = &Settings::freezePlayer;
-	elem3.type = Element::ElementType::checkBox;
+	Element elemEnableFreecam;
+	elemEnableFreecam.text = "Enable FreeCam [" + Keys::enableFreeCam.name + "]";
+	elemEnableFreecam.type = Element::ElementType::checkBox;
+	elemEnableFreecam.value = &Settings::enableFreeCam;
 
 	// checkbox for disabling the UI when the camera is enabled
 	Element elemDisableUi;
@@ -75,12 +75,39 @@ void buildMainMenu(Menu &menu) {
 	elemDisableUi.value = &Settings::disableUi;
 	elemDisableUi.type = Element::ElementType::checkBox;
 
-	// checkbox for freezing time 
-	Element elemFreeze;
-	elemFreeze.text = "Freeze Time [" + Keys::freezeTime.name + "]";
-	elemFreeze.type = Element::ElementType::checkBox;
-	elemFreeze.value = &Settings::freezeTime;
+	Element elemCameraMenu;
+	elemCameraMenu.text = "Show Camera Settings";
+	elemCameraMenu.type = Element::ElementType::checkBox;
+	elemCameraMenu.value = &Settings::cameraMenu;
 
+	Element elemShowDofMenu;
+	elemShowDofMenu.text = "Show DOF Menu";
+	elemShowDofMenu.type = Element::ElementType::checkBox;
+	elemShowDofMenu.value = &Settings::dofMenu;
+
+	Element elemShowEffectsMenu;
+	elemShowEffectsMenu.text = "Show Effects Menu";
+	elemShowEffectsMenu.type = Element::ElementType::checkBox;
+	elemShowEffectsMenu.value = &Settings::effectsMenu;
+
+	// add them to the menu
+	menu.elements.push_back(elemShowMenu);
+	menu.elements.push_back(elemEnableFreecam);
+	menu.elements.push_back(elemDisableUi);
+	menu.elements.push_back(elemCameraMenu);
+	menu.elements.push_back(elemShowDofMenu);
+	menu.elements.push_back(elemShowEffectsMenu);
+}
+
+void buildCameraMenu(Menu& menu) {
+	menu.header.text = "Camera Settings";
+	menu.absolutePos.x += 400;
+
+	Element elemEVControl;
+	elemEVControl.text = "Exposure Value";
+	elemEVControl.type = Element::ElementType::floatSlider;
+	elemEVControl.value = &Settings::evControl;
+	elemEVControl.step = .5f * -1;
 
 	Element elemFovP;
 	elemFovP.text = "Increase FOV [" + Keys::fovIncrease.name + "]";
@@ -88,56 +115,22 @@ void buildMainMenu(Menu &menu) {
 	Element elemFovM;
 	elemFovM.text = "Decrease FOV [" + Keys::fovDecrease.name + "]";
 
-	Element elemMouseSens;
-	elemMouseSens.text = "Mouse sensitivity";
-	elemMouseSens.type = Element::ElementType::floatSlider;
-	elemMouseSens.value = &Settings::mouseSensativity;
-	elemMouseSens.min = 0.1;
-	elemMouseSens.max = 1000;
-	elemMouseSens.step = .5;
+	Element elemResScale;
+	elemResScale.text = "Resolution Scale";
+	elemResScale.type = Element::ElementType::floatSlider;
+	elemResScale.value = &Settings::resScale;
+	elemResScale.step = .25f;
 
-	Element elemTimeScale;
-	elemTimeScale.text = "Time scale";
-	elemTimeScale.type = Element::ElementType::floatSlider;
-	elemTimeScale.value = &Settings::timeScale;
-	elemTimeScale.min = 0.1;
-	elemTimeScale.max = 1.f;
-	elemTimeScale.step = 0.1;
-
-	Element elemSSREnable;
-	elemSSREnable.text = "SSR Enable";
-	elemSSREnable.type = Element::ElementType::checkBox;
-	elemSSREnable.value = &Settings::ssrEnable;
-
-	Element elemSSRFullResEnable;
-	elemSSRFullResEnable.text = "SSR Full Res Enable";
-	elemSSRFullResEnable.type = Element::ElementType::checkBox;
-	elemSSRFullResEnable.value = &Settings::ssrFullResEnable;
-
-	Element elemShowDofMenu;
-	elemShowDofMenu.text = "Show DOF Menu";
-	elemShowDofMenu.type = Element::ElementType::checkBox;
-	elemShowDofMenu.value = &Settings::dofMenu;
-
-
-	// add them to the menu
-	menu.elements.push_back(elem1);
-	menu.elements.push_back(elem2);
-	menu.elements.push_back(elem3);
-	menu.elements.push_back(elemDisableUi);
-	menu.elements.push_back(elemFreeze);
+	menu.elements.push_back(elemEVControl);
 	menu.elements.push_back(elemFovP);
 	menu.elements.push_back(elemFovM);
-	menu.elements.push_back(elemMouseSens);
-	menu.elements.push_back(elemTimeScale);
-	menu.elements.push_back(elemSSREnable);
-	menu.elements.push_back(elemSSRFullResEnable);
-	menu.elements.push_back(elemShowDofMenu);
+	menu.elements.push_back(elemResScale);
+
 }
 
 void buildDofMenu(Menu& menu) {
 	menu.header.text = "DOF";
-	menu.absolutePos.x += 600;
+	menu.absolutePos.x += 800;
 
 	Element elemDofEnable;
 	elemDofEnable.text = "Enable DOF effects";
@@ -164,6 +157,7 @@ void buildDofMenu(Menu& menu) {
 	elemFocusDist.min = 0;
 	elemFocusDist.max = 10000;
 	elemFocusDist.step = .5;
+
 
 	Element elemDofFarStart;
 	elemDofFarStart.text = "DOF FAR Start";
@@ -202,6 +196,8 @@ void buildDofMenu(Menu& menu) {
 	elemDofHalfRes.type = Element::ElementType::checkBox;
 	elemDofHalfRes.value = &Settings::spriteHalfResolution;
 
+	
+
 	menu.elements.push_back(elemDofEnable);
 	menu.elements.push_back(elmDofEnableFg);
 	menu.elements.push_back(elemDofBlur);
@@ -211,6 +207,58 @@ void buildDofMenu(Menu& menu) {
 	menu.elements.push_back(elemDofNearStart);
 	menu.elements.push_back(elemDofNearEnd);
 	menu.elements.push_back(elemDofHalfRes);
+
+}
+
+void buildEffectsMenu(Menu& menu) {
+	menu.header.text = "Effects Menu";
+	menu.absolutePos.x += 1200;
+
+
+	// checkbox for freezing time 
+	Element elemFreeze;
+	elemFreeze.text = "Freeze Time [" + Keys::freezeTime.name + "]";
+	elemFreeze.type = Element::ElementType::checkBox;
+	elemFreeze.value = &Settings::freezeTime;
+
+	// timescale slider
+	Element elemTimeScale;
+	elemTimeScale.text = "Time scale";
+	elemTimeScale.type = Element::ElementType::floatSlider;
+	elemTimeScale.value = &Settings::timeScale;
+	elemTimeScale.min = 0.1;
+	elemTimeScale.max = 1.f;
+	elemTimeScale.step = 0.1;
+
+	// checkbox for freezing the player when camera is enabled
+	Element elemFreezePlayer;
+	elemFreezePlayer.text = "Freeze Player [" + Keys::freezePlayer.name + "]";
+	elemFreezePlayer.value = &Settings::freezePlayer;
+	elemFreezePlayer.type = Element::ElementType::checkBox;
+
+	Element elemForceBloomEnable;
+	elemForceBloomEnable.text = "Bloom Enable";
+	elemForceBloomEnable.type = Element::ElementType::checkBox;
+	elemForceBloomEnable.value = &Settings::forceBloomEnable;
+
+	Element elemSSREnable;
+	elemSSREnable.text = "SSR Enable";
+	elemSSREnable.type = Element::ElementType::checkBox;
+	elemSSREnable.value = &Settings::ssrEnable;
+
+	Element elemSSRFullResEnable;
+	elemSSRFullResEnable.text = "SSR Full Res Enable";
+	elemSSRFullResEnable.type = Element::ElementType::checkBox;
+	elemSSRFullResEnable.value = &Settings::ssrFullResEnable;
+
+
+	menu.elements.push_back(elemFreeze);
+	menu.elements.push_back(elemTimeScale);
+	menu.elements.push_back(elemFreezePlayer);
+	menu.elements.push_back(elemForceBloomEnable);
+	menu.elements.push_back(elemSSREnable);
+	menu.elements.push_back(elemSSRFullResEnable);
+
 }
 
 // Camera Update function
@@ -247,13 +295,16 @@ tglobalPostProcessSub oglobalPostProcessSub;
 
 // Hook function prototype (globalPostProcessSub)
 __int64 __fastcall hkglobalPostProcessSub(void* a1, __int64 a2, GlobalPostProcessSettings* a3)
-{
+{	
+	if (g_PostProcess == nullptr) std::cout << "g_PostProcess:\t0x" << std::hex << a3 << std::endl;
 	g_PostProcess = a3;
 	return oglobalPostProcessSub(a1, a2, a3);
 }
 
 Menu mainMenu;
+Menu cameraMenu;
 Menu dofMenu;
+Menu effectsMenu;
 
 void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	if (g_PostProcess != nullptr && !g_origSSRValueSet) {
@@ -275,7 +326,17 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	// if the global bool says we should draw the menu, do so
 	if (g_ShowMenu) {
 		mainMenu.draw(pRenderer);
+		if (Settings::cameraMenu) cameraMenu.draw(pRenderer);
 		if (Settings::dofMenu) dofMenu.draw(pRenderer);
+		if (Settings::effectsMenu) effectsMenu.draw(pRenderer);
+	}
+
+	// Set resolution scale
+	if (Settings::resScale) {
+		GameRenderer::GetInstance()->gameRenderSettings->resolutionScale = Settings::resScale;
+	}
+	else {
+		GameRenderer::GetInstance()->gameRenderSettings->resolutionScale = Settings::resScale = 1.f;
 	}
 
 	// Set our FOV
@@ -332,18 +393,35 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 			g_PostProcess->enableForeground = Settings::dofEnableForeground;
 			g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
 			g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
+			g_PostProcess->screenSpaceRaytraceEnable = Settings::ssrEnable;
+			g_PostProcess->screenSpaceRaytraceFullresEnable = Settings::ssrFullResEnable;
 		}
 	}
 	else {
 		if (g_PostProcess != nullptr) {
 			g_PostProcess->spriteDofEnable = false;
+			g_PostProcess->screenSpaceRaytraceEnable = g_origSSREnable;
+			g_PostProcess->screenSpaceRaytraceFullresEnable = g_origSSRFullResEnable;
 		}
 	}
-	
-	if (g_PostProcess != nullptr) {
-		// NOTE(cstdr1): Always set SSR settings regardless of DOF state
-		g_PostProcess->screenSpaceRaytraceEnable = Settings::ssrEnable;
-		g_PostProcess->screenSpaceRaytraceFullresEnable = Settings::ssrFullResEnable;
+
+	// (dcat): testing bloom controls
+	if (Settings::forceBloomEnable) {
+		if (g_PostProcess != nullptr) {
+			g_PostProcess->bloomEnable = Settings::forceBloomEnable;
+		}
+	}
+	else {
+		if (g_PostProcess != nullptr) {
+			g_PostProcess->bloomEnable = false;
+		}
+	}
+
+	// Exposure control
+	if (Settings::evControl) {
+		if (g_PostProcess != nullptr) {
+			g_PostProcess->forceEV = Settings::evControl;
+		}
 	}
 
 	// Should the time be frozen?
@@ -426,7 +504,9 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 
 	// build our menu
 	buildMainMenu(mainMenu);
+	buildCameraMenu(cameraMenu);
 	buildDofMenu(dofMenu);
+	buildEffectsMenu(effectsMenu);
 	// hook the function for setting our camera position manually
 	// TODO(cstdr1): camerahook is still broken, investigating 
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2(), &hkupdateCamera2, &oupdateCamera2);
@@ -455,7 +535,6 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			InputSettings::GetInstance()->mouseSensitivityPower = 1.f;
 			GameRenderer::GetInstance()->gameRenderSettings->forceFov = -1;
 			if (g_PostProcess != nullptr) {
-				// NOTE(cstdr1): Restore original values of SSR options
 				g_PostProcess->spriteDofEnable = false;
 				g_PostProcess->forceDofEnable = -1;
 				g_PostProcess->screenSpaceRaytraceEnable = g_origSSREnable;

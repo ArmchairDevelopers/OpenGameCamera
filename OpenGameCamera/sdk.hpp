@@ -29,13 +29,19 @@ public:
 
 class GameRenderSettings {
 public:
-	char pad[0x5c];
-	float forceFov;
+	char pad_0000[40]; //0x0000
+	float resolutionScale; //0x0028
+	char pad_002C[48]; //0x002C
+	float forceFov; //0x005C
+	char pad_0060[1000]; //0x0060
 };
 
-class GlobalPostProcessSettings {
+class GlobalPostProcessSettings
+{
 public:
-	char pad_0000[196]; //0x0000
+	char pad_0000[148]; //0x0000
+	float forceEV; //0x0094
+	char pad_0098[44]; //0x0098
 	int32_t forceDofEnable; //0x00C4
 	float forceDofBlurFactor; //0x00C8
 	char pad_00CC[4]; //0x00CC
@@ -46,34 +52,22 @@ public:
 	float forceSpriteDofFarStart; //0x00F0
 	float forceSpriteDofFarEnd; //0x00F4
 	float forceSpriteDofBlurMax; //0x00F8
-	char pad_00FC[313]; //0x00FC
+	char pad_00FC[284]; //0x00FC
+	bool forceEVEnable; //0x0218
+	char pad_0219[6]; //0x0219
+	bool bloomEnable; //0x021F
+	char pad_0220[21]; //0x0220
 	bool spriteDofEnable; //0x0235
 	char pad_0236[1]; //0x0236
 	bool enableForeground; //0x0237
 	char pad_0238[2]; //0x0238
 	bool spriteDofHalfResolutionEnable; //0x023A
-	bool spriteDofNearGatherEnable; // 0x23b
-	bool spriteDofBestUpsamplingEnable; // 0x23c
-	bool spriteDofMultilayerForegroundEnable; // 0x23d
-	bool spriteDofPackedBokehEnable; // 0x23e
-	bool spriteDofBicubicSampleEnable; // 0x23f
-	bool spriteDofDebugEnable; // 0x240
-	bool spriteDofUseAsyncCompute; // 0x241
-	bool spriteDofOpticalVignettingEnable; // 0x242
-	bool circularDofEnable; // 0x243
-	bool circularDofEnableHighRes; // 0x244
-	bool circularDofEnableFarBlurHighQuality; // 0x245
-	bool circularDofEnableAntiBanding; // 0x246
-	bool dynamicAOEnable; // 0x247
-	bool ssaoBlurEnable; // 0x248
-	bool screenSpaceRaytraceEnable; // 0x249
-	bool screenSpaceRaytraceDeferredResolveEnable; // 0x24a
-	bool screenSpaceRaytraceUseVelocityVectorsForTemporal; // 0x24b
-	bool screenSpaceRaytraceSeparateCoverageEnable; // 0x24c
-	bool screenSpaceRaytraceFullresEnable; // 0x24d
-	bool screenSpaceRaytraceCameraCutEnable; // 0x24e
-	bool screenSpaceRaytraceAsyncComputeEnable; // 0x24f
-};
+	char pad_023B[14]; //0x023B
+	bool screenSpaceRaytraceEnable; //0x0249
+	char pad_024A[3]; //0x024A
+	bool screenSpaceRaytraceFullresEnable; //0x024D
+	char pad_024E[3573]; //0x024E
+}; //Size: 0x1043
 
 // RenderView structure, where we can read the camera transform
 class RenderView {
