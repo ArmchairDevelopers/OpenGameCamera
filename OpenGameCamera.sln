@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGameCamera", "OpenGameCamera\OpenGameCamera.vcxproj", "{5851B990-B78F-4652-ABF9-4C0A8F3D5D41}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGameCameraLauncher", "OpenGameCameraLauncher\OpenGameCameraLauncher.vcxproj", "{FC6BDDCC-A4AB-43E2-834C-3BDCA5DA8948}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5851B990-B78F-4652-ABF9-4C0A8F3D5D41} = {5851B990-B78F-4652-ABF9-4C0A8F3D5D41}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

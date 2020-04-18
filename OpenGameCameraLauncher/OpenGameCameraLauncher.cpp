@@ -103,6 +103,10 @@ bool InjectDllIntoSWBF2(std::wstring& dll_path)
     LPBYTE pDllPath = nullptr;
     DWORD dwDllPathSize = 0;
     SIZE_T dwWrittenSize = 0;
+    HMODULE kernel32 = nullptr;
+    FARPROC lpLoadLibraryW = nullptr;
+    HANDLE hRemoteThread = nullptr;
+    DWORD dwThreadId = 0;
 
     hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if (hSnapshot == INVALID_HANDLE_VALUE) {
@@ -146,8 +150,23 @@ bool InjectDllIntoSWBF2(std::wstring& dll_path)
         goto Exit;
     }
 
-    // TODO: Get LoadLibraryW address
-    // TODO: CreateRemoteThread
+    kernel32 = GetModuleHandle(L"kernel32");
+    if (kernel32 == nullptr) {
+        goto Exit;
+    }
+
+    lpLoadLibraryW = GetProcAddress(kernel32, "LoadLibraryW");
+    if (lpLoadLibraryW == nullptr) {
+        goto Exit;
+    }
+    
+
+    hRemoteThread = CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE)lpLoadLibraryW, (LPVOID)pDllPath, 0, &dwThreadId);
+    if (hRemoteThread == nullptr) {
+        goto Exit;
+    }
+
+    CloseHandle(hRemoteThread);
 
     success = true;
 
@@ -165,7 +184,7 @@ Exit:
 
 int main()
 {
-    bool force_overwrite = false;
+    bool force_overwrite = true;
     fs::path tmp_dir = fs::temp_directory_path() / TEMP_DIRECTORY_NAME / ADD_QUOTES(OGC_VERSION);
     if (!fs::exists(tmp_dir) && !fs::create_directories(tmp_dir)) {
         // TODO: User alert
@@ -184,5 +203,10 @@ int main()
 
     }
 
-    InjectDllIntoSWBF2(dll_path);
+    if (!InjectDllIntoSWBF2(dll_path)) {
+        // TODO: User alert
+        return 1;
+    }
+
+    return 0;
 }
