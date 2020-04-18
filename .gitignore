@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+*.aps
 
 # OpenGameCamera build directories
 .vs/
