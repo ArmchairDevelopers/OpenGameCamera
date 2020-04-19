@@ -27,7 +27,7 @@ public:
 	AddOffset(OFFSET_GAMETIMESETTINGS, "48 89 05 [?? ?? ?? ?? C7 40 ?? ?? ?? ?? ?? 8B 43 18", PatternType::RelativePointer)
 	AddOffset(OFFSET_INPUTSETTINGS, "48 89 05 [?? ?? ?? ?? 80 B8 A5 00 00 00 00 F3 0F 10 35 ?? ?? ?? ?? 74 ??", PatternType::RelativePointer)
 	AddOffset(OFFSET_KEYBOARDUPDATE, "[48 89 5C 24 08 57 48 83 EC 20 89 D7 48 89 CB 4D 85 C0 75 ?? E8 ?? ?? ?? ?? 48 89 C1 E8 ?? ?? ?? ?? 49 89 C0 83 BB B8 00 00 00 00 75 ?? 49 8B 00 4C 89 C1 40 0F B6 D7 FF 50 30 84 C0 74 ?? B8 01 00 00 00", PatternType::Address)
-	AddOffset(OFFSET_SETMOUSESTATE, "[53 48 83 EC 20 48 89 CB 48 8B 0D 01 E5 29 FD 48 85 C9", PatternType::Address)
+	AddOffset(OFFSET_SETMOUSESTATE, "[40 53 48 83 EC 20 48 89 CB 48 8B 0D ?? ?? ?? ?? 48 85 C9 74 ?? 8B 42 08", PatternType::Address)
 	AddOffset(OFFSET_POSTPROCESSSUB, "[41 8B 80 88 00 00 00 89 81 88 00 00 00 41 8B 80 8C 00 00 00 89 81 8C 00 00 00 41 0F B6 80 14 02 00 00", PatternType::Address)
 
 	AddFuncCall(OFFSET_DEBUGRENDERER2, "[E8 ?? ?? ?? ?? 48 8B 97 30 79 00 00", PatternType::Address)
