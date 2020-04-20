@@ -1,1 +1,1 @@
-#define OGC_VERSION v0.6.2-8-ge96aab3
+#define OGC_VERSION v0.6.2-10-g04bc0c9

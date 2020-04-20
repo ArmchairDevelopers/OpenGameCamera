@@ -17,12 +17,13 @@ namespace Settings {
 	bool effectsMenu = true;
 	// Camera Settings
 	float evControl = 5.f;
+	float camSens = 1.f;
 	float fov = 55;
 	float resScale = 1.f;
 	bool enableResScale = false;
 	float mainSpeed = 0.1f;
-	float slowSpeed = .001f;
-	float fastSpeed = 2.f;
+	float slowSpeed = .01f;
+	float fastSpeed = 1.f;
 	float mouseSensativity = 1.3f;
 	// DOF Settings
 	bool enableDof = false;
@@ -116,6 +117,12 @@ void buildCameraMenu(Menu& menu) {
 	Element elemFovM;
 	elemFovM.text = "Decrease FOV [" + Keys::fovDecrease.name + "]";
 
+	Element elemCamSens;
+	elemCamSens.text = "FreeCam Sensitivity";
+	elemCamSens.type = Element::ElementType::floatSlider;
+	elemCamSens.value = &Settings::camSens;
+	elemCamSens.step = .10f;
+
 	Element elemEnableResScale;
 	elemEnableResScale.text = "Enable Resolution Scale [" + Keys::enableResScale.name + "]";
 	elemEnableResScale.type = Element::ElementType::checkBox;
@@ -127,6 +134,7 @@ void buildCameraMenu(Menu& menu) {
 	elemResScale.value = &Settings::resScale;
 	elemResScale.step = .25f;
 
+	menu.elements.push_back(elemCamSens);
 	menu.elements.push_back(elemEVControl);
 	menu.elements.push_back(elemFovP);
 	menu.elements.push_back(elemFovM);
@@ -450,9 +458,9 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 		InputSettings::GetInstance()->mouseSensitivityPower = Settings::mouseSensativity;
 
 		// get the speed to move the camera at, and change it if the modifier keys are being pressed
-		float amount = Settings::mainSpeed;
-		if (KeyMan::ReadKey(Keys::speedUpCamera)) amount = Settings::fastSpeed;
-		if (KeyMan::ReadKey(Keys::slowDownCamera)) amount = Settings::slowSpeed;
+		float amount = Settings::mainSpeed * Settings::camSens;
+		if (KeyMan::ReadKey(Keys::speedUpCamera)) amount = Settings::fastSpeed * Settings::camSens;
+		if (KeyMan::ReadKey(Keys::slowDownCamera)) amount = Settings::slowSpeed * Settings::camSens;
 
 		// set up some vectors
 		Vec4 origin = pGameRenderer->renderView->transform.o;
