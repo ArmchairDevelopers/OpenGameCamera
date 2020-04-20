@@ -17,12 +17,13 @@ namespace Settings {
 	bool effectsMenu = true;
 	// Camera Settings
 	float evControl = 5.f;
+	float camSens = 1.f;
 	float fov = 55;
 	float resScale = 1.f;
 	bool enableResScale = false;
 	float mainSpeed = 0.1f;
-	float slowSpeed = .001f;
-	float fastSpeed = 2.f;
+	float slowSpeed = .01f;
+	float fastSpeed = 1.f;
 	float mouseSensativity = 1.3f;
 	// DOF Settings
 	bool enableDof = false;
@@ -53,7 +54,7 @@ bool g_origSSREnable = false;
 bool g_origSSRFullResEnable = false;
 
 // build our menu system
-void buildMainMenu(Menu &menu) {
+void buildMainMenu(Menu& menu) {
 	// change the header text
 	menu.header.text = "OpenGameCamera";
 
@@ -116,6 +117,19 @@ void buildCameraMenu(Menu& menu) {
 	Element elemFovM;
 	elemFovM.text = "Decrease FOV [" + Keys::fovDecrease.name + "]";
 
+	Element elemFov;
+	elemFov.text = "Field of View [" + Keys::fovDecrease.name + "] [" + Keys::fovIncrease.name + "]";
+	elemFov.type = Element::ElementType::floatSlider;
+	elemFov.value = &Settings::fov;
+	elemFov.max = 180;
+	elemFov.step = .5f;
+
+	Element elemCamSens;
+	elemCamSens.text = "FreeCam Sensitivity";
+	elemCamSens.type = Element::ElementType::floatSlider;
+	elemCamSens.value = &Settings::camSens;
+	elemCamSens.step = .10f;
+
 	Element elemEnableResScale;
 	elemEnableResScale.text = "Enable Resolution Scale [" + Keys::enableResScale.name + "]";
 	elemEnableResScale.type = Element::ElementType::checkBox;
@@ -127,9 +141,9 @@ void buildCameraMenu(Menu& menu) {
 	elemResScale.value = &Settings::resScale;
 	elemResScale.step = .25f;
 
+	menu.elements.push_back(elemCamSens);
+	menu.elements.push_back(elemFov);
 	menu.elements.push_back(elemEVControl);
-	menu.elements.push_back(elemFovP);
-	menu.elements.push_back(elemFovM);
 	menu.elements.push_back(elemEnableResScale);
 	menu.elements.push_back(elemResScale);
 
@@ -203,7 +217,7 @@ void buildDofMenu(Menu& menu) {
 	elemDofHalfRes.type = Element::ElementType::checkBox;
 	elemDofHalfRes.value = &Settings::spriteHalfResolution;
 
-	
+
 
 	menu.elements.push_back(elemDofEnable);
 	menu.elements.push_back(elmDofEnableFg);
@@ -302,7 +316,7 @@ tglobalPostProcessSub oglobalPostProcessSub;
 
 // Hook function prototype (globalPostProcessSub)
 __int64 __fastcall hkglobalPostProcessSub(void* a1, __int64 a2, GlobalPostProcessSettings* a3)
-{	
+{
 	if (g_PostProcess == nullptr) std::cout << "g_PostProcess:\t0x" << std::hex << a3 << std::endl;
 	g_PostProcess = a3;
 	return oglobalPostProcessSub(a1, a2, a3);
@@ -372,7 +386,7 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	if (KeyMan::ReadKeyOnce(Keys::freezeTime)) {
 		Settings::freezeTime = !Settings::freezeTime;
 	}
-	
+
 	// toggle the menu button if they press the key
 	if (KeyMan::ReadKeyOnce(Keys::showMenuKey)) {
 		g_ShowMenu = !g_ShowMenu;
@@ -430,6 +444,12 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 	}
 
 	// Exposure control
+	if (Settings::enableFreeCam) {
+		if (g_PostProcess != nullptr) {
+			g_PostProcess->forceEVEnable = true;
+			std::cout << std::hex << &g_PostProcess->forceEVEnable << std::endl;
+		}
+	}
 	if (Settings::evControl) {
 		if (g_PostProcess != nullptr) {
 			g_PostProcess->forceEV = Settings::evControl;
@@ -450,9 +470,9 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 		InputSettings::GetInstance()->mouseSensitivityPower = Settings::mouseSensativity;
 
 		// get the speed to move the camera at, and change it if the modifier keys are being pressed
-		float amount = Settings::mainSpeed;
-		if (KeyMan::ReadKey(Keys::speedUpCamera)) amount = Settings::fastSpeed;
-		if (KeyMan::ReadKey(Keys::slowDownCamera)) amount = Settings::slowSpeed;
+		float amount = Settings::mainSpeed * Settings::camSens;
+		if (KeyMan::ReadKey(Keys::speedUpCamera)) amount = Settings::fastSpeed * Settings::camSens;
+		if (KeyMan::ReadKey(Keys::slowDownCamera)) amount = Settings::slowSpeed * Settings::camSens;
 
 		// set up some vectors
 		Vec4 origin = pGameRenderer->renderView->transform.o;
@@ -528,16 +548,16 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 
 	// hook the function where the mouse state is set
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_SETMOUSESTATE(), &MouseManager::hkSetMouseState, &MouseManager::oSetMouseState);
-	
+
 	// hook the function that access GlobalPostProcessSettings
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_POSTPROCESSSUB(), &hkglobalPostProcessSub, &oglobalPostProcessSub);
 	// initialize our renderer, call the drawLoop function once per game frame
 	Renderer::setup(drawLoop);
-	
+
 	// let this thread sit idling
 
-	for (;;) { 
-		Sleep(100); 
+	for (;;) {
+		Sleep(100);
 		if (GetAsyncKeyState(VK_END)) {
 			// eject the mod
 			printf("Fixing settings\n");
