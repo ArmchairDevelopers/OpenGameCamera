@@ -38,6 +38,7 @@ For communication, support, sharing, and development, join our Discord server: [
 | **Ignore input** | F6 |
 | **Show/Hide UI** | F7 |
 | **Time-freeze** | F8 |
+| **Toggle Resolution Scale** | Insert |
 | **Move camera** | WASD |
 | **Cam up** | Space |
 | **Cam down** | Ctrl |
