@@ -19,6 +19,7 @@ namespace Settings {
 	float evControl = 5.f;
 	float fov = 55;
 	float resScale = 1.f;
+	bool enableResScale = false;
 	float mainSpeed = 0.1f;
 	float slowSpeed = .001f;
 	float fastSpeed = 2.f;
@@ -115,6 +116,11 @@ void buildCameraMenu(Menu& menu) {
 	Element elemFovM;
 	elemFovM.text = "Decrease FOV [" + Keys::fovDecrease.name + "]";
 
+	Element elemEnableResScale;
+	elemEnableResScale.text = "Enable Resolution Scale [" + Keys::enableResScale.name + "]";
+	elemEnableResScale.type = Element::ElementType::checkBox;
+	elemEnableResScale.value = &Settings::enableResScale;
+
 	Element elemResScale;
 	elemResScale.text = "Resolution Scale";
 	elemResScale.type = Element::ElementType::floatSlider;
@@ -124,6 +130,7 @@ void buildCameraMenu(Menu& menu) {
 	menu.elements.push_back(elemEVControl);
 	menu.elements.push_back(elemFovP);
 	menu.elements.push_back(elemFovM);
+	menu.elements.push_back(elemEnableResScale);
 	menu.elements.push_back(elemResScale);
 
 }
@@ -331,12 +338,17 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 		if (Settings::effectsMenu) effectsMenu.draw(pRenderer);
 	}
 
+	// Toggle resolution scale
+	if (KeyMan::ReadKeyOnce(Keys::enableResScale)) {
+		Settings::enableResScale = !Settings::enableResScale;
+	}
+
 	// Set resolution scale
-	if (Settings::resScale) {
+	if (Settings::enableResScale) {
 		GameRenderer::GetInstance()->gameRenderSettings->resolutionScale = Settings::resScale;
 	}
 	else {
-		GameRenderer::GetInstance()->gameRenderSettings->resolutionScale = Settings::resScale = 1.f;
+		GameRenderer::GetInstance()->gameRenderSettings->resolutionScale = 1.f;
 	}
 
 	// Set our FOV

@@ -29,6 +29,7 @@ public:
 	static KeyDef freezeTime;
 	static KeyDef fovIncrease;
 	static KeyDef fovDecrease;
+	static KeyDef enableResScale;
 };
 
 
