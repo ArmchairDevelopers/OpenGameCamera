@@ -117,6 +117,13 @@ void buildCameraMenu(Menu& menu) {
 	Element elemFovM;
 	elemFovM.text = "Decrease FOV [" + Keys::fovDecrease.name + "]";
 
+	Element elemFov;
+	elemFov.text = "Field of View [" + Keys::fovDecrease.name + "] [" + Keys::fovIncrease.name + "]";
+	elemFov.type = Element::ElementType::floatSlider;
+	elemFov.value = &Settings::fov;
+	elemFov.max = 180;
+	elemFov.step = .5f;
+
 	Element elemCamSens;
 	elemCamSens.text = "FreeCam Sensitivity";
 	elemCamSens.type = Element::ElementType::floatSlider;
@@ -135,9 +142,8 @@ void buildCameraMenu(Menu& menu) {
 	elemResScale.step = .25f;
 
 	menu.elements.push_back(elemCamSens);
+	menu.elements.push_back(elemFov);
 	menu.elements.push_back(elemEVControl);
-	menu.elements.push_back(elemFovP);
-	menu.elements.push_back(elemFovM);
 	menu.elements.push_back(elemEnableResScale);
 	menu.elements.push_back(elemResScale);
 
