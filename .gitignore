@@ -36,3 +36,5 @@
 .vs/
 x64/
 OpenGameCamera/x64
+LaunchOpenGameCamera/bin/
+LaunchOpenGameCamera/obj/
