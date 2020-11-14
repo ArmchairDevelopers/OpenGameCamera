@@ -1,3 +1,5 @@
+![ogc-banner](https://i.ibb.co/NZzWv07/banner.png)
+
 # What is OpenGameCamera?
 
 OpenGameCamera (OGC) is a free, open-source camera tool for Frostbite games. Our aim is to build a cinematic tool with the freedom to allow content creators, modders and PC users to create stunning artwork.
