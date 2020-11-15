@@ -2,14 +2,11 @@
 
 # What is OpenGameCamera?
 
-OpenGameCamera (OGC) is a free, open-source camera tool for Frostbite games. Our aim is to build a cinematic tool with the freedom to allow content creators, modders and PC users to create stunning artwork.
+OpenGameCamera is a free, open-source camera tool for Frostbite games. Our aim is to build a robust toolset with the freedom to allow content creators, modders and PC users to create stunning artwork and movies.
 
-We are open-source; we need people to help us flesh out OGC. Without support we will not be able to update OpenGameCamera with each new game update.
+### Join the team!
 
-### How can I help?
-
-We are looking for people that know **C++** or are willing to learn. Ideally you will also have some knowledge or experience in **reverse engineering** videogames, however, that is not totally necessary.
-If you think you can help then *please contact us.* If you don't have these skills but would still like to help, whether that you'd like to spread awareness, create promotional content or help with testing, *please contact us*.
+We are currently expanding the core dev team, so if you know a thing or two about reverse engineering game camera systems, reach out! We're most active on [the official OpenGameCamera Discord](https://discord.gg/HZ676Ff)
 
 ### Discord Server
 
@@ -70,6 +67,15 @@ The code is designed to be easily built.  You don't even need the DirectX SDK in
 1. Clone, or [download](https://github.com/coltonon/OpenGameCamera/archive/master.zip) and extract
 2. Open `OpenGameCamera` in Visual Studio
 3. Build (Ctrl-B)
+
+## Credits
+
+Coltonon
+Dangercat
+cstdr
+GalaxyMan
+Dulana57
+
 
 # Docs
 
