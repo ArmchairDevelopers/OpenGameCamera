@@ -188,7 +188,7 @@ namespace LaunchOpenGameCamera
 
         public static Nullable<DateTime> GetBuildUTCTimestamp(ConsoleContent console)
         {
-            using (Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("LaunchOpenGameCamera.BuildTimestamp.txt"))
+            using (Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("OpenGameCamera.BuildTimestamp.txt"))
             {
                 if (stream == null)
                 {
@@ -307,7 +307,7 @@ namespace LaunchOpenGameCamera
             string dllPath = System.IO.Path.Combine(rootDir, "OpenGameCamera.dll");
             if (!File.Exists(dllPath))
             {
-                if (!ResourceExtractor.ExtractResourceToFile(console, "LaunchOpenGameCamera.OpenGameCamera.dll", dllPath))
+                if (!ResourceExtractor.ExtractResourceToFile(console, "OpenGameCamera.OpenGameCamera.dll", dllPath))
                 {
                     console.Error("Failed to extract DLL -- if this happens consistently, paste the Log Output in #log-outputs in the OpenGameCamera Discord (https://discord.gg/HZ676Ff)");
                     return;

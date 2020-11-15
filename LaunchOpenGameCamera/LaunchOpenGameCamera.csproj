@@ -131,14 +131,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="BuildTimestamp.txt" />
+    <EmbeddedResource Include="BuildTimestamp.txt" />
     <Resource Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="favicon2.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OpenGameCamera.dll" />
+    <EmbeddedResource Include="OpenGameCamera.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
