@@ -1,4 +1,4 @@
-![ogc-banner](https://i.ibb.co/NZzWv07/banner.png)
+![ogc-banner](https://i.ibb.co/SN67nmJ/main-window-banner.png)
 
 # What is OpenGameCamera?
 
