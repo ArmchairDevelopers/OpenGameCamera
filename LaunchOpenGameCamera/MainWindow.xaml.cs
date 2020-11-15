@@ -286,22 +286,22 @@ namespace LaunchOpenGameCamera
                 try
                 {
                     Directory.CreateDirectory(rootDir);
-                    console.Info("creating directory for OGC: path=" + rootDir);
+                    console.Info("Creating directory for OGC: path=" + rootDir);
                 }
                 catch (IOException)
                 {
-                    console.Error("path already exists as file: path=" + rootDir);
+                    console.Error("Path already exists as file: path=" + rootDir);
                     return;
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    console.Error("permission error trying to create: path=" + rootDir);
+                    console.Error("Permission error trying to create: path=" + rootDir);
                     return;
                 }
             } 
             else
             {
-                console.Info("directory already exists at " + rootDir);
+                console.Info("Directory already exists at " + rootDir);
             }
 
             string dllPath = System.IO.Path.Combine(rootDir, "OpenGameCamera.dll");
@@ -309,16 +309,16 @@ namespace LaunchOpenGameCamera
             {
                 if (!ResourceExtractor.ExtractResourceToFile(console, "LaunchOpenGameCamera.OpenGameCamera.dll", dllPath))
                 {
-                    console.Error("failed to extract DLL -- if this happens consistently, head over to the OGC Discord with log output");
+                    console.Error("Failed to extract DLL -- if this happens consistently, paste the Log Output in #log-outputs in the OpenGameCamera Discord (https://discord.gg/HZ676Ff)");
                     return;
                 }
 
-                console.Info("extracted OGC to " + dllPath);
+                console.Info("Extracted OGC to " + dllPath);
             }
 
             if (!DllInjector.Inject(console, dllPath))
             {
-                console.Error("failed to inject into SWBF2 -- if this happens consistently, head over to the OGC Discord with log output");
+                console.Error("Failed to inject -- if this happens consistently, paste the Log Output in #log-outputs in the OpenGameCamera Discord (https://discord.gg/HZ676Ff)");
                 return;
             }
 
