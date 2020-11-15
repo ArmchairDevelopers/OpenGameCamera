@@ -70,11 +70,11 @@ The code is designed to be easily built.  You don't even need the DirectX SDK in
 
 ## Credits
 
-Coltonon
-Dangercat
-cstdr
-GalaxyMan
-Dulana57
+Coltonon  
+Dangercat  
+cstdr  
+GalaxyMan  
+Dulana57  
 
 
 # Docs
