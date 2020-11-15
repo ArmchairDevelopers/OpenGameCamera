@@ -270,7 +270,7 @@ namespace LaunchOpenGameCamera
                 CheckForLatestRelease();
             }
 
-            console.Info("Welcome to OpenGameCamera Launcher for Star Wars Battlefront II!\n\n");
+            console.Info("Welcome to OpenGameCamera. To begin, ensure your game is running before starting OGC.\n\n");
         }
 
         private void CheckForLatestRelease()
@@ -327,7 +327,7 @@ namespace LaunchOpenGameCamera
 
         private void CopyTextButton_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(console.GetText());
+            Clipboard.SetDataObject(console.GetText());
         }
     }
 
