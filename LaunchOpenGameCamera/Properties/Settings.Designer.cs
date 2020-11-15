@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LaunchOpenGameCamera.Properties {
+namespace OpenGameCamera.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -23,6 +23,7 @@
     <ProjectGuid>{5851B990-B78F-4652-ABF9-4C0A8F3D5D41}</ProjectGuid>
     <RootNamespace>OpenGameCamera</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>OpenGameCamera</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

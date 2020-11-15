@@ -192,7 +192,7 @@ namespace LaunchOpenGameCamera
             {
                 if (stream == null)
                 {
-                    console.Error("cannot find UTC timestamp for current build");
+                    console.Error("Cannot find UTC timestamp for current build");
                     return null;
                 }
 
@@ -202,21 +202,21 @@ namespace LaunchOpenGameCamera
                 string rawData = Encoding.Unicode.GetString(buf);
                 if (rawData.Length <= 50)
                 {
-                    console.Error("invalid timestamp format (too short): " + rawData.Replace("\n", "\\n"));
+                    console.Error("Invalid timestamp format (too short): " + rawData.Replace("\n", "\\n"));
                     return null;
                 }
 
                 int rawTimestampStart = rawData.LastIndexOf("\n", rawData.Length - 2);
                 if (rawTimestampStart < 0)
                 {
-                    console.Error("invalid timestamp format: " + rawData.Replace("\n", "\\n"));
+                    console.Error("Invalid timestamp format: " + rawData.Replace("\n", "\\n"));
                     return null;
                 }
                 
                 string rawTimestamp = rawData.Substring(rawTimestampStart + 1);
                 if (rawTimestamp.Length < 24)
                 {
-                    console.Error("bad build timestamp format: " + rawTimestamp);
+                    console.Error("Bad build timestamp format: " + rawTimestamp);
                     return null;
                 }
 
@@ -230,12 +230,12 @@ namespace LaunchOpenGameCamera
                 } 
                 catch (FormatException)
                 {
-                    console.Error("timezone modifier not a number: " + rawTimezone);
+                    console.Error("Timezone modifier not a number: " + rawTimezone);
                     return null;
                 }
                 catch (OverflowException)
                 {
-                    console.Error("timezone modifier too big: " + rawTimezone);
+                    console.Error("Timezone modifier too big: " + rawTimezone);
                     return null;
                 }
 

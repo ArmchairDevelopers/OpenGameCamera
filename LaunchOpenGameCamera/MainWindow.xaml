@@ -13,7 +13,7 @@
             <ColumnDefinition Width="38*"/>
             <ColumnDefinition Width="299*"/>
         </Grid.ColumnDefinitions>
-        <Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Source="https://i.ibb.co/Ypsk7yQ/main-window-banner.png" Margin="10,10,0,0" Grid.ColumnSpan="3"/>
+        <Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Source="https://i.ibb.co/SN67nmJ/main-window-banner.png" Margin="10,10,0,0" Grid.ColumnSpan="3"/>
         <StackPanel HorizontalAlignment="Center" Height="302" Margin="10,115,10,10" VerticalAlignment="Top" Width="650" Grid.ColumnSpan="3">
             <ScrollViewer Name="Scroller" Margin="5,5,-20,5" Background="Black" BorderBrush="Black" Height="230">
                 <StackPanel>
