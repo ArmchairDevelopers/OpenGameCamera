@@ -26,6 +26,9 @@
 *.a
 *.lib
 
+# User settings
+*.user
+
 # Executables
 *.exe
 *.out
@@ -36,3 +39,6 @@
 .vs/
 x64/
 OpenGameCamera/x64
+LaunchOpenGameCamera/bin/
+LaunchOpenGameCamera/obj/
+LaunchOpenGameCamera/BuildTimestamp.txt
