@@ -271,6 +271,7 @@ namespace LaunchOpenGameCamera
             }
 
             console.Info("Welcome to OpenGameCamera. To begin, ensure your game is running before starting OGC.\n\n");
+            console.Info("Share your captures and get support on official OGC Discord: https://discord.gg/HZ676Ff.\n\n");
         }
 
         private void CheckForLatestRelease()

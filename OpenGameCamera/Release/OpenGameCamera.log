@@ -1,0 +1,43 @@
+﻿  SigScan.cpp
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\SigScan\SigScan.h(32,7): error C2143: syntax error: missing ';' before '<class-head>'
+  Source.cpp
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\SigScan\SigScan.h(32,7): error C2143: syntax error: missing ';' before '<class-head>'
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Typedefs.hpp(8,86): warning C4229: anachronism used: modifiers on data are ignored
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Typedefs.hpp(11,77): warning C4229: anachronism used: modifiers on data are ignored
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(104,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(104,69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(107,90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(107,69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(108,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(108,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(111,21): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(114,66): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(122,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(128,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(128,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(128,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(128,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(140,66): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(139,66): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(138,67): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(147,66): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(146,66): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(145,67): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(166,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(173,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(173,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(173,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(173,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(180,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(180,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(180,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(180,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(231,42): warning C4244: '=': conversion from 'LONG' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Menu.hpp(232,42): warning C4244: '=': conversion from 'LONG' to 'float', possible loss of data
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\MouseManager.hpp(14,70): warning C4229: anachronism used: modifiers on data are ignored
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Source.cpp(250,25): warning C4305: '=': truncation from 'double' to 'float'
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Source.cpp(252,26): warning C4305: '=': truncation from 'double' to 'float'
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Source.cpp(314,95): warning C4229: anachronism used: modifiers on data are ignored
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Source.cpp(555,26): error C2664: 'void Renderer::setup(Renderer::tRENDERERCALLBACK)': cannot convert argument 1 from 'void (__cdecl *)(Renderer *,uint32_t,uint32_t)' to 'Renderer::tRENDERERCALLBACK'
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Source.cpp(555,18): message : None of the functions with this name in scope match the target type
+D:\Downloads\OpenGameCamera-master (11)\OpenGameCamera-master\OpenGameCamera\Renderer.hpp(62,16): message : see declaration of 'Renderer::setup'

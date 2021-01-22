@@ -13,8 +13,8 @@
             <ColumnDefinition Width="38*"/>
             <ColumnDefinition Width="299*"/>
         </Grid.ColumnDefinitions>
-        <Image HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Source="https://i.ibb.co/zxTHBQx/banner-bg.png" Margin="0,0,0,0" Grid.ColumnSpan="3" />
-        <Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Source="https://i.ibb.co/SN67nmJ/main-window-banner.png" Margin="10,6,0,0" Grid.ColumnSpan="3" />
+        <Image HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Source="https://opengamecameralauncher.fra1.digitaloceanspaces.com/banner-bg.png" Margin="0,0,0,0" Grid.ColumnSpan="3" />
+        <Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Source="https://opengamecameralauncher.fra1.digitaloceanspaces.com/main-window-banner.png" Margin="10,6,0,0" Grid.ColumnSpan="3" />
         <StackPanel HorizontalAlignment="Center" Height="302" Margin="10,115,10,10" VerticalAlignment="Top" Width="650" Grid.ColumnSpan="3">
             <ScrollViewer Name="Scroller" Margin="5,5,-20,5" Background="Black" BorderBrush="Black" Height="230">
                 <StackPanel>
@@ -29,6 +29,6 @@
                 </StackPanel>
             </ScrollViewer>
             <Button x:Name="InjectButton" Content="Start OpenGameCamera" Margin="0,2,0,0" Height="60" FontFamily="https://fonts.googleapis.com/css2?family=Varela+Round" FontSize="16" BorderBrush="Black" Background="#fc0603" Foreground="#FFFFFF"  Click="InjectButton_Click"/>
-        </StackPanel>
+        </StackPanel>      
     </Grid>
 </Window>
