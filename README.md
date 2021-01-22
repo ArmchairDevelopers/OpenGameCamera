@@ -1,32 +1,26 @@
-![ogc-banner](https://i.ibb.co/7V88sv6/banner.png)
+![ogc-banner](https://opengamecameralauncher.fra1.digitaloceanspaces.com/launcher-infomercial.png)
 
 # What is OpenGameCamera?
 
 OpenGameCamera is a free, open-source camera tool for Frostbite games. Our aim is to build a robust toolset with the freedom to allow content creators, modders and PC users to create stunning artwork and movies.
 
-### Join the team!
-
-We are currently expanding the core dev team, so if you know a thing or two about reverse engineering game camera systems, reach out! We're most active on [the official OpenGameCamera Discord](https://discord.gg/HZ676Ff)
-
-### Discord Server
-
-For communication, support, sharing, and development, join our Discord server: [OpenGameCamera Discord](https://discord.gg/HZ676Ff)
-
 ## Instructions
 
 ### [Download the latest version of OpenGameCamera](https://github.com/coltonon/OpenGameCamera/releases)
 
-1. Install this **C++ redistributable**: [Download](https://aka.ms/vs/16/release/vc_redist.x64.exe)  
-(OpenGameCamera will not work without this.)
+1. Download the OpenGameCamera Launcher.
 
-2. Download the injector: [Download](https://cdn.discordapp.com/attachments/548738758053330944/640624916323893297/Injector.exe)  
-(Your browser or anti-virus may falsely flag this as dangerous. You must allow the file on your PC.)
+2. Run the Launcher and click 'Launch OpenGameCamera'.
 
-3. Inject OpenGameCamera.DLL with the injector.  
-(Star Wars: Battlefront II must be running when you inject OpenGameCamera.DLL, and must be done each time you launch the game.)
+3. Make awesome content.
 
-4. Make awesome content.  
-(Practice may be required!)
+### Discord Server
+
+For communication, support, sharing, and development, join our Discord server: [OpenGameCamera Discord](https://discord.gg/HZ676Ff)  
+
+### Join the team!
+
+We are currently expanding the core dev team, so if you know a thing or two about reverse engineering game camera systems, reach out! We're most active on [the official OpenGameCamera Discord](https://discord.gg/HZ676Ff)
 
 ## Key Bindings
 
