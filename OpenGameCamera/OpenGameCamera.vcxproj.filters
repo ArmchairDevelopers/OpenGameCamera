@@ -22,6 +22,21 @@
     <Filter Include="MinHook\hde">
       <UniqueIdentifier>{3d24ccfd-8857-4db1-9fa3-8052f4661251}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{72058f21-2fe0-490d-8500-e809c121d49f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\imgui">
+      <UniqueIdentifier>{0d231c72-caa3-42df-b39f-b81a90e304a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Windows">
+      <UniqueIdentifier>{433daa7e-e1a2-40a5-97bb-b009e3a1e84e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Windows\CPP">
+      <UniqueIdentifier>{8fd69483-150f-418a-b6fd-c8392f66226e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Windows\H">
+      <UniqueIdentifier>{5fbccc16-852c-4eb7-86ad-7a58f8c26736}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -48,15 +63,36 @@
     <ClCompile Include="KeyMan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="window.cpp">
+      <Filter>Renderer\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>Renderer\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>Renderer\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\examples\imgui_impl_win32.cpp">
+      <Filter>Renderer\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\examples\imgui_impl_dx11.cpp">
+      <Filter>Renderer\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>Renderer\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Renderer\Windows\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Candy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Typedefs.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SigScan\SigScan.h">
@@ -103,6 +139,18 @@
     </ClInclude>
     <ClInclude Include="MouseManager.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>Renderer\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="mainwindow.h">
+      <Filter>Renderer\Windows\H</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

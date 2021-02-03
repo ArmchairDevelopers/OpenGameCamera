@@ -23,13 +23,14 @@ public:
 	static KeyDef cameraBack;
 	static KeyDef cameraLeft;
 	static KeyDef cameraRight;
-	static KeyDef camerUp;
+	static KeyDef cameraUp;
 	static KeyDef cameraDown;
 	static KeyDef disableUi;
 	static KeyDef freezeTime;
 	static KeyDef fovIncrease;
 	static KeyDef fovDecrease;
 	static KeyDef enableResScale;
+	static KeyDef resetSettingsMenus;
 };
 
 

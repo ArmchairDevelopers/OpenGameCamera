@@ -3,46 +3,13 @@
 #include <iostream>
 #include "Menu.hpp"
 #include "MouseManager.hpp"
+#include "Candy.hpp"
+#include "renderer.h"
 
 // make Visual Studio shut up
+// I'm warning you, stay back compiler!
 #pragma warning(disable: 4996)
 
-
-// config data.  Change if you want different defaults
-namespace Settings {
-	bool enableFreeCam = false;
-	bool disableUi = true;
-	bool cameraMenu = true;
-	bool dofMenu = true;
-	bool effectsMenu = true;
-	// Camera Settings
-	float evControl = 5.f;
-	float camSens = 1.f;
-	float fov = 55;
-	float resScale = 1.f;
-	bool enableResScale = false;
-	float mainSpeed = 0.1f;
-	float slowSpeed = .01f;
-	float fastSpeed = 1.f;
-	float mouseSensativity = 1.3f;
-	// DOF Settings
-	bool enableDof = false;
-	float focusDistance = 0.f;
-	bool spriteHalfResolution = false;
-	float dofBlurMax = 3.f;
-	float dofFarStart = 3.f;
-	float dofFarEnd = 16.f;
-	bool dofEnableForeground = false;
-	float dofNearStart = 0.f;
-	float dofNearEnd = 3.f;
-	// Effects Menu
-	bool freezeTime = false;
-	float timeScale = 1.f;
-	bool freezePlayer = true;
-	bool forceBloomEnable = true;
-	bool ssrEnable = false;
-	bool ssrFullResEnable = false;
-}
 
 // global static variables
 void* g_RenderView = NULL; // stores the RenderView pointer from GameRenderer
@@ -92,6 +59,11 @@ void buildMainMenu(Menu& menu) {
 	elemShowEffectsMenu.type = Element::ElementType::checkBox;
 	elemShowEffectsMenu.value = &Settings::effectsMenu;
 
+	Element resetSettingsMenus;
+	resetSettingsMenus.text = "Reset Menu Positions [" + Keys::disableUi.name + "]";
+	resetSettingsMenus.type = Element::ElementType::button;
+	resetSettingsMenus.value = (void*)false;
+
 	// add them to the menu
 	menu.elements.push_back(elemShowMenu);
 	menu.elements.push_back(elemEnableFreecam);
@@ -99,6 +71,7 @@ void buildMainMenu(Menu& menu) {
 	menu.elements.push_back(elemCameraMenu);
 	menu.elements.push_back(elemShowDofMenu);
 	menu.elements.push_back(elemShowEffectsMenu);
+	menu.elements.push_back(resetSettingsMenus);
 }
 
 void buildCameraMenu(Menu& menu) {
@@ -336,12 +309,12 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 
 	// if the mouse hook hasn't been activated yet, display a help message
 	if (MouseManager::arg1 == NULL) {
-		pRenderer->drawText(20, 20, defaultStyle.accentColor, "Pause the game to initialize mouse hook", 2);
+		//pRenderer->drawText(20, 20, defaultStyle.accentColor, "Pause the game to initialize mouse hook", 2);
 	}
 
 	// if the freecam is active and so is the menu, display this help message
 	if (g_ShowMenu) {
-		pRenderer->drawText(20, 50, defaultStyle.foregroundColor, "Hide the menu to move the camera", 1.25f);
+		//pRenderer->drawText(20, 50, defaultStyle.foregroundColor, "Hide the menu to move the camera", 1.25f);
 	}
 
 	// if the global bool says we should draw the menu, do so
@@ -496,7 +469,7 @@ void drawLoop(Renderer* pRenderer, uint32_t width, uint32_t height) {
 		if (KeyMan::ReadKey(Keys::cameraDown)) { // down
 			origin = origin - yVec * amount;
 		}
-		if (KeyMan::ReadKey(Keys::camerUp)) { // up
+		if (KeyMan::ReadKey(Keys::cameraUp)) { // up
 			origin = origin + yVec * amount;
 		}
 		// set the global cameraPosition vec4 to our new location
@@ -535,10 +508,10 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	g_RenderView = GameRenderer::GetInstance()->renderView;
 
 	// build our menu
-	buildMainMenu(mainMenu);
+	//buildMainMenu(mainMenu);
 	buildCameraMenu(cameraMenu);
-	buildDofMenu(dofMenu);
-	buildEffectsMenu(effectsMenu);
+	//buildDofMenu(dofMenu);
+	//buildEffectsMenu(effectsMenu);
 	// hook the function for setting our camera position manually
 	// TODO(cstdr1): camerahook is still broken, investigating 
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2(), &hkupdateCamera2, &oupdateCamera2);
@@ -552,7 +525,9 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	// hook the function that access GlobalPostProcessSettings
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_POSTPROCESSSUB(), &hkglobalPostProcessSub, &oglobalPostProcessSub);
 	// initialize our renderer, call the drawLoop function once per game frame
-	Renderer::setup(drawLoop);
+	//Renderer::setup(drawLoop);
+
+	new Renderer();
 
 	// let this thread sit idling
 
@@ -574,7 +549,9 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 			}
 			printf("Unhooking\n");
 			// now unhook everything we hooked
-			Renderer::shutdown();
+
+			//Renderer::shutdown();
+
 			// TODO(cstdr1): camerahook is still broken, investigating 
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_CAMERAHOOK2());
 			Candy::DestroyHook(StaticOffsets::Get_OFFSET_KEYBOARDUPDATE());
