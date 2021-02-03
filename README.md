@@ -64,12 +64,13 @@ The code is designed to be easily built.  You don't even need the DirectX SDK in
 
 ## Credits
 
-Coltonon  
-Dangercat  
-cstdr  
-GalaxyMan  
-Dulana57  
-kiwidog  
+[Coltonon](https://github.com/coltonon)  
+[BattleDash](https://github.com/BattleDash)  
+[Dangercat](https://github.com/Dangercato)  
+[cstdr](https://github.com/cstdr1)  
+[GalaxyMan](https://github.com/GalaxyEham)  
+[Dulana57](https://github.com/Dulana57)  
+[kiwidog](https://github.com/kiwidoggie)  
 
 
 # Docs
