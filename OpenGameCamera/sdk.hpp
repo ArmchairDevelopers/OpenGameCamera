@@ -290,7 +290,7 @@ public:
 class MppPlayer
 {
 public:
-	class ClientPlayer* PlayerArray[40]; //0x0000
+	class ClientPlayer* PlayerArray[64]; //0x0000
 	char pad_01E0[64]; //0x01E0
 
 	ClientPlayer* GetPlayerByID(int ID) {

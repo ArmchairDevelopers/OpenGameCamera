@@ -32,7 +32,7 @@ void MatchInfoWindow::Draw()
 	if (inLevel) {
 		ImGui::Text("Class: %s", context->GetPlayerManager()->GetLocalPlayer()->GetPlayerClassName());
 		ImGui::Text("");
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 64; i++) {
 			ClientPlayer* player = context->GetPlayerManager()->GetmPPlayer()->PlayerArray[i];
 			if (player == nullptr || player->controlledControllable == nullptr) continue;
 
