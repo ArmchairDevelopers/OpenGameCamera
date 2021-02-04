@@ -1,5 +1,5 @@
-#ifndef TYPEDEFS_DOT_HPP
-#define TYPEDEFS_DOT_HPP
+#pragma once
+
 #include <Windows.h>
 
 typedef DWORD64(__fastcall* tEndFrame)(void*, DWORD64 a2, bool presentEnable);
@@ -10,5 +10,3 @@ tupdateCamera2 oupdateCamera2 = nullptr;
 
 typedef bool(*__fastcall tkeyboardUpdate)(__int64, unsigned __int8, __int64);
 tkeyboardUpdate okeyboardUpdate = nullptr;
-
-#endif

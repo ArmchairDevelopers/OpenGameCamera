@@ -1,4 +1,7 @@
 #include "SigScan.h"
+#include <iostream>
+
+#define DEVELOPER
 
 DWORD GetModuleSize(const char* module)
 {
@@ -244,11 +247,11 @@ void *PatternScanner::FindPattern(void *startAddress, DWORD searchSize, Pattern 
 #ifdef DEVELOPER
 	bool success = false;
 	if (bestCount == 0)
-		log("Patterns are broken. Hack won't work.");
+		std::cout << "Patterns are broken. Hack won't work." << std::endl;
 	else if (bestCount == 1 && totalCount > 1)
-		log("Unable to determine majority of scan results, the hack most likely won't work.");
+		std::cout << "Unable to determine majority of scan results, the hack most likely won't work." << std::endl;
 	else if (bestCount < totalCount)
-		log("Some patterns seem to be broken (Found %d/%d).", bestCount, totalCount);
+		std::cout << "Some patterns seem to be broken (Found " << bestCount << "/" << totalCount << ")." << std::endl;
 	else
 		success = true;
 
@@ -258,7 +261,7 @@ void *PatternScanner::FindPattern(void *startAddress, DWORD searchSize, Pattern 
 		for (auto &addr : rawResults)
 		{
 			if (!addr || addr != ret)
-				log("Broken pattern: %d (%p)", i, addr);
+				std::cout << "Broken pattern: " << i << " (" << addr << ")" << std::endl;
 			i++;
 		}
 	}
