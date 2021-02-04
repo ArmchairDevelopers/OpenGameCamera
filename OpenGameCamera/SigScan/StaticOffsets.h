@@ -8,6 +8,14 @@ static DWORD64 Get_## name () {\
 	return name=(DWORD64)PatternScanner::FindPattern({pattern, type});\
 } 
 
+// macro for lazily adding offsets to the sig list
+#define AddStaticOffset(name, off) \
+static DWORD64 Get_## name () {\
+	static DWORD64 name = NULL;\
+	if (name != NULL) return name; \
+	return name=(DWORD64)off;\
+} 
+
 // same but to resolve a call (call func)
 #define AddFuncCall(name, pattern, type) \
 static DWORD64 Get_## name () {\
@@ -25,6 +33,9 @@ public:
 	AddOffset(OFFSET_DXRENDERER, "48 8B 0D [?? ?? ?? ?? 44 89 74 24 50 44 89 74", PatternType::RelativePointer)
 	AddOffset(OFFSET_UISETTINGS, "48 89 05 [?? ?? ?? ?? 48 8B 48 28 E8 ?? ?? ?? ?? 41 0F B6 D4", PatternType::RelativePointer)
 	AddOffset(OFFSET_GAMETIMESETTINGS, "48 89 05 [?? ?? ?? ?? C7 40 ?? ?? ?? ?? ?? 8B 43 18", PatternType::RelativePointer)
+	// Just making this a static offset for now, can't find a stable sig for whatever reason. Game probably won't update so I don't think it matters.
+	AddStaticOffset(OFFSET_CLIENTGAMECONTEXT, 0x143DD7948)
+	//AddOffset(OFFSET_CLIENTGAMECONTEXT, "90 00 87 ?? ?? ?? ?? 00 90 ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 80", PatternType::Address)
 	AddOffset(OFFSET_INPUTSETTINGS, "48 89 05 [?? ?? ?? ?? 80 B8 A5 00 00 00 00 F3 0F 10 35 ?? ?? ?? ?? 74 ??", PatternType::RelativePointer)
 	AddOffset(OFFSET_KEYBOARDUPDATE, "[48 89 5C 24 08 57 48 83 EC 20 89 D7 48 89 CB 4D 85 C0 75 ?? E8 ?? ?? ?? ?? 48 89 C1 E8 ?? ?? ?? ?? 49 89 C0 83 BB B8 00 00 00 00 75 ?? 49 8B 00 4C 89 C1 40 0F B6 D7 FF 50 30 84 C0 74 ?? B8 01 00 00 00", PatternType::Address)
 	AddOffset(OFFSET_SETMOUSESTATE, "[40 53 48 83 EC 20 48 89 CB 48 8B 0D ?? ?? ?? ?? 48 85 C9 74 ?? 8B 42 08", PatternType::Address)
@@ -38,6 +49,10 @@ public:
 };
 
 // to-do: generate signatures for these
+
+//#define OFFSET_CLIENTGAMECONTEXT 0x143DD7948
+// 90 00 87 ?? ?? ?? ?? 00 90 ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 80
+
 //#define OFFSET_INPUTSETTINGS 0x14446D680
 // 48 89 05 [?? ?? ?? ?? 80 B8 A5 00 00 00 00 F3 0F 10 35 ?? ?? ?? ?? 74 ??
 
@@ -56,3 +71,4 @@ public:
 
 #undef AddFuncCall
 #undef AddOffset
+#undef AddStaticOffset

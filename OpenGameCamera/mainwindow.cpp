@@ -3,6 +3,7 @@
 #include "camerawindow.h"
 #include "dofwindow.h"
 #include "effectswindow.h"
+#include "matchinfowindow.h"
 
 MainWindow::MainWindow()
 {
@@ -15,6 +16,7 @@ MainWindow::MainWindow()
 	new CameraWindow();
 	new DofWindow();
 	new EffectsWindow();
+	new MatchInfoWindow();
 }
 
 bool MainWindow::IsEnabled()
@@ -40,5 +42,6 @@ void MainWindow::Draw()
 	ImGui::Checkbox("Show DOF Menu", &Settings::dofMenu);
 	ImGui::Checkbox("Show Effects Menu", &Settings::effectsMenu);
 	ImGui::Checkbox("Show Information Menu", &Settings::informationMenu);
+	ImGui::Checkbox("Show Match Info Menu", &Settings::matchInfoMenu);
 	ImGui::End();
 }

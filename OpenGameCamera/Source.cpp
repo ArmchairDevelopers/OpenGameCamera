@@ -12,7 +12,6 @@
 
 // global static variables
 void* g_RenderView = NULL; // stores the RenderView pointer from GameRenderer
-Vec4 g_CameraPosition = { 0, 0, 0, 0 };
 GlobalPostProcessSettings* g_PostProcess = nullptr;
 bool g_origSSRValueSet = false;
 bool g_origSSREnable = false;
@@ -24,14 +23,14 @@ __int64 __fastcall hkupdateCamera2(CameraObject* a1, CameraObject* a2)
 	// NOTE(cstdr1): We only change the camera position if the source CameraObject is RenderView from GameRenderer!
 	if (a2 == g_RenderView) {
 		// if the camera position hasn't been set,
-		if (g_CameraPosition.x == 0) {
+		if (Globals::g_CameraPosition.x == 0) {
 			// set it to the current camera transform
-			g_CameraPosition = a2->cameraTransform.o;
+			Globals::g_CameraPosition = a2->cameraTransform.o;
 		}
 		// if we're meant to be in frecam mode
 		if (Settings::enableFreeCam) {
 			// set the origin vector to our global vec4 override
-			a2->cameraTransform.o = g_CameraPosition;
+			a2->cameraTransform.o = Globals::g_CameraPosition;
 		}
 	}
 
@@ -66,9 +65,9 @@ void drawLoop() {
 		g_origSSRValueSet = true;
 	}
 
-	if (Settings::informationMenu && g_CameraPosition.x != NULL) {
+	if (Settings::informationMenu && Globals::g_CameraPosition.x != NULL) {
 		ImGui::Text("Information Menu");
-		ImGui::Text("Camera XYZ: %f / %f / %f", g_CameraPosition.x, g_CameraPosition.y, g_CameraPosition.z);
+		ImGui::Text("Camera XYZ: %f / %f / %f", Globals::g_CameraPosition.x, Globals::g_CameraPosition.y, Globals::g_CameraPosition.z);
 	}
 
 	// if the mouse hook hasn't been activated yet, display a help message
@@ -221,8 +220,13 @@ void drawLoop() {
 		if (Globals::ReadKey(Keys::cameraUp)) { // up
 			origin = origin + yVec * amount;
 		}
+		// Hacky fix for renderers to let the camera know it needs to update
+		if (Globals::g_CameraPosition.w == -1) {
+			Globals::g_CameraPosition.w = 0;
+			origin = Globals::g_CameraPosition;
+		}
 		// set the global cameraPosition vec4 to our new location
-		g_CameraPosition = origin;
+		Globals::g_CameraPosition = origin;
 	}
 	else {
 		// freecam is DISABLED
@@ -247,6 +251,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	std::cout << std::hex << "OFFSET_GAMERENDERER:\t0x" << StaticOffsets::Get_OFFSET_GAMERENDERER() << std::endl;
 	std::cout << std::hex << "OFFSET_UISETTINGS:\t0x" << StaticOffsets::Get_OFFSET_UISETTINGS() << std::endl;
 	std::cout << std::hex << "OFFSET_GAMETIMESETTINGS:\t0x" << StaticOffsets::Get_OFFSET_GAMETIMESETTINGS() << std::endl;
+	std::cout << std::hex << "OFFSET_CLIENTGAMECONTEXT:\t0x" << StaticOffsets::Get_OFFSET_CLIENTGAMECONTEXT() << std::endl;
 	std::cout << std::hex << "OFFSET_INPUTSETTINGS:\t0x" << StaticOffsets::Get_OFFSET_INPUTSETTINGS() << std::endl;
 	std::cout << std::hex << "OFFSET_KEYBOARDUPDATE:\t0x" << StaticOffsets::Get_OFFSET_KEYBOARDUPDATE() << std::endl;
 	std::cout << std::hex << "OFFSET_SETMOUSESTATE:\t0x" << StaticOffsets::Get_OFFSET_SETMOUSESTATE() << std::endl;
@@ -270,10 +275,9 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 	Candy::CreateHook(StaticOffsets::Get_OFFSET_POSTPROCESSSUB(), &hkglobalPostProcessSub, &oglobalPostProcessSub);
 
 	// initialize our renderer, call the drawLoop function once per game frame
-	new Renderer();
+	Renderer* renderer = new Renderer();
 	CustomDraw* draw = new CustomDraw();
 	draw->Setup(drawLoop);
-
 
 	// let this thread sit idling
 
@@ -294,6 +298,7 @@ DWORD __stdcall mainThread(HMODULE hOwnModule)
 				g_PostProcess->screenSpaceRaytraceFullresEnable = g_origSSRFullResEnable;
 			}
 			printf("Unhooking\n");
+			renderer->~Renderer();
 			// now unhook everything we hooked
 
 			//Renderer::shutdown();

@@ -75,6 +75,8 @@ bool Globals::requireActive = false;
 // the last clock
 time_t Globals::lastTime = clock();
 
+Vec4 Globals::g_CameraPosition = { 0, 0, 0, 0 };
+
 // key definitions for our preset keys
 KeyDef Keys::showMenuKey = { "HOME", VK_HOME };
 KeyDef Keys::enableFreeCam = { "F5", VK_F5 };
@@ -102,6 +104,7 @@ bool Settings::homeMenu = false;
 bool Settings::cameraMenu = true;
 bool Settings::dofMenu = true;
 bool Settings::effectsMenu = true;
+bool Settings::matchInfoMenu = false;
 // Camera Settings
 float Settings::evControl = 5.f;
 float Settings::camSens = 1.f;

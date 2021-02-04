@@ -143,6 +143,7 @@
     <ClCompile Include="minhook\hde\hde64.c" />
     <ClCompile Include="minhook\hook.c" />
     <ClCompile Include="minhook\trampoline.c" />
+    <ClCompile Include="matchinfowindow.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="SigScan\SigScan.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="minhook\MinHook.h" />
     <ClInclude Include="minhook\trampoline.h" />
     <ClInclude Include="MouseManager.hpp" />
+    <ClInclude Include="matchinfowindow.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="sdk.hpp" />
     <ClInclude Include="SigScan\SigScan.h" />

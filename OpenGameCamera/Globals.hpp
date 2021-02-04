@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <ctime>
 #include <string>
+#include "BasicTypes.hpp"
 // keyboard manager
 
 // config data. Change in Globals.cpp if you want different defaults
@@ -15,6 +16,7 @@ public:
 	static bool cameraMenu;
 	static bool dofMenu;
 	static bool effectsMenu;
+	static bool matchInfoMenu;
 	// Camera Settings
 	static float evControl;
 	static float camSens;
@@ -77,6 +79,7 @@ public:
 // Globals class, for reading keystates
 class Globals {
 private:
+
 	// the last time a key was clicked
 	static time_t lastTime;
 
@@ -86,6 +89,8 @@ private:
 	// function for getting the current game's window
 	static BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam);
 public:
+	static Vec4 g_CameraPosition;
+
 	// read key with a minimum time between keypresses
 	static bool ReadKeyOnce(unsigned int keyCode, unsigned int timer = 250);
 	static bool ReadKeyOnce(KeyDef keyDef, unsigned int timer = 250);
