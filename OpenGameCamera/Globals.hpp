@@ -24,7 +24,7 @@ public:
 	static float mainSpeed;
 	static float slowSpeed;
 	static float fastSpeed;
-	static float mouseSensativity;
+	static float mouseSensitivity;
 	// DOF Settings
 	static bool enableDof;
 	static float focusDistance;

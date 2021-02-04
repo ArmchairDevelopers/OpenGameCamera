@@ -111,7 +111,7 @@ bool Settings::enableResScale = false;
 float Settings::mainSpeed = 0.1f;
 float Settings::slowSpeed = .01f;
 float Settings::fastSpeed = 1.f;
-float Settings::mouseSensativity = 1.3f;
+float Settings::mouseSensitivity = 1.3f;
 // DOF Settings
 bool Settings::enableDof = false;
 float Settings::focusDistance = 0.f;
@@ -127,5 +127,5 @@ bool Settings::freezeTime = false;
 float Settings::timeScale = 1.f;
 bool Settings::freezePlayer = true;
 bool Settings::forceBloomEnable = true;
-bool Settings::ssrEnable = false;
-bool Settings::ssrFullResEnable = false;
+bool Settings::ssrEnable = true;
+bool Settings::ssrFullResEnable = true;

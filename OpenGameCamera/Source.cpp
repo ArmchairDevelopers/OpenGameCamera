@@ -135,17 +135,19 @@ void drawLoop() {
 		Settings::disableUi = !Settings::disableUi;
 	}
 
-	if (Settings::enableDof && g_PostProcess != nullptr) {
-		g_PostProcess->spriteDofEnable = true;
-		g_PostProcess->forceDofEnable = 1;
-		g_PostProcess->forceSpriteDofBlurMax = Settings::dofBlurMax;
-		g_PostProcess->forceSpriteDofFarStart = Settings::dofFarStart;
-		g_PostProcess->forceSpriteDofFarEnd = Settings::dofFarEnd;
-		g_PostProcess->forceSpriteDofNearStart = Settings::dofNearStart;
-		g_PostProcess->forceSpriteDofNearEnd = Settings::dofNearEnd;
-		g_PostProcess->enableForeground = Settings::dofEnableForeground;
-		g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
-		g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
+	if (g_PostProcess != nullptr) {
+		if (Settings::enableDof) {
+			g_PostProcess->spriteDofEnable = true;
+			g_PostProcess->forceDofEnable = 1;
+			g_PostProcess->forceSpriteDofBlurMax = Settings::dofBlurMax;
+			g_PostProcess->forceSpriteDofFarStart = Settings::dofFarStart;
+			g_PostProcess->forceSpriteDofFarEnd = Settings::dofFarEnd;
+			g_PostProcess->forceSpriteDofNearStart = Settings::dofNearStart;
+			g_PostProcess->forceSpriteDofNearEnd = Settings::dofNearEnd;
+			g_PostProcess->enableForeground = Settings::dofEnableForeground;
+			g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
+			g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
+		}
 		g_PostProcess->screenSpaceRaytraceEnable = Settings::ssrEnable;
 		g_PostProcess->screenSpaceRaytraceFullresEnable = Settings::ssrFullResEnable;
 	}
@@ -187,7 +189,7 @@ void drawLoop() {
 		// Get the GameRenderer pointer
 		GameRenderer* pGameRenderer = GameRenderer::GetInstance();
 
-		InputSettings::GetInstance()->mouseSensitivityPower = Settings::mouseSensativity;
+		InputSettings::GetInstance()->mouseSensitivityPower = Settings::mouseSensitivity;
 
 		// get the speed to move the camera at, and change it if the modifier keys are being pressed
 		float amount = Settings::mainSpeed * Settings::camSens;
