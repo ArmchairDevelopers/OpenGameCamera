@@ -40,6 +40,5 @@ void MainWindow::Draw()
 	ImGui::Checkbox("Show DOF Menu", &Settings::dofMenu);
 	ImGui::Checkbox("Show Effects Menu", &Settings::effectsMenu);
 	ImGui::Checkbox("Show Information Menu", &Settings::informationMenu);
-	ImGui::Button(std::string("Reset Menu Positions [" + Keys::resetSettingsMenus.name + "]").c_str());
 	ImGui::End();
 }
