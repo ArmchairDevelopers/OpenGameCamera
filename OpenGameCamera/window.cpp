@@ -15,3 +15,12 @@ void Window::Draw()
 void Window::Resize()
 {
 };
+
+bool Window::IsEnabled()
+{
+	return false;
+};
+
+void Window::SetEnabled(bool enabled)
+{
+};

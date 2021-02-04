@@ -127,12 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camerawindow.cpp" />
+    <ClCompile Include="customdraw.cpp" />
+    <ClCompile Include="dofwindow.cpp" />
+    <ClCompile Include="effectswindow.cpp" />
     <ClCompile Include="imgui\examples\imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui\examples\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="KeyMan.cpp" />
+    <ClCompile Include="Globals.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="minhook\buffer.c" />
     <ClCompile Include="minhook\hde\hde32.c" />
@@ -146,10 +150,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicTypes.hpp" />
+    <ClInclude Include="camerawindow.h" />
     <ClInclude Include="Candy.hpp" />
-    <ClInclude Include="KeyMan.hpp" />
+    <ClInclude Include="customdraw.h" />
+    <ClInclude Include="dofwindow.h" />
+    <ClInclude Include="effectswindow.h" />
+    <ClInclude Include="Globals.hpp" />
     <ClInclude Include="mainwindow.h" />
-    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="minhook\buffer.h" />
     <ClInclude Include="minhook\hde\hde32.h" />
     <ClInclude Include="minhook\hde\hde64.h" />
@@ -161,7 +168,6 @@
     <ClInclude Include="MouseManager.hpp" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="sdk.hpp" />
-    <ClInclude Include="Settings.h" />
     <ClInclude Include="SigScan\SigScan.h" />
     <ClInclude Include="SigScan\StaticOffsets.h" />
     <ClInclude Include="Typedefs.hpp" />

@@ -4,6 +4,46 @@
 #include <string>
 // keyboard manager
 
+// config data. Change in Globals.cpp if you want different defaults
+class Settings {
+public:
+	static bool updateMouseState;
+	static bool informationMenu;
+	static bool enableFreeCam;
+	static bool disableUi;
+	static bool homeMenu;
+	static bool cameraMenu;
+	static bool dofMenu;
+	static bool effectsMenu;
+	// Camera Settings
+	static float evControl;
+	static float camSens;
+	static float fov;
+	static float resScale;
+	static bool enableResScale;
+	static float mainSpeed;
+	static float slowSpeed;
+	static float fastSpeed;
+	static float mouseSensativity;
+	// DOF Settings
+	static bool enableDof;
+	static float focusDistance;
+	static bool spriteHalfResolution;
+	static float dofBlurMax;
+	static float dofFarStart;
+	static float dofFarEnd;
+	static bool dofEnableForeground;
+	static float dofNearStart;
+	static float dofNearEnd;
+	// Effects Menu
+	static bool freezeTime;
+	static float timeScale;
+	static bool freezePlayer;
+	static bool forceBloomEnable;
+	static bool ssrEnable;
+	static bool ssrFullResEnable;
+};
+
 // a key definition. Has the name of the key, and it's keycode
 struct KeyDef {
 	std::string name;
@@ -34,8 +74,8 @@ public:
 };
 
 
-// KeyMan class, for reading keystates
-class KeyMan {
+// Globals class, for reading keystates
+class Globals {
 private:
 	// the last time a key was clicked
 	static time_t lastTime;

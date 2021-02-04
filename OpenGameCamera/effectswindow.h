@@ -2,14 +2,12 @@
 
 #include "window.h"
 
-class MainWindow : public Window
+class EffectsWindow : public Window
 {
 public:
-	MainWindow();
-	~MainWindow();
+	EffectsWindow();
+	~EffectsWindow();
 	void Draw() override;
 	bool IsEnabled() override;
 	void SetEnabled(bool enabled) override;
 };
-
-static MainWindow* gpMainWindow;

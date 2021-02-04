@@ -60,9 +60,6 @@
     <ClCompile Include="minhook\hde\hde64.c">
       <Filter>MinHook\hde</Filter>
     </ClCompile>
-    <ClCompile Include="KeyMan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="window.cpp">
       <Filter>Renderer\Windows</Filter>
     </ClCompile>
@@ -87,6 +84,21 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Renderer\Windows\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="customdraw.cpp">
+      <Filter>Renderer\Windows\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="camerawindow.cpp">
+      <Filter>Renderer\Windows\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="dofwindow.cpp">
+      <Filter>Renderer\Windows\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="effectswindow.cpp">
+      <Filter>Renderer\Windows\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Candy.hpp">
@@ -100,9 +112,6 @@
     </ClInclude>
     <ClInclude Include="SigScan\StaticOffsets.h">
       <Filter>SigScan</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.hpp">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BasicTypes.hpp">
       <Filter>Header Files</Filter>
@@ -131,9 +140,6 @@
     <ClInclude Include="minhook\hde\table64.h">
       <Filter>MinHook\hde</Filter>
     </ClInclude>
-    <ClInclude Include="KeyMan.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sdk.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -149,8 +155,20 @@
     <ClInclude Include="mainwindow.h">
       <Filter>Renderer\Windows\H</Filter>
     </ClInclude>
-    <ClInclude Include="Settings.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Globals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="customdraw.h">
+      <Filter>Renderer\Windows\H</Filter>
+    </ClInclude>
+    <ClInclude Include="camerawindow.h">
+      <Filter>Renderer\Windows\H</Filter>
+    </ClInclude>
+    <ClInclude Include="dofwindow.h">
+      <Filter>Renderer\Windows\H</Filter>
+    </ClInclude>
+    <ClInclude Include="effectswindow.h">
+      <Filter>Renderer\Windows\H</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,7 +11,6 @@
 #include "imgui/imgui_internal.h"
 #include "minhook/MinHook.h"
 
-MainWindow* pMainWindow;
 bool bLockFortInput;
 std::list<Window*> Renderer::pUiInstances;
 
@@ -20,11 +19,12 @@ static HWND hWnd = 0;
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 __declspec(dllexport) LRESULT CALLBACK WndProcHook(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
-	if (Msg == WM_KEYUP && (wParam == VK_HOME || (bLockFortInput && wParam == VK_ESCAPE))) {
+	if (Msg == WM_KEYUP && (wParam == Keys::showMenuKey.keyCode || (bLockFortInput && wParam == VK_ESCAPE))) {
 		bLockFortInput = !bLockFortInput;
 
 		ImGui::GetIO().MouseDrawCursor = bLockFortInput;
-		pMainWindow->bShowWindow = bLockFortInput;
+		gpRenderer->pMainWindow->SetEnabled(bLockFortInput);
+		Settings::updateMouseState = true;
 	}
 
 	if (bLockFortInput)
@@ -102,7 +102,7 @@ __declspec(dllexport) HRESULT PresentHook(IDXGISwapChain* pInstance, UINT SyncIn
 
 	for (Window* ui : Renderer::pUiInstances)
 	{
-		if (ui->bShowWindow)
+		if (ui->IsEnabled())
 		{
 			if (!bLockFortInput)
 				ImGui::SetNextWindowBgAlpha(0.5f);
