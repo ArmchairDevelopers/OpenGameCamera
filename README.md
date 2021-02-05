@@ -39,6 +39,7 @@ We are currently expanding the core dev team, so if you know a thing or two abou
 | **Slow move** | Alt |
 | **Toggle Resolution Scale** | Insert |
 | **Eject mod** | End |
+
 *Hint: You can Ctrl+Click on a slider to type in a value!*
 
 # Building
