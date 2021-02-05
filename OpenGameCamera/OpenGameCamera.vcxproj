@@ -130,7 +130,6 @@
     <ClCompile Include="camerawindow.cpp" />
     <ClCompile Include="customdraw.cpp" />
     <ClCompile Include="dofwindow.cpp" />
-    <ClCompile Include="effectswindow.cpp" />
     <ClCompile Include="imgui\examples\imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui\examples\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -155,7 +154,6 @@
     <ClInclude Include="Candy.hpp" />
     <ClInclude Include="customdraw.h" />
     <ClInclude Include="dofwindow.h" />
-    <ClInclude Include="effectswindow.h" />
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="mainwindow.h" />
     <ClInclude Include="minhook\buffer.h" />

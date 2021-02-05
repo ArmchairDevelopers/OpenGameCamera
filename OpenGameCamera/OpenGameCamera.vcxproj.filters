@@ -96,9 +96,6 @@
     <ClCompile Include="dofwindow.cpp">
       <Filter>Renderer\Windows\CPP</Filter>
     </ClCompile>
-    <ClCompile Include="effectswindow.cpp">
-      <Filter>Renderer\Windows\CPP</Filter>
-    </ClCompile>
     <ClCompile Include="matchinfowindow.cpp">
       <Filter>Renderer\Windows\CPP</Filter>
     </ClCompile>
@@ -168,9 +165,6 @@
       <Filter>Renderer\Windows\H</Filter>
     </ClInclude>
     <ClInclude Include="dofwindow.h">
-      <Filter>Renderer\Windows\H</Filter>
-    </ClInclude>
-    <ClInclude Include="effectswindow.h">
       <Filter>Renderer\Windows\H</Filter>
     </ClInclude>
     <ClInclude Include="matchinfowindow.h">

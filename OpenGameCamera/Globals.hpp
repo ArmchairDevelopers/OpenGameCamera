@@ -72,6 +72,7 @@ public:
 	static KeyDef fovIncrease;
 	static KeyDef fovDecrease;
 	static KeyDef enableResScale;
+	static KeyDef enableDof;
 	static KeyDef resetSettingsMenus;
 };
 

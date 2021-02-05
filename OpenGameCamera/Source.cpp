@@ -134,6 +134,11 @@ void drawLoop() {
 		Settings::disableUi = !Settings::disableUi;
 	}
 
+	// read DoF hotkey
+	if (Globals::ReadKeyOnce(Keys::enableDof)) {
+		Settings::enableDof = !Settings::enableDof;
+	}
+
 	if (g_PostProcess != nullptr) {
 		if (Settings::enableDof) {
 			g_PostProcess->spriteDofEnable = true;
@@ -191,9 +196,9 @@ void drawLoop() {
 		InputSettings::GetInstance()->mouseSensitivityPower = Settings::mouseSensitivity;
 
 		// get the speed to move the camera at, and change it if the modifier keys are being pressed
-		float amount = Settings::mainSpeed * Settings::camSens;
-		if (Globals::ReadKey(Keys::speedUpCamera)) amount = Settings::fastSpeed * Settings::camSens;
-		if (Globals::ReadKey(Keys::slowDownCamera)) amount = Settings::slowSpeed * Settings::camSens;
+		float amount = Settings::mainSpeed * Settings::camSens * 0.5;
+		if (Globals::ReadKey(Keys::speedUpCamera)) amount = Settings::fastSpeed * Settings::camSens * 0.5;
+		if (Globals::ReadKey(Keys::slowDownCamera)) amount = Settings::slowSpeed * Settings::camSens * 0.5;
 
 		// set up some vectors
 		Vec4 origin = pGameRenderer->renderView->transform.o;
