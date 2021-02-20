@@ -139,27 +139,33 @@ void drawLoop() {
 		Settings::enableDof = !Settings::enableDof;
 	}
 
+	// SSR toggle
 	if (g_PostProcess != nullptr) {
-		if (Settings::enableDof) {
-			g_PostProcess->spriteDofEnable = true;
-			g_PostProcess->forceDofEnable = 1;
-			g_PostProcess->forceSpriteDofBlurMax = Settings::dofBlurMax;
-			g_PostProcess->forceSpriteDofFarStart = Settings::dofFarStart;
-			g_PostProcess->forceSpriteDofFarEnd = Settings::dofFarEnd;
-			g_PostProcess->forceSpriteDofNearStart = Settings::dofNearStart;
-			g_PostProcess->forceSpriteDofNearEnd = Settings::dofNearEnd;
-			g_PostProcess->enableForeground = Settings::dofEnableForeground;
-			g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
-			g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
-		}
 		g_PostProcess->screenSpaceRaytraceEnable = Settings::ssrEnable;
 		g_PostProcess->screenSpaceRaytraceFullresEnable = Settings::ssrFullResEnable;
 	}
 	else if (g_PostProcess != nullptr) {
-		g_PostProcess->spriteDofEnable = false;
 		g_PostProcess->screenSpaceRaytraceEnable = g_origSSREnable;
 		g_PostProcess->screenSpaceRaytraceFullresEnable = g_origSSRFullResEnable;
 	}
+	
+	// DoF toggle
+	if (Settings::enableDof && g_PostProcess != nullptr) {
+		g_PostProcess->spriteDofEnable = true;
+		g_PostProcess->forceDofEnable = 1;
+		g_PostProcess->forceSpriteDofBlurMax = Settings::dofBlurMax;
+		g_PostProcess->forceSpriteDofFarStart = Settings::dofFarStart;
+		g_PostProcess->forceSpriteDofFarEnd = Settings::dofFarEnd;
+		g_PostProcess->forceSpriteDofNearStart = Settings::dofNearStart;
+		g_PostProcess->forceSpriteDofNearEnd = Settings::dofNearEnd;
+		g_PostProcess->enableForeground = Settings::dofEnableForeground;
+		g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
+		g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
+	}
+	else if (g_PostProcess != nullptr) {
+		g_PostProcess->spriteDofEnable = false;
+	}
+
 
 	// (dcat): testing bloom controls
 	if (Settings::forceBloomEnable && g_PostProcess != nullptr) {
