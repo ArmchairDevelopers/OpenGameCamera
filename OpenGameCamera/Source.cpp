@@ -176,11 +176,10 @@ void drawLoop() {
 	}
 
 	// Exposure control
-	if (Settings::enableFreeCam) {
+	if (Settings::forceEv) {
 		if (g_PostProcess != nullptr) {
-			// Disabling this for now to fix white screen issue
-			//g_PostProcess->forceEVEnable = true;
-			//std::cout << std::hex << &g_PostProcess->forceEVEnable << std::endl;
+			g_PostProcess->forceEVEnable = true;
+			std::cout << std::hex << &g_PostProcess->forceEVEnable << std::endl;
 		}
 	}
 	// Exposure

@@ -18,6 +18,7 @@ public:
 	static bool effectsMenu;
 	static bool matchInfoMenu;
 	// Camera Settings
+	static bool forceEv;
 	static float evControl;
 	static float camSens;
 	static float fov;

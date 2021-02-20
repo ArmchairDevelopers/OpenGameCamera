@@ -107,7 +107,8 @@ bool Settings::dofMenu = true;
 bool Settings::effectsMenu = true;
 bool Settings::matchInfoMenu = false;
 // Camera Settings
-float Settings::evControl = 5.f;
+bool Settings::forceEv = false;
+float Settings::evControl = 10.f;
 float Settings::camSens = 1.f;
 float Settings::fov = 55;
 float Settings::resScale = 1.f;
