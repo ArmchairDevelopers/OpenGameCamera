@@ -21,6 +21,7 @@ public:
 	static bool forceEv;
 	static float evControl;
 	static float camSens;
+	static bool lockFreeCam;
 	static float fov;
 	static float resScale;
 	static bool enableResScale;

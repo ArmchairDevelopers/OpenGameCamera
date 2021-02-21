@@ -21,6 +21,7 @@ void CameraWindow::Draw()
 	ImGui::Begin("Camera", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Checkbox(std::string("Freeze Time [" + Keys::freezeTime.name + "]").c_str(), &Settings::freezeTime);
 	ImGui::Checkbox(std::string("Freeze Player [" + Keys::freezePlayer.name + "]").c_str(), &Settings::freezePlayer);
+	ImGui::Checkbox("Lock FreeCam Location", &Settings::lockFreeCam);
 	ImGui::SliderFloat(std::string("FOV [" + Keys::fovDecrease.name + "] [" + Keys::fovIncrease.name + "]").c_str(), &Settings::fov, 0, 265, "%.3f", 1.0F); // Real max is 180, but forced it can go up to 265 before everything breaks and goes upside-down
 	ImGui::SliderFloat(std::string("FreeCam Sensitivity").c_str(), &Settings::camSens, 0, 5, "%.3f", 1.0F);
 	ImGui::SliderFloat("Time scale", &Settings::timeScale, 0.1, 1.f, "%.3f", 1.0F);

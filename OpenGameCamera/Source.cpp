@@ -175,7 +175,7 @@ void drawLoop() {
 		g_PostProcess->bloomEnable = false;
 	}
 
-	// Exposure control
+	// Exposure control 
 	if (Settings::forceEv) {
 		if (g_PostProcess != nullptr) {
 			g_PostProcess->forceEVEnable = true;
@@ -212,23 +212,25 @@ void drawLoop() {
 		Vec4 zVec = pGameRenderer->renderView->transform.z;
 
 		// modify the 'origin' vector based on what keys are being pressed
-		if (Globals::ReadKey(Keys::cameraForward)) { // forwards
-			origin = origin - zVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraBack)) { // backwards
-			origin = origin + zVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraLeft)) {	// left
-			origin = origin - xVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraRight)) {	// right
-			origin = origin + xVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraDown)) { // down
-			origin = origin - yVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraUp)) { // up
-			origin = origin + yVec * amount;
+		if (Settings::lockFreeCam == false){
+			if (Globals::ReadKey(Keys::cameraForward)) { // forwards
+				origin = origin - zVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraBack)) { // backwards
+				origin = origin + zVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraLeft)) {	// left
+				origin = origin - xVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraRight)) {	// right
+				origin = origin + xVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraDown)) { // down
+				origin = origin - yVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraUp)) { // up
+				origin = origin + yVec * amount;
+			}
 		}
 		// Hacky fix for renderers to let the camera know it needs to update
 		if (Globals::g_CameraPosition.w == -1) {

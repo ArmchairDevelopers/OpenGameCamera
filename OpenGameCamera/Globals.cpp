@@ -110,6 +110,7 @@ bool Settings::matchInfoMenu = false;
 bool Settings::forceEv = false;
 float Settings::evControl = 10.f;
 float Settings::camSens = 1.f;
+bool Settings::lockFreeCam = false;
 float Settings::fov = 55;
 float Settings::resScale = 1.f;
 bool Settings::enableResScale = false;
