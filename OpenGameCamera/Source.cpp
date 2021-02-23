@@ -134,27 +134,38 @@ void drawLoop() {
 		Settings::disableUi = !Settings::disableUi;
 	}
 
+	// read DoF hotkey
+	if (Globals::ReadKeyOnce(Keys::enableDof)) {
+		Settings::enableDof = !Settings::enableDof;
+	}
+
+	// SSR toggle
 	if (g_PostProcess != nullptr) {
-		if (Settings::enableDof) {
-			g_PostProcess->spriteDofEnable = true;
-			g_PostProcess->forceDofEnable = 1;
-			g_PostProcess->forceSpriteDofBlurMax = Settings::dofBlurMax;
-			g_PostProcess->forceSpriteDofFarStart = Settings::dofFarStart;
-			g_PostProcess->forceSpriteDofFarEnd = Settings::dofFarEnd;
-			g_PostProcess->forceSpriteDofNearStart = Settings::dofNearStart;
-			g_PostProcess->forceSpriteDofNearEnd = Settings::dofNearEnd;
-			g_PostProcess->enableForeground = Settings::dofEnableForeground;
-			g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
-			g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
-		}
 		g_PostProcess->screenSpaceRaytraceEnable = Settings::ssrEnable;
 		g_PostProcess->screenSpaceRaytraceFullresEnable = Settings::ssrFullResEnable;
 	}
 	else if (g_PostProcess != nullptr) {
-		g_PostProcess->spriteDofEnable = false;
 		g_PostProcess->screenSpaceRaytraceEnable = g_origSSREnable;
 		g_PostProcess->screenSpaceRaytraceFullresEnable = g_origSSRFullResEnable;
 	}
+	
+	// DoF toggle
+	if (Settings::enableDof && g_PostProcess != nullptr) {
+		g_PostProcess->spriteDofEnable = true;
+		g_PostProcess->forceDofEnable = 1;
+		g_PostProcess->forceSpriteDofBlurMax = Settings::dofBlurMax;
+		g_PostProcess->forceSpriteDofFarStart = Settings::dofFarStart;
+		g_PostProcess->forceSpriteDofFarEnd = Settings::dofFarEnd;
+		g_PostProcess->forceSpriteDofNearStart = Settings::dofNearStart;
+		g_PostProcess->forceSpriteDofNearEnd = Settings::dofNearEnd;
+		g_PostProcess->enableForeground = Settings::dofEnableForeground;
+		g_PostProcess->forceDofFocusDistance = Settings::focusDistance;
+		g_PostProcess->spriteDofHalfResolutionEnable = Settings::spriteHalfResolution;
+	}
+	else if (g_PostProcess != nullptr) {
+		g_PostProcess->spriteDofEnable = false;
+	}
+
 
 	// (dcat): testing bloom controls
 	if (Settings::forceBloomEnable && g_PostProcess != nullptr) {
@@ -164,12 +175,11 @@ void drawLoop() {
 		g_PostProcess->bloomEnable = false;
 	}
 
-	// Exposure control
-	if (Settings::enableFreeCam) {
+	// Exposure control 
+	if (Settings::forceEv) {
 		if (g_PostProcess != nullptr) {
-			// Disabling this for now to fix white screen issue
-			//g_PostProcess->forceEVEnable = true;
-			//std::cout << std::hex << &g_PostProcess->forceEVEnable << std::endl;
+			g_PostProcess->forceEVEnable = true;
+			std::cout << std::hex << &g_PostProcess->forceEVEnable << std::endl;
 		}
 	}
 	// Exposure
@@ -191,9 +201,9 @@ void drawLoop() {
 		InputSettings::GetInstance()->mouseSensitivityPower = Settings::mouseSensitivity;
 
 		// get the speed to move the camera at, and change it if the modifier keys are being pressed
-		float amount = Settings::mainSpeed * Settings::camSens;
-		if (Globals::ReadKey(Keys::speedUpCamera)) amount = Settings::fastSpeed * Settings::camSens;
-		if (Globals::ReadKey(Keys::slowDownCamera)) amount = Settings::slowSpeed * Settings::camSens;
+		float amount = Settings::mainSpeed * Settings::camSens * 0.5;
+		if (Globals::ReadKey(Keys::speedUpCamera)) amount = Settings::fastSpeed * Settings::camSens * 0.5;
+		if (Globals::ReadKey(Keys::slowDownCamera)) amount = Settings::slowSpeed * Settings::camSens * 0.5;
 
 		// set up some vectors
 		Vec4 origin = pGameRenderer->renderView->transform.o;
@@ -202,23 +212,25 @@ void drawLoop() {
 		Vec4 zVec = pGameRenderer->renderView->transform.z;
 
 		// modify the 'origin' vector based on what keys are being pressed
-		if (Globals::ReadKey(Keys::cameraForward)) { // forwards
-			origin = origin - zVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraBack)) { // backwards
-			origin = origin + zVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraLeft)) {	// left
-			origin = origin - xVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraRight)) {	// right
-			origin = origin + xVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraDown)) { // down
-			origin = origin - yVec * amount;
-		}
-		if (Globals::ReadKey(Keys::cameraUp)) { // up
-			origin = origin + yVec * amount;
+		if (Settings::lockFreeCam == false){
+			if (Globals::ReadKey(Keys::cameraForward)) { // forwards
+				origin = origin - zVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraBack)) { // backwards
+				origin = origin + zVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraLeft)) {	// left
+				origin = origin - xVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraRight)) {	// right
+				origin = origin + xVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraDown)) { // down
+				origin = origin - yVec * amount;
+			}
+			if (Globals::ReadKey(Keys::cameraUp)) { // up
+				origin = origin + yVec * amount;
+			}
 		}
 		// Hacky fix for renderers to let the camera know it needs to update
 		if (Globals::g_CameraPosition.w == -1) {

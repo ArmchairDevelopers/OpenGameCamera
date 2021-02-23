@@ -2,7 +2,6 @@
 #include <Windows.h>
 #include "camerawindow.h"
 #include "dofwindow.h"
-#include "effectswindow.h"
 #include "matchinfowindow.h"
 
 MainWindow::MainWindow()
@@ -15,7 +14,6 @@ MainWindow::MainWindow()
 	gpMainWindow = this;
 	new CameraWindow();
 	new DofWindow();
-	new EffectsWindow();
 	new MatchInfoWindow();
 }
 
@@ -38,9 +36,8 @@ void MainWindow::Draw()
 	}
 	ImGui::Checkbox(std::string("Enable FreeCam [" + Keys::enableFreeCam.name + "]").c_str(), &Settings::enableFreeCam);
 	ImGui::Checkbox(std::string("Disable UI [" + Keys::disableUi.name + "]").c_str(), &Settings::disableUi);
-	ImGui::Checkbox("Show Camera Settings", &Settings::cameraMenu);
-	ImGui::Checkbox("Show DOF Menu", &Settings::dofMenu);
-	ImGui::Checkbox("Show Effects Menu", &Settings::effectsMenu);
+	ImGui::Checkbox("Show Camera Menu", &Settings::cameraMenu);
+	ImGui::Checkbox("Show DoF Menu", &Settings::dofMenu);
 	ImGui::Checkbox("Show Information Menu", &Settings::informationMenu);
 	ImGui::Checkbox("Show Match Info Menu", &Settings::matchInfoMenu);
 	ImGui::End();

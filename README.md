@@ -10,9 +10,11 @@ OpenGameCamera is a free, open-source camera tool for Frostbite games. Our aim i
 
 1. Download the OpenGameCamera Launcher.
 
-2. Run the Launcher and click 'Launch OpenGameCamera'.
+2. Start **Star Wars Battlefront II (2017)**
 
-3. Make awesome content.
+3. Run the Launcher and click 'Launch OpenGameCamera'.
+
+4. Make awesome content.
 
 ### Discord Server
 
@@ -30,13 +32,17 @@ We are currently expanding the core dev team, so if you know a thing or two abou
 | **Enter/Exit camera** | F5 |
 | **Ignore input** | F6 |
 | **Show/Hide UI** | F7 |
-| **Time-freeze** | F8 |
+| **Freeze Time** | F8 |
+| **Toggle Depth of Field** | F9 |
 | **Move camera** | WASD |
 | **Cam up** | Space |
 | **Cam down** | Ctrl |
 | **Fast move** | Shift |
 | **Slow move** | Alt |
+| **Toggle Resolution Scale** | Insert |
 | **Eject mod** | End |
+
+*Hint: You can Ctrl+Click on a slider to type in a value!*
 
 # Building
 

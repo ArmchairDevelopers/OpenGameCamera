@@ -18,8 +18,10 @@ public:
 	static bool effectsMenu;
 	static bool matchInfoMenu;
 	// Camera Settings
+	static bool forceEv;
 	static float evControl;
 	static float camSens;
+	static bool lockFreeCam;
 	static float fov;
 	static float resScale;
 	static bool enableResScale;
@@ -72,6 +74,7 @@ public:
 	static KeyDef fovIncrease;
 	static KeyDef fovDecrease;
 	static KeyDef enableResScale;
+	static KeyDef enableDof;
 	static KeyDef resetSettingsMenus;
 };
 

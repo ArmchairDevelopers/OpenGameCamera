@@ -94,6 +94,7 @@ KeyDef Keys::freezeTime = { "F8", VK_F8 };
 KeyDef Keys::fovIncrease = { "+", VK_OEM_PLUS };
 KeyDef Keys::fovDecrease = { "-", VK_OEM_MINUS };
 KeyDef Keys::enableResScale = { "INSERT", VK_INSERT };
+KeyDef Keys::enableDof = { "F9", VK_F9 };
 KeyDef Keys::resetSettingsMenus = { "" };
 
 bool Settings::updateMouseState = false;
@@ -106,8 +107,10 @@ bool Settings::dofMenu = true;
 bool Settings::effectsMenu = true;
 bool Settings::matchInfoMenu = false;
 // Camera Settings
-float Settings::evControl = 5.f;
+bool Settings::forceEv = false;
+float Settings::evControl = 10.f;
 float Settings::camSens = 1.f;
+bool Settings::lockFreeCam = false;
 float Settings::fov = 55;
 float Settings::resScale = 1.f;
 bool Settings::enableResScale = false;
@@ -115,20 +118,19 @@ float Settings::mainSpeed = 0.1f;
 float Settings::slowSpeed = .01f;
 float Settings::fastSpeed = 1.f;
 float Settings::mouseSensitivity = 1.3f;
-// DOF Settings
-bool Settings::enableDof = false;
-float Settings::focusDistance = 0.f;
-bool Settings::spriteHalfResolution = false;
-float Settings::dofBlurMax = 3.f;
-float Settings::dofFarStart = 3.f;
-float Settings::dofFarEnd = 16.f;
-bool Settings::dofEnableForeground = false;
-float Settings::dofNearStart = 0.f;
-float Settings::dofNearEnd = 3.f;
-// Effects Menu
 bool Settings::freezeTime = false;
 float Settings::timeScale = 1.f;
 bool Settings::freezePlayer = true;
 bool Settings::forceBloomEnable = true;
 bool Settings::ssrEnable = true;
 bool Settings::ssrFullResEnable = true;
+// DOF Settings
+bool Settings::enableDof = false;
+float Settings::focusDistance = 5.f;
+bool Settings::spriteHalfResolution = false;
+float Settings::dofBlurMax = 3.f;
+float Settings::dofFarStart = 4.f;
+float Settings::dofFarEnd = 16.f;
+bool Settings::dofEnableForeground = false;
+float Settings::dofNearStart = 1.f;
+float Settings::dofNearEnd = 2.f;
