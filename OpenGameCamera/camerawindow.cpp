@@ -1,5 +1,7 @@
+#define NOMINMAX
 #include "camerawindow.h"
 #include <Windows.h>
+#include <algorithm>
 
 CameraWindow::CameraWindow()
 {
@@ -31,10 +33,7 @@ void CameraWindow::Draw()
 	ImGui::Checkbox("SSR Enable", &Settings::ssrEnable);
 	ImGui::Checkbox("SSR Full Res Enable", &Settings::ssrFullResEnable);
 	ImGui::Checkbox(std::string("Enable Resolution Scale [" + Keys::enableResScale.name + "]").c_str(), &Settings::enableResScale);
-	int intScale = (int)Settings::resScale;
-	if (ImGui::SliderInt("Resolution Scale", &intScale, 0, 5, "%.3f"))
-	{
-		Settings::resScale = (float)intScale;
-	}
+	ImGui::InputFloat("Resolution Scale", &Settings::resScale, 0.25f, 1.f, "%.3f", 1.0F);
+	Settings::resScale = std::min(5.f, std::max(0.25f, Settings::resScale));
 	ImGui::End();
 }
