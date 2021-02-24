@@ -15,7 +15,7 @@ public:
 	static bool homeMenu;
 	static bool cameraMenu;
 	static bool dofMenu;
-	static bool effectsMenu;
+	static bool postMenu;
 	static bool matchInfoMenu;
 	// Camera Settings
 	static bool forceEv;
@@ -29,6 +29,11 @@ public:
 	static float slowSpeed;
 	static float fastSpeed;
 	static float mouseSensitivity;
+	static bool freezeTime;
+	static float timeScale;
+	static bool freezePlayer;
+	static bool ssrEnable;
+	static bool ssrFullResEnable;
 	// DOF Settings
 	static bool enableDof;
 	static float focusDistance;
@@ -39,13 +44,14 @@ public:
 	static bool dofEnableForeground;
 	static float dofNearStart;
 	static float dofNearEnd;
-	// Effects Menu
-	static bool freezeTime;
-	static float timeScale;
-	static bool freezePlayer;
+	// Post Process Settings
+	static bool enablePost;
 	static bool forceBloomEnable;
-	static bool ssrEnable;
-	static bool ssrFullResEnable;
+	static bool VignetteEnable;
+	static bool enableGrading;
+	static bool FilmGrainEnable;
+	static bool ChromaticAberrationAllowed;
+	static bool LensDistortionAllowed;
 };
 
 // a key definition. Has the name of the key, and it's keycode

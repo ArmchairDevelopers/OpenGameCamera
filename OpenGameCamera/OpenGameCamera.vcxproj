@@ -146,6 +146,7 @@
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="SigScan\SigScan.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="postwindow.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="minhook\trampoline.h" />
     <ClInclude Include="MouseManager.hpp" />
     <ClInclude Include="matchinfowindow.h" />
+    <ClInclude Include="postwindow.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="sdk.hpp" />
     <ClInclude Include="SigScan\SigScan.h" />

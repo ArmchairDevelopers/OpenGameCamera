@@ -187,6 +187,17 @@ void drawLoop() {
 		g_PostProcess->forceEV = Settings::evControl;
 	}
 
+	// Extra Post Process
+	if (g_PostProcess != nullptr) {
+		g_PostProcess->VignetteEnable = Settings::VignetteEnable;
+		g_PostProcess->ColorGradingEnable = Settings::enableGrading;
+		g_PostProcess->FilmGrainEnable = Settings::FilmGrainEnable;
+		// g_PostProcess->ChromaticAberrationAllowed = Settings::ChromaticAberrationAllowed;
+		g_PostProcess->LensScopeEnable = Settings::ChromaticAberrationAllowed;
+		g_PostProcess->LensDistortionAllowed = Settings::LensDistortionAllowed;
+		
+	}
+
 	// Should the time be frozen?
 	GameTimeSettings::GetInstance()->timeScale = Settings::freezeTime ? 0.f : Settings::timeScale;
 
