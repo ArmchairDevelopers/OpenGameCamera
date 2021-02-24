@@ -192,8 +192,7 @@ void drawLoop() {
 		g_PostProcess->VignetteEnable = Settings::VignetteEnable;
 		g_PostProcess->ColorGradingEnable = Settings::enableGrading;
 		g_PostProcess->FilmGrainEnable = Settings::FilmGrainEnable;
-		// g_PostProcess->ChromaticAberrationAllowed = Settings::ChromaticAberrationAllowed;
-		g_PostProcess->LensScopeEnable = Settings::ChromaticAberrationAllowed;
+		g_PostProcess->ChromaticAberrationAllowed = Settings::ChromaticAberrationAllowed;
 		g_PostProcess->LensDistortionAllowed = Settings::LensDistortionAllowed;
 		
 	}
