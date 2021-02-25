@@ -32,7 +32,7 @@ void CameraWindow::Draw()
 	ImGui::Checkbox("SSR Enable", &Settings::ssrEnable);
 	ImGui::Checkbox("SSR Full Res Enable", &Settings::ssrFullResEnable);
 	ImGui::Checkbox(std::string("Enable Resolution Scale [" + Keys::enableResScale.name + "]").c_str(), &Settings::enableResScale);
-	ImGui::InputFloat("Resolution Scale", &Settings::resScale, 0.25f, 1.f, "%.3f", 1.0F);
+	ImGui::InputFloat("Resolution Scale", &Settings::resScale, 1.f, 0.25f, "%.3f", 1.0F);
 	Settings::resScale = std::min(5.f, std::max(0.25f, Settings::resScale));
 	ImGui::End();
 }
