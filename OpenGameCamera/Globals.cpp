@@ -104,7 +104,7 @@ bool Settings::disableUi = true;
 bool Settings::homeMenu = false;
 bool Settings::cameraMenu = true;
 bool Settings::dofMenu = true;
-bool Settings::effectsMenu = true;
+bool Settings::postMenu = true;
 bool Settings::matchInfoMenu = false;
 // Camera Settings
 bool Settings::forceEv = false;
@@ -121,7 +121,7 @@ float Settings::mouseSensitivity = 1.3f;
 bool Settings::freezeTime = false;
 float Settings::timeScale = 1.f;
 bool Settings::freezePlayer = true;
-bool Settings::forceBloomEnable = true;
+
 bool Settings::ssrEnable = true;
 bool Settings::ssrFullResEnable = true;
 // DOF Settings
@@ -134,3 +134,11 @@ float Settings::dofFarEnd = 16.f;
 bool Settings::dofEnableForeground = false;
 float Settings::dofNearStart = 1.f;
 float Settings::dofNearEnd = 2.f;
+// Post Proccess Settings
+bool Settings::enablePost = false;
+bool Settings::forceBloomEnable = true;
+bool Settings::VignetteEnable = false;
+bool Settings::enableGrading = true;
+bool Settings::FilmGrainEnable = false;
+bool Settings::ChromaticAberrationAllowed = false;
+bool Settings::LensDistortionAllowed = false;

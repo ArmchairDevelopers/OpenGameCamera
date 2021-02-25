@@ -99,6 +99,9 @@
     <ClCompile Include="matchinfowindow.cpp">
       <Filter>Renderer\Windows\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="postwindow.cpp">
+      <Filter>Renderer\Windows\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Candy.hpp">
@@ -168,6 +171,9 @@
       <Filter>Renderer\Windows\H</Filter>
     </ClInclude>
     <ClInclude Include="matchinfowindow.h">
+      <Filter>Renderer\Windows\H</Filter>
+    </ClInclude>
+    <ClInclude Include="postwindow.h">
       <Filter>Renderer\Windows\H</Filter>
     </ClInclude>
   </ItemGroup>

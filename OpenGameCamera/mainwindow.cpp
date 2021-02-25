@@ -3,6 +3,7 @@
 #include "camerawindow.h"
 #include "dofwindow.h"
 #include "matchinfowindow.h"
+#include "postwindow.h"
 
 MainWindow::MainWindow()
 {
@@ -14,6 +15,7 @@ MainWindow::MainWindow()
 	gpMainWindow = this;
 	new CameraWindow();
 	new DofWindow();
+	new PostWindow();
 	new MatchInfoWindow();
 }
 
@@ -38,6 +40,7 @@ void MainWindow::Draw()
 	ImGui::Checkbox(std::string("Disable UI [" + Keys::disableUi.name + "]").c_str(), &Settings::disableUi);
 	ImGui::Checkbox("Show Camera Menu", &Settings::cameraMenu);
 	ImGui::Checkbox("Show DoF Menu", &Settings::dofMenu);
+	ImGui::Checkbox("Show Post Process Menu", &Settings::postMenu);
 	ImGui::Checkbox("Show Information Menu", &Settings::informationMenu);
 	ImGui::Checkbox("Show Match Info Menu", &Settings::matchInfoMenu);
 	ImGui::End();

@@ -56,7 +56,13 @@ public:
 	bool forceEVEnable; //0x0218
 	char pad_0219[6]; //0x0219
 	bool bloomEnable; //0x021F
-	char pad_0220[21]; //0x0220
+	char pad_0220[9]; //0x0220
+	bool VignetteEnable; // 0x229
+	char pad_022A[1]; //0x022A
+	bool ColorGradingEnable; // 0x22B
+	char pad_022C[3]; //0x022C
+	bool FilmGrainEnable; // 0x22f
+	char pad_0230[5]; //0x0230
 	bool spriteDofEnable; //0x0235
 	char pad_0236[1]; //0x0236
 	bool enableForeground; //0x0237
@@ -66,7 +72,10 @@ public:
 	bool screenSpaceRaytraceEnable; //0x0249
 	char pad_024A[3]; //0x024A
 	bool screenSpaceRaytraceFullresEnable; //0x024D
-	char pad_024E[3573]; //0x024E
+	char pad_024E[17]; //0x024E
+	bool ChromaticAberrationAllowed; // 0x25f
+	bool LensDistortionAllowed; // 0x260
+	char pad_0261[3554]; //0x0261
 }; //Size: 0x1043
 
 // RenderView structure, where we can read the camera transform
