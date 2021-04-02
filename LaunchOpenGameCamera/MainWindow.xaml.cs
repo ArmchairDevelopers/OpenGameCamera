@@ -257,6 +257,8 @@ namespace LaunchOpenGameCamera
         public MainWindow()
         {
             InitializeComponent();
+            MinimizeButton.Click += (s, e) => WindowState = WindowState.Minimized;
+            CloseButton.Click += (s, e) => Application.Current.Shutdown();
 
             DataContext = console;
             console.SetScrollViewer(Scroller);
