@@ -150,6 +150,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BuildTimestamp.txt" />
     <Resource Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
