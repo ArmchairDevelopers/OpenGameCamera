@@ -330,6 +330,10 @@ namespace LaunchOpenGameCamera
         {
             Clipboard.SetDataObject(console.GetText());
         }
+
+        private void Web_Button_Click(object sender, RoutedEventArgs e) {
+            System.Diagnostics.Process.Start("https://opengame.camera/");
+        }
     }
 
     public class ConsoleContent : INotifyPropertyChanged

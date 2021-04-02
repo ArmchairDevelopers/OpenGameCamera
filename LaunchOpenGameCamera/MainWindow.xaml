@@ -15,8 +15,32 @@
         </Grid.ColumnDefinitions>
         <Image HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Source="https://opengamecameralauncher.fra1.digitaloceanspaces.com/banner-bg.png" Margin="0,0,0,0" Grid.ColumnSpan="3" />
         <Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Source="https://opengamecameralauncher.fra1.digitaloceanspaces.com/main-window-banner.png" Margin="10,6,0,0" Grid.ColumnSpan="3" />
+        <Button Content="About" HorizontalAlignment="Right" Margin="0,10,41,0" VerticalAlignment="Top" Width="45" Height="20" FontFamily="https://fonts.googleapis.com/css2?family=Varela+Round" BorderBrush="#FFB90000" Click="Web_Button_Click">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#00000000"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="Foreground" Value="#FFF1F1F1"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF6C6C6C"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#FF5A5A5A"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <StackPanel HorizontalAlignment="Center" Height="302" Margin="10,115,10,10" VerticalAlignment="Top" Width="650" Grid.ColumnSpan="3">
-            <ScrollViewer Name="Scroller" Margin="5,5,-20,5" Background="Black" BorderBrush="Black" Height="230">
+            <ScrollViewer Name="Scroller" Margin="5,5,5,5" Background="Black" BorderBrush="Black" Height="230" VerticalScrollBarVisibility="Hidden">
                 <StackPanel>
                     <ItemsControl ItemsSource="{Binding ConsoleOutput, Mode=OneWay}" IsEnabled="False">
                         <ItemsControl.ItemTemplate>
@@ -25,10 +49,66 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <Button x:Name="CopyTextButton" Content="Copy Log Output" Height="25" Margin="5,0,10,0" FontFamily="Consolas" FontSize="10.667" BorderBrush="Black" Width="124" HorizontalAlignment="Right" Background="Black" Foreground="#FFFFFF" Click="CopyTextButton_Click" />
+                    <Button x:Name="CopyTextButton" Content="Copy Log Output" Height="25" Margin="5,0,10,0" FontFamily="Consolas" FontSize="12" BorderBrush="Black" Width="124" HorizontalAlignment="Right" Click="CopyTextButton_Click" FontWeight="Bold">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Black"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="Foreground" Value="#FFF1F1F1"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF6C6C6C"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" Value="#FF5A5A5A"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
             </ScrollViewer>
-            <Button x:Name="InjectButton" Content="Start OpenGameCamera" Margin="0,2,0,0" Height="60" FontFamily="https://fonts.googleapis.com/css2?family=Varela+Round" FontSize="16" BorderBrush="Black" Background="#fc0603" Foreground="#FFFFFF"  Click="InjectButton_Click"/>
+            <Button x:Name="InjectButton" Margin="0,2,0,0" Height="60" FontFamily="https://fonts.googleapis.com/css2?family=Varela+Round" FontSize="16" BorderBrush="Black" Foreground="#FFFFFF"  Click="InjectButton_Click" FontWeight="Bold">
+                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="Start OpenGameCamera" RenderTransformOrigin="0.5,0.5" >
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-2"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#fc0603"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFFF4846"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FFFD2A27"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>      
     </Grid>
 </Window>
