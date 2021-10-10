@@ -257,6 +257,8 @@ namespace LaunchOpenGameCamera
         public MainWindow()
         {
             InitializeComponent();
+            MinimizeButton.Click += (s, e) => WindowState = WindowState.Minimized;
+            CloseButton.Click += (s, e) => Application.Current.Shutdown();
 
             DataContext = console;
             console.SetScrollViewer(Scroller);
@@ -329,6 +331,10 @@ namespace LaunchOpenGameCamera
         private void CopyTextButton_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetDataObject(console.GetText());
+        }
+
+        private void Web_Button_Click(object sender, RoutedEventArgs e) {
+            System.Diagnostics.Process.Start("https://opengame.camera/");
         }
     }
 
