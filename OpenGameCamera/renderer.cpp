@@ -267,8 +267,10 @@ Renderer::Renderer()
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
 	ImFont* font = io.Fonts->AddFontFromMemoryCompressedTTF(PoppinsMedium_compressed_data, PoppinsMedium_compressed_size, 18);
 	io.Fonts->Build();
+
 	pSwapChain->Release();
 	pDevice->Release();
 	pContext->Release();

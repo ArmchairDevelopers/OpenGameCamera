@@ -22,7 +22,7 @@
             <ColumnDefinition Width="38*"/>
             <ColumnDefinition Width="299*"/>
         </Grid.ColumnDefinitions>
-        <Image HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Source="https://opengamecameralauncher.fra1.digitaloceanspaces.com/banner-bg.png" Margin="0,30,0,0" Grid.ColumnSpan="3" />
+        <Image HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Source="https://cdna.artstation.com/p/assets/images/images/035/375/950/large/ethan-clark-banner.jpg" Margin="0,30,0,0" Grid.ColumnSpan="3" />
         <Grid VerticalAlignment="Top" Background="#FF0A0A0A" Grid.ColumnSpan="3">
             <StackPanel Height="30" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Width="45" Content="&#xE949;"  x:Name="MinimizeButton" Focusable="False" FontFamily="Segoe MDL2 Assets">
