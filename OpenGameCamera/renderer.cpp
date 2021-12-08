@@ -10,6 +10,7 @@
 #include "imgui/examples/imgui_impl_win32.h"
 #include "imgui/imgui_internal.h"
 #include "minhook/MinHook.h"
+#include "fonts/Poppins-Medium.cpp"
 
 bool bLockFortInput;
 std::list<Window*> Renderer::pUiInstances;
@@ -113,9 +114,9 @@ __declspec(dllexport) HRESULT PresentHook(IDXGISwapChain* pInstance, UINT SyncIn
 	style.GrabRounding = 0.0f;
 
 	ImVec4 col_text = ImColor(255, 255, 255);
-	ImVec4 col_main = ImColor(235, 66, 66);
-	ImVec4 col_back = ImColor(25, 25, 25);
-	ImVec4 col_area = ImColor(50, 50, 50);
+	ImVec4 col_main = ImColor(255, 55, 55);
+	ImVec4 col_back = ImColor(15, 15, 15);
+	ImVec4 col_area = ImColor(30, 30, 30);
 
 	style.Colors[ImGuiCol_Text] = ImVec4(col_text.x, col_text.y, col_text.z, 1.00f);
 	style.Colors[ImGuiCol_TextDisabled] = ImVec4(col_text.x, col_text.y, col_text.z, 0.58f);
@@ -126,8 +127,8 @@ __declspec(dllexport) HRESULT PresentHook(IDXGISwapChain* pInstance, UINT SyncIn
 	style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 
 	style.Colors[ImGuiCol_FrameBg] = ImVec4(col_area.x, col_area.y, col_area.z, col_area.w + .1f);
-	style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(col_main.x, col_main.y, col_main.z, 0.68f);
-	style.Colors[ImGuiCol_FrameBgActive] = ImVec4(col_main.x, col_main.y, col_main.z, 1.00f);
+	style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(col_main.x, col_main.y, col_main.z, 0.32f);
+	style.Colors[ImGuiCol_FrameBgActive] = ImVec4(col_main.x, col_main.y, col_main.z, 0.69f);
 
 	style.Colors[ImGuiCol_TitleBg] = ImVec4(col_main.x, col_main.y, col_main.z, 1.00f);
 	style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(col_main.x, col_main.y, col_main.z, 1.00f);
@@ -266,7 +267,8 @@ Renderer::Renderer()
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-
+	ImFont* font = io.Fonts->AddFontFromMemoryCompressedTTF(PoppinsMedium_compressed_data, PoppinsMedium_compressed_size, 18);
+	io.Fonts->Build();
 	pSwapChain->Release();
 	pDevice->Release();
 	pContext->Release();
