@@ -75,7 +75,7 @@ The code is designed to be easily built.  You don't even need the DirectX SDK in
 [Dangercat](https://github.com/Dangercato)  
 [cstdr](https://github.com/cstdr1)  
 [GalaxyMan](https://github.com/GalaxyEham)  
-[Dulana57](https://github.com/Dulana57)  
+[Dyvine57](https://github.com/Dyvine57)  
 [kiwidog](https://github.com/kiwidoggie)  
 
 
