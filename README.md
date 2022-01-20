@@ -64,8 +64,8 @@ We are currently expanding the core dev team, so if you know a thing or two abou
 
 The code is designed to be easily built.  You don't even need the DirectX SDK installed.
 
-1. Clone, or [download](https://github.com/coltonon/OpenGameCamera/archive/master.zip) and extract
-2. Open `OpenGameCamera` in Visual Studio
+1. Clone and extract
+2. Open in Visual Studio
 3. Build (Ctrl-B)
 
 ## Credits
@@ -75,7 +75,7 @@ The code is designed to be easily built.  You don't even need the DirectX SDK in
 [Dangercat](https://github.com/Dangercato)  
 [cstdr](https://github.com/cstdr1)  
 [GalaxyMan](https://github.com/GalaxyEham)  
-[Dyvine57](https://github.com/Dyvine57)  
+[Dyvinia](https://github.com/Dyvinia)  
 [kiwidog](https://github.com/kiwidoggie)  
 
 
