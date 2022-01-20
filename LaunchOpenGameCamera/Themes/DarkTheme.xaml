@@ -4173,7 +4173,7 @@
     <ControlTemplate x:Key="CloseWindowButton" TargetType="{x:Type Button}">
         <Border x:Name="border" 
                 BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="{TemplateBinding BorderThickness}" 
+                BorderThickness="0" 
                 Background="{TemplateBinding Background}" 
                 SnapsToDevicePixels="true"
                 HorizontalAlignment="Stretch" 
@@ -4209,7 +4209,7 @@
     <ControlTemplate x:Key="WindowButton" TargetType="{x:Type Button}">
         <Border x:Name="border" 
                 BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="{TemplateBinding BorderThickness}" 
+                BorderThickness="0" 
                 Background="{TemplateBinding Background}" 
                 SnapsToDevicePixels="true"
                 HorizontalAlignment="Stretch" 
