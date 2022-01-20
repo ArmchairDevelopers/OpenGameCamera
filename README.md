@@ -4,7 +4,7 @@ OpenGameCamera is a free, open-source camera tool for Frostbite games. Our aim i
 
 ## Instructions
 
-### [Download the latest version of OpenGameCamera](https://github.com/coltonon/OpenGameCamera/releases/download/0.8.6/OpenGameCamera.exe)
+### [Download the latest version of OpenGameCamera](https://github.com/Dyvinia/OpenGameCamera/releases/latest)
 
 1. Download the OpenGameCamera Launcher.
 
