@@ -130,6 +130,7 @@
     <ClCompile Include="camerawindow.cpp" />
     <ClCompile Include="customdraw.cpp" />
     <ClCompile Include="dofwindow.cpp" />
+    <ClCompile Include="fonts\Poppins-Medium.cpp" />
     <ClCompile Include="imgui\examples\imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui\examples\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />

@@ -1,160 +1,75 @@
 ﻿<Window x:Class="LaunchOpenGameCamera.MainWindow"
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        AllowsTransparency="True"
+        ResizeMode="CanMinimize"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaunchOpenGameCamera"
         mc:Ignorable="d"
-        Title="OpenGameCamera" Height="500" Width="700"  BorderThickness="20">
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="50" GlassFrameThickness="0" CornerRadius="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
-    </WindowChrome.WindowChrome>
-    <Window.Effect>
-        <DropShadowEffect Color="Black" Opacity="0.5" BlurRadius="20" Direction="0" RenderingBias="Quality" ShadowDepth="2"/>
-    </Window.Effect>
+        Title="OpenGameCamera" Height="500" Width="700"
+        Style="{DynamicResource CustomWindowStyle}" >
+    <Window.Resources>
+        <DropShadowBitmapEffect x:Key="NormalShadow" ShadowDepth="2" Softness="0.2" Opacity="0.64"/>
+    </Window.Resources>
 
-    <Grid Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="57*"/>
-            <ColumnDefinition Width="38*"/>
-            <ColumnDefinition Width="299*"/>
-        </Grid.ColumnDefinitions>
-        <Image HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Source="https://opengamecameralauncher.fra1.digitaloceanspaces.com/banner-bg.png" Margin="0,30,0,0" Grid.ColumnSpan="3" />
-        <Grid VerticalAlignment="Top" Background="#FF0A0A0A" Grid.ColumnSpan="3">
-            <StackPanel Height="30" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="45" Content="&#xE949;"  x:Name="MinimizeButton" Focusable="False" FontFamily="Segoe MDL2 Assets">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#FF0A0A0A"/>
-                            <Setter Property="BorderBrush" Value="Black"/>
-                            <Setter Property="Foreground" Value="#FFF1F1F1"/>
-                            <Setter Property="FontSize" Value="10"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF3C3C3C"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button Width="45" Content="&#xE106;"  x:Name="CloseButton" Focusable="False"  FontFamily="Segoe MDL2 Assets">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#FF0A0A0A"/>
-                            <Setter Property="BorderBrush" Value="Black"/>
-                            <Setter Property="Foreground" Value="#FFF1F1F1"/>
-                            <Setter Property="FontSize" Value="10"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FFE81123"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-            </StackPanel>
-            <Image HorizontalAlignment="Left" Height="28" Width="28" Margin="4,1,0,0" VerticalAlignment="Top" Source="icon_sm.png"/>
-            <TextBlock HorizontalAlignment="Left" Margin="33,8,0,0" TextWrapping="Wrap" Text="OpenGameCamera" VerticalAlignment="Top" Foreground="#FFF1F1F1" RenderTransformOrigin="0.5,0.5" FontFamily="/Fonts/Poppins-Medium.ttf #Poppins">
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="-1"/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-            </TextBlock>
-        </Grid>
-        <Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Source="https://opengamecameralauncher.fra1.digitaloceanspaces.com/main-window-banner.png" Margin="10,36,0,0" Grid.ColumnSpan="3" />
-        <Button Content="About" HorizontalAlignment="Left" Margin="5,35,0,0" VerticalAlignment="Top" Width="45" Height="20" FontFamily="https://fonts.googleapis.com/css2?family=Varela+Round" BorderBrush="#FFB90000" Click="Web_Button_Click">
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Background" Value="#00000000"/>
-                    <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="Foreground" Value="#FFF1F1F1"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FF6C6C6C"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#FF5A5A5A"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <StackPanel HorizontalAlignment="Center" Height="302" Margin="11,145,10,0" VerticalAlignment="Top" Width="645" Grid.ColumnSpan="3">
-            <ScrollViewer x:Name="Scroller" Margin="5,5,5,5" Background="Black" BorderBrush="Black" Height="230" VerticalScrollBarVisibility="Hidden">
-                <StackPanel>
-                    <ItemsControl ItemsSource="{Binding ConsoleOutput, Mode=OneWay}" IsEnabled="False">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding .}" Foreground="#FFE0E0E0" FontFamily="Consolas" TextWrapping="WrapWithOverflow"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <Button x:Name="CopyTextButton" Content="Copy Log Output" Height="25" Margin="0" FontSize="12" BorderBrush="Black" Width="110" HorizontalAlignment="Right" Click="CopyTextButton_Click" FontWeight="Bold">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Background" Value="Black"/>
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Foreground" Value="#FFF1F1F1"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#FF6C6C6C"/>
-                                    </Trigger>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter Property="Background" Value="#FF5A5A5A"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </StackPanel>
-            </ScrollViewer>
-            <Button x:Name="InjectButton" Margin="0,2,0,0" Height="60" FontSize="16" BorderBrush="Black" Foreground="#FFFFFF"  Click="InjectButton_Click" FontWeight="Bold">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="https://pbs.twimg.com/media/Em4qgryXMAMVbH-?format=png&amp;name=large" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0.025">
+                    <GradientStop Color="#EE000000"/>
+                    <GradientStop Color="#00000000" Offset="0.3"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="251,72,252,333" Height="64">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V864 H2556 V0 H0 Z">
+                                <DrawingGroup Opacity="1">
+                                    <DrawingGroup Opacity="1">
+                                        <GeometryDrawing Brush="#FFFC0603" Geometry="F1 M2556,864z M0,0z M293.67,180L209.67,684 713.67,684 797.67,180z M623.67,576L335.67,576 383.67,288 671.67,288z" />
+                                        <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M2556,864z M0,0z M1488,576L1536,288 1860,288 2121,180 1446,180 1362,684 2037,684 1812,576z" />
+                                        <GeometryDrawing Brush="#FFFC0603" Geometry="F1 M2556,864z M0,0z M1386,108L1404,0 924.18,0 854,60.18 803.82,0 144,0 0,864 662.65,864 732.85,803.82 783,864 1260,864 1266,828 1266,828 1374,180 870,180 786,684 1182,684 1170,756 126,756 234,108z M912,576L960,288 1248,288 1200,576z" />
+                                        <GeometryDrawing Brush="#FFFC0603" Geometry="F1 M2556,864z M0,0z M2412,864L2412,864 1332,864 1350,756 2187,756 2412,864z" />
+                                        <GeometryDrawing Brush="#FFFC0603" Geometry="F1 M2556,864z M0,0z M2556,0L2556,0 2295,108 1458,108 1476,0 2556,0z" />
+                                        <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M2556,864z M0,0z M2543.51,74.96L2543.51,74.96 2424.49,789.04 1710.41,432 2543.51,74.96z" />
+                                    </DrawingGroup>
+                                </DrawingGroup>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+
+                </Image.Source>
+            </Image>
+            <Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Source="https://opengamecameralauncher.fra1.digitaloceanspaces.com/main-window-banner.png" Margin="10,36,0,0" Grid.ColumnSpan="3" />
+            <Button Margin="660,0,0,310" Width="24" Height="24" FontFamily="https://fonts.googleapis.com/css2?family=Varela+Round" BorderBrush="#FFB90000" Click="Web_Button_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <Button.Content>
+                    <Image>
+                        <Image.Source>
+                            <DrawingImage>
+                                <DrawingImage.Drawing>
+                                    <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                                        <GeometryDrawing Brush="{StaticResource ControlDefaultForeground}" Geometry="F1 M24,24z M0,0z M12,0C5.374,0 0,5.373 0,12 0,17.302 3.438,21.8 8.207,23.387 8.806,23.498 9,23.126 9,22.81L9,20.576C5.662,21.302 4.967,19.16 4.967,19.16 4.421,17.773 3.634,17.404 3.634,17.404 2.545,16.659 3.717,16.675 3.717,16.675 4.922,16.759 5.556,17.912 5.556,17.912 6.626,19.746 8.363,19.216 9.048,18.909 9.155,18.134 9.466,17.604 9.81,17.305 7.145,17 4.343,15.971 4.343,11.374 4.343,10.063 4.812,8.993 5.579,8.153 5.455,7.85 5.044,6.629 5.696,4.977 5.696,4.977 6.704,4.655 8.997,6.207 9.954,5.941 10.98,5.808 12,5.803 13.02,5.808 14.047,5.941 15.006,6.207 17.297,4.655 18.303,4.977 18.303,4.977 18.956,6.63 18.545,7.851 18.421,8.153 19.191,8.993 19.656,10.064 19.656,11.374 19.656,15.983 16.849,16.998 14.177,17.295 14.607,17.667 15,18.397 15,19.517L15,22.81C15,23.129 15.192,23.504 15.801,23.386 20.566,21.797 24,17.3 24,12 24,5.373 18.627,0 12,0z" />
+                                    </DrawingGroup>
+                                </DrawingImage.Drawing>
+                            </DrawingImage>
+                        </Image.Source>
+                    </Image>
+
+                </Button.Content>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#fc0603"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
-                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                        <Setter Property="Background" Value="#00000000"/>
+                        <Setter Property="Foreground" Value="#FFF1F1F1"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FFFF4846"/>
+                                <Setter Property="Opacity" Value="0.7"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#FFFD2A27"/>
+                                <Setter Property="Opacity" Value="0.5"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -166,17 +81,78 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
-                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="Start OpenGameCamera" RenderTransformOrigin="0.5,0.5" FontFamily="/Fonts/Poppins-Medium.ttf #Poppins" FontWeight="Normal">
-                    <TextBlock.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform Y="-0.5"/>
-                        </TransformGroup>
-                    </TextBlock.RenderTransform>
-                </TextBlock>
             </Button>
-        </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Height="302" Margin="0,0,0,8" VerticalAlignment="Bottom" Width="692">
+                <ScrollViewer x:Name="Scroller" Margin="5,5,5,5" Background="#DD000000" BorderBrush="Black" Height="230" VerticalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding ConsoleOutput, Mode=OneWay}" IsEnabled="False">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding .}" Foreground="#FFE0E0E0" FontFamily="Consolas" TextWrapping="WrapWithOverflow"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button x:Name="CopyTextButton" Content="Copy Log Output" Height="25" Margin="0" FontSize="12" BorderBrush="Black" Width="110" HorizontalAlignment="Right" Click="CopyTextButton_Click" FontWeight="Bold">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" Value="#FFF1F1F1"/>
+                                    <Setter Property="Foreground" Value="#FFF1F1F1"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#3f969696"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" Value="#79969696"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+                <Button x:Name="InjectButton" Margin="5,2,5,0" Height="60" FontSize="16" BorderBrush="Black" Foreground="#FFFFFF"  Click="InjectButton_Click" FontWeight="Bold">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#fc0603"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFFF4846"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#FFFD2A27"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="Start OpenGameCamera" RenderTransformOrigin="0.5,0.5" FontFamily="/Fonts/Poppins-Medium.ttf #Poppins" FontWeight="Normal">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="-0.5"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

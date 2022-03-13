@@ -102,6 +102,9 @@
     <ClCompile Include="postwindow.cpp">
       <Filter>Renderer\Windows\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="fonts\Poppins-Medium.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Candy.hpp">

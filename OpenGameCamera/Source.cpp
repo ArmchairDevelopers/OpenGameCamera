@@ -242,6 +242,7 @@ void drawLoop() {
 				origin = origin + yVec * amount;
 			}
 		}
+
 		// Hacky fix for renderers to let the camera know it needs to update
 		if (Globals::g_CameraPosition.w == -1) {
 			Globals::g_CameraPosition.w = 0;
