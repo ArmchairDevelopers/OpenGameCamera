@@ -44,6 +44,9 @@ namespace LaunchOpenGameCamera
             uint dwSize, uint flAllocationType, uint flProtect);
 
         [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint freeType);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
         static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out UIntPtr lpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -58,6 +61,9 @@ namespace LaunchOpenGameCamera
         );
 
         [DllImport("kernel32.dll", SetLastError = true)]
+        static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
         static extern bool CloseHandle(IntPtr hObject);
 
         const int PROCESS_CREATE_THREAD = 0x0002;
@@ -68,6 +74,7 @@ namespace LaunchOpenGameCamera
 
         const uint MEM_COMMIT = 0x00001000;
         const uint MEM_RESERVE = 0x00002000;
+        const uint MEM_RELEASE = 0x00008000;
         const uint PAGE_READWRITE = 4;
 
         public static bool Inject(ConsoleContent console, string dll_path)
@@ -135,13 +142,18 @@ namespace LaunchOpenGameCamera
                 console.Info("wrote " + bytesWritten.ToUInt64() + " bytes to allocated memory");
 
                 IntPtr threadId;
+                IntPtr hThread;
 
-                if (CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryPtr, targetAddr, 0, out threadId) == null)
+                if ((hThread = CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryPtr, targetAddr, 0, out threadId)) == null)
                 {
                     console.Error("failed to launch remote thread: code=" + Marshal.GetLastWin32Error());
                     return false;
                 }
 
+                _ = WaitForSingleObject(hThread, 0xFFFFFFFF);
+
+                VirtualFreeEx(procHandle, targetAddr, (uint)(pathBuf.Length + Marshal.SizeOf(typeof(ushort))), MEM_RELEASE);
+                
                 console.Info("OGC injected into SWBF2: threadId=" + threadId.ToInt64());
             } 
             finally
